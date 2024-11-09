@@ -1,37 +1,63 @@
-# nebula-framework
-
-#### 介绍
-基于Springboot3.0的一套后台管理开发平台，里面有自行开发的一套代码生成插件和基于DDD模式开发的一套代码架构
-
-#### 软件架构
-软件架构说明
-
-
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+<div style="display: flex; justify-content: center;">
+    <img src="https://nebula.neegix.com/nebula-graph.svg" alt="Nebula Logo" width="50" height="50" />
+</div>
+<h3 style="text-align: center;">
+  Nebula Framework
+</h3>
 
 
-#### 特技
+## 介绍
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+Nebula Framework 是一套基于 Spring Boot 3.0 和 Java 17 开发的企业级后台管理开发平台。它由多个模块组成，每个模块都针对特定的功能需求设计，以提供灵活且高效的开发体验。
+
+## 模块组成
+
+- **nebula-framework-core**：核心基础模块，可以直接用来搭建 Web 框架。
+- **nebula-framework-auth**：集成了登录验证及权限验证的框架。
+- **nebula-framework-system**：为 nebula-admin 前端项目开发的系统管理模块。
+- **nebula-framework-development**：为 nebula-admin 开发的开发管理模块。
+- **nebula-framework-generator**：基于 Maven 插件的代码生成插件。
+
+## 功能特点
+
+- **灵活的模块化设计**：模块化的设计使得开发者可以根据需求选择合适的模块进行集成。
+- **权限管理**：集成了完善的登录验证及权限验证机制，保障系统安全。
+- **代码生成**：提供基于 Maven 插件的代码生成工具，提高开发效率。
+- **企业级开发**：基于 Spring Boot 3.0 和 Java 17，适合企业级应用开发。
+
+## 领域驱动设计（DDD）
+
+整个后台框架的业务代码遵循 DDD（领域驱动设计）规范。DDD 是一种软件设计方法，它将业务需求紧密地反映在系统设计的模型中，强调以业务概念为驱动的软件开发。Nebula Framework 提供了一套基于 DDD 的代码架构，但这个规范是灵活的，可以根据个人或项目的不同需求进行调整。在必要的时候，开发者可以根据自己的方式编写代码，不拘泥于固定的模式。
+
+## 安装教程
+
+请参考各模块的详细安装指南：
+
+- [nebula-framework-core 安装指南](#)
+- [nebula-framework-auth 安装指南](#)
+- [nebula-framework-system 安装指南](#)
+- [nebula-framework-development 安装指南](#)
+- [nebula-framework-generator 安装指南](https://nebula.neegix.com/nebula/nebula-framework/nebula-framework-generator/)
+
+## 使用说明
+
+详细使用说明请访问 [Nebula Framework 官网](https://nebula.neegix.com)。
+
+## 参与贡献
+
+我们欢迎任何形式的贡献，包括但不限于代码提交、文档改进、问题报告等。请遵循以下步骤参与贡献：
+
+1. **Fork 本仓库**：在 GitCode、Gitee 或 GitHub 上 Fork 本项目。
+2. **新建分支**：从 `main` 分支新建一个以 `Feat_` 开头的分支。
+3. **提交代码**：在您的分支上进行代码更改，并提交 Commit。
+4. **新建 Pull Request**：将您的更改通过 Pull Request 的形式提交给我们，等待合并。
+
+## 代码库
+
+- GitCode: [https://gitcode.com/NeegixOpensourceGroup/nebula-framework](https://gitcode.com/NeegixOpensourceGroup/nebula-framework)
+- Gitee: [https://gitee.com/neegix-opensource-group/nebula-framework](https://gitee.com/neegix-opensource-group/nebula-framework)
+- GitHub: [https://github.com/NeegixOpensourceGroup/nebula-framework](https://github.com/NeegixOpensourceGroup/nebula-framework)
+
+## 官网
+
+[Nebula Framework 官网](https://nebula.neegix.com)
