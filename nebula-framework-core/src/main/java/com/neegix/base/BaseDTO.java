@@ -1,0 +1,22 @@
+package com.neegix.base;
+
+import lombok.Data;
+
+import java.util.Date;
+
+/**
+ * Created by IntelliJ IDEA (Community Edition)
+ * Thank you to JetBrains for their contributions to the vast number of developers
+ *
+ * @Author: kushu001
+ * @Date: 2024/09/13/14:46
+ * @Description:
+ */
+@Data
+public class BaseDTO {
+    private Long id;
+    private Date createTime;
+    private Date updateTime;
+    private Long createUser;
+    private Long updateUser;
+}

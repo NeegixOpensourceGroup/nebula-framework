@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neegix.system.infrastructure.repository.mapper.DictGroupMapper">
+    <resultMap id="SysDictGroupResultMap" type="com.neegix.system.infrastructure.repository.dataobject.DictGroupDO">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_user" property="updateUser" />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+    </resultMap>
+    <sql id="wheres">
+        <where>
+            <if test="whereClauses != null and whereClauses.size() > 0">
+                <foreach collection="whereClauses" item="group" separator=" OR ">
+                    <if test="group.wheres != null and group.wheres.size() > 0">
+                        <trim prefix="(" suffix=")" prefixOverrides="AND ">
+                            <foreach collection="group.wheres" item="where" separator=" AND ">
+                                <choose>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@EQUAL">
+                                        ${where.column} = #{where.value}
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_EQUAL">
+                                        ${where.column} != #{where.value}
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@GREATER_THAN">
+                                        ${where.column} &gt; #{where.value}
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LESS_THAN">
+                                        ${where.column} &lt; #{where.value}
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@GREATER_EQUAL_THAN">
+                                        ${where.column} &gt;= #{where.value}
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LESS_EQUAL_THAN">
+                                        ${where.column} &lt;= #{where.value}
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and where.prefix and where.suffix">
+                                        ${where.column} LIKE CONCAT('%', #{where.value}, '%')
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and where.prefix and !where.suffix">
+                                        ${where.column} LIKE CONCAT('%', #{where.value})
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and !where.prefix and where.suffix">
+                                        ${where.column} LIKE CONCAT(#{where.value}, '%')
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and !where.prefix and !where.suffix">
+                                        ${where.column} LIKE #{where.value}
+                                    </when>
+
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and where.prefix and where.suffix">
+                                        ${where.column} NOT LIKE CONCAT('%', #{where.value}, '%')
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and where.prefix and !where.suffix">
+                                        ${where.column} NOT LIKE CONCAT('%', #{where.value})
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and !where.prefix and where.suffix">
+                                        ${where.column} NOT LIKE CONCAT(#{where.value}, '%')
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and !where.prefix and !where.suffix">
+                                        ${where.column} NOT LIKE #{where.value}
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@IN">
+                                        ${where.column} IN
+                                        <foreach collection="where.value" item="item" open="(" separator="," close=")">
+                                            #{item}
+                                        </foreach>
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_IN">
+                                        ${where.column} NOT IN
+                                        <foreach collection="where.value" item="item" open="(" separator="," close=")">
+                                            #{item}
+                                        </foreach>
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@IS_NULL">
+                                        ${where.column} IS NULL
+                                    </when>
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@IS_NOT_NULL">
+                                        ${where.column} IS NOT NULL
+                                    </when>
+                                    <!-- 添加其他操作符的处理 -->
+                                </choose>
+                            </foreach>
+                        </trim>
+                    </if>
+                </foreach>
+            </if>
+        </where>
+    </sql>
+
+    <!-- 查询字典项数量 -->
+    <select id="selectCount" resultType="java.lang.Long">
+        select count(1) from sys_dict_group
+        <include refid="wheres" />
+        <if test="groupByClauses != null and groupByClauses.size() > 0">
+            GROUP BY
+            <foreach collection="groupByClauses" item="groupBy" separator=", ">
+                ${groupBy}
+            </foreach>
+        </if>
+        <if test="havingClauses != null and havingClauses.size() > 0">
+            HAVING
+            <foreach collection="havingClauses" item="having" separator=" AND ">
+                ${having}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="selectOne" resultMap="SysDictGroupResultMap">
+        SELECT
+        <if test="distinct">DISTINCT</if>
+        <choose>
+            <when test="groupByClauses != null and groupByClauses.size() > 0">
+                <foreach collection="groupByClauses" item="groupBy" separator=", ">
+                    ${groupBy}
+                </foreach>
+            </when>
+            <otherwise>
+                *
+            </otherwise>
+        </choose>
+        FROM sys_dict_group
+        <include refid="wheres" />
+        <if test="groupByClauses != null and groupByClauses.size() > 0">
+            GROUP BY
+            <foreach collection="groupByClauses" item="groupBy" separator=", ">
+                ${groupBy}
+            </foreach>
+        </if>
+        <if test="havingClauses != null and havingClauses.size() > 0">
+            HAVING
+            <foreach collection="havingClauses" item="having" separator=" AND ">
+                ${having}
+            </foreach>
+        </if>
+        <if test="orderByClauses != null and !orderByClauses.isEmpty()">
+            ORDER BY
+            <foreach collection="orderByClauses" item="orderBy" separator=", ">
+                ${orderBy.column} ${orderBy.enumOrder}
+            </foreach>
+        </if>
+        <if test="pager != null">
+            LIMIT #{pager.offset}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="selectList" resultMap="SysDictGroupResultMap">
+        SELECT
+        <if test="distinct">DISTINCT</if>
+        <choose>
+            <when test="groupByClauses != null and groupByClauses.size() > 0">
+                <foreach collection="groupByClauses" item="groupBy" separator=", ">
+                    ${groupBy}
+                </foreach>
+            </when>
+            <otherwise>
+                *
+            </otherwise>
+        </choose>
+        FROM sys_dict_group
+        <include refid="wheres" />
+        <if test="groupByClauses != null and groupByClauses.size() > 0">
+            GROUP BY
+            <foreach collection="groupByClauses" item="groupBy" separator=", ">
+                ${groupBy}
+            </foreach>
+        </if>
+        <if test="havingClauses != null and havingClauses.size() > 0">
+            HAVING
+            <foreach collection="havingClauses" item="having" separator=" AND ">
+                ${having}
+            </foreach>
+        </if>
+        <if test="orderByClauses != null and !orderByClauses.isEmpty()">
+            ORDER BY
+            <foreach collection="orderByClauses" item="orderBy" separator=", ">
+                ${orderBy.column} ${orderBy.enumOrder}
+            </foreach>
+        </if>
+        <if test="pager != null">
+            LIMIT #{pager.offset}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <!-- 根据Id查询字典组 -->
+    <select id="selectByPrimaryKey" resultMap="SysDictGroupResultMap">
+        select * from sys_dict_group sdg where id=#{id,jdbcType=BIGINT}
+    </select>
+
+    <!--新增字典组-->
+    <insert id="insert" parameterType="com.neegix.system.infrastructure.repository.dataobject.DictGroupDO">
+        insert into sys_dict_group (id, code, name)
+            values
+        (
+            #{id},
+            #{code},
+            #{name}
+        )
+    </insert>
+
+
+    <!--更新字典组-->
+    <insert id="updateByPrimaryKey" parameterType="com.neegix.system.infrastructure.repository.dataobject.DictGroupDO">
+        update sys_dict_group set
+        code=#{code}, name=#{name}
+        where id= #{id}
+    </insert>
+
+    <!--批量删除字典项-->
+    <delete id="deleteByPrimaryKeys">
+        delete from sys_dict_group
+        <where>
+            id in
+            <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                #{id, jdbcType=BIGINT}
+            </foreach>
+        </where>
+    </delete>
+
+</mapper>
