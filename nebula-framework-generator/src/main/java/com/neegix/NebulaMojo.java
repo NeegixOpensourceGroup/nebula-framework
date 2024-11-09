@@ -31,7 +31,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import java.sql.SQLException;
 import java.util.List;
 
-@Mojo(name = "generator", defaultPhase = LifecyclePhase.PROCESS_SOURCES)
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.PROCESS_SOURCES)
 public class NebulaMojo extends AbstractMojo {
     @Parameter(required = true)
     private String driver;
