@@ -59,7 +59,10 @@ public class ${templateTable.javaTableName}Controller {
     }
 
     @GetMapping("/{currentPage}/{pageSize}")
-    public Result<PageDTO<${templateTable.javaTableName}DTO>> get${templateTable.javaTableName}s(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @RequestBody Query${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
+    public Result<PageDTO<${templateTable.javaTableName}DTO>> get${templateTable.javaTableName}s(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @RequestBody(required = false) Query${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
+        if(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form == null) {
+            ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form = new Query${templateTable.javaTableName}Form();
+        }
         PageDTO<${templateTable.javaTableName}DTO> pageDTO = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}QueryRepository.findPage(currentPage, pageSize, ${templateTable.javaTableName}Assembler.INSTANCE.covertDTO(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form));
         return Result.success("查询成功",pageDTO);
     }
