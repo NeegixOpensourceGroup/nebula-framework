@@ -1,9 +1,9 @@
 <#assign currentTime = .now>
-package ${templateTable.packageName}.application.dto;
-<#if templateTable.columns?exists>
-    <#list templateTable.columns as column>
-        <#if !(column.fullyQualifiedJavaType?contains("lang"))>
-import ${column.fullyQualifiedJavaType};
+package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.dto;
+<#if templateTable.imports?exists>
+    <#list templateTable.imports?keys as key>
+        <#if !(key?contains("lang"))>
+import ${key};
         </#if>
     </#list>
 </#if>

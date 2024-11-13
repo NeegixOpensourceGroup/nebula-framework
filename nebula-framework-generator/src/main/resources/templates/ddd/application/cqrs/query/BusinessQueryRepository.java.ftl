@@ -1,8 +1,8 @@
 <#assign currentTime = .now>
-package ${templateTable.packageName}.application.cqrs.query;
+package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.query;
 
 import com.neegix.base.PageDTO;
-import ${templateTable.packageName}.application.dto.${templateTable.javaTableName}DTO;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.dto.${templateTable.javaTableName}DTO;
 
 import java.util.List;
 import java.util.Optional;

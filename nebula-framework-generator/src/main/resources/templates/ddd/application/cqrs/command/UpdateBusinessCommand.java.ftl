@@ -1,10 +1,10 @@
 <#assign currentTime = .now>
-package ${templateTable.packageName}.application.cqrs.command;
+package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.command;
 
 import com.neegix.application.command.ICommand;
-import ${templateTable.packageName}.domain.entity.${templateTable.javaTableName}Entity;
-import ${templateTable.packageName}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO;
-import ${templateTable.packageName}.infrastructure.repository.mapper.${templateTable.javaTableName}Mapper;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.domain.entity.${templateTable.javaTableName}Entity;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.convert.${templateTable.javaTableName}Converter;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.mapper.${templateTable.javaTableName}Mapper;
 import org.springframework.context.ApplicationContext;
 
  /**
@@ -23,7 +23,7 @@ import org.springframework.context.ApplicationContext;
 public class Update${templateTable.javaTableName}Command implements ICommand<Void> {
     private final ${templateTable.javaTableName}Entity ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity;
 
-    public New${templateTable.javaTableName}Command(${templateTable.javaTableName}Entity ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity) {
+    public Update${templateTable.javaTableName}Command(${templateTable.javaTableName}Entity ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity) {
         this.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity;
     }
 

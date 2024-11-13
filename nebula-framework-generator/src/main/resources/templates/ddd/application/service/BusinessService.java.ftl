@@ -1,6 +1,6 @@
 <#assign currentTime = .now>
-package ${templateTable.packageName}.application.service;
-
+package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.service;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.domain.entity.${templateTable.javaTableName}Entity;
 import java.util.List;
 
  /**
@@ -16,7 +16,7 @@ import java.util.List;
   * @since ${currentTime?string("yyyy-MM-dd HH:mm:ss")}
   */
 public interface ${templateTable.javaTableName}Service {
-    Void create${templateTable.javaTableName}(String code, String name);
-    Void modify${templateTable.javaTableName}(Long id, String code, String name);
+    Void create${templateTable.javaTableName}(${templateTable.javaTableName}Entity ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity);
+    Void modify${templateTable.javaTableName}(${templateTable.javaTableName}Entity ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity);
     Void remove${templateTable.javaTableName}(List<Long> ids);
 }

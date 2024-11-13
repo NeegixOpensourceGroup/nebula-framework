@@ -13,8 +13,8 @@
     @version ${templateTable.version}
     @since ${currentTime?string("yyyy-MM-dd HH:mm:ss")}
 -->
-<mapper namespace="${templateTable.packageName}.infrastructure.repository.mapper.${templateTable.javaTableName}Mapper">
-    <resultMap id="${templateTable.javaTableName}ResultMap" type="${templateTable.packageName}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO">
+<mapper namespace="${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.mapper.${templateTable.javaTableName}Mapper">
+    <resultMap id="${templateTable.javaTableName}ResultMap" type="${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO">
         <#if templateTable.columns?exists>
             <#list templateTable.columns as column>
                 <#if column.isPrimaryKey??>
@@ -208,7 +208,7 @@
     </select>
 
     <!--新增字典组-->
-    <insert id="insert" parameterType="${templateTable.packageName}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO">
+    <insert id="insert" parameterType="${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO">
       insert into ${templateTable.sqlTableName}
       <trim prefix="(" suffix=")" suffixOverrides=",">
         <#if templateTable.columns?exists>
@@ -228,7 +228,7 @@
 
 
     <!--更新字典组-->
-    <update id="updateByPrimaryKey" parameterType="${templateTable.packageName}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO">
+    <update id="updateByPrimaryKey" parameterType="${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO">
         update ${templateTable.sqlTableName}
           <set>
             <#if templateTable.columns?exists>

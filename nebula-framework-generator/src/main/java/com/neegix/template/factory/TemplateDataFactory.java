@@ -8,7 +8,9 @@ import com.neegix.utils.StringUtils;
 import org.apache.maven.plugin.logging.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -31,6 +33,7 @@ public class TemplateDataFactory {
         log.info("SQL Table Name: " + StringUtils.toCamelCaseClassName(tableName, tablePrefix));
         DbTypeMapper dbTypeMapper = DbTypeStrategyFactory.createStrategy(driver);
         List<TemplateColumn> templateColumns = new ArrayList<>();
+        Map<String, String> imports = new HashMap<>();
         // 处理结果集...
         for (ColumnMetadata column : columns) {
             log.info("CamelCase Column Name: " + StringUtils.toCamelCase(column.getColumnName()));
@@ -43,11 +46,13 @@ public class TemplateDataFactory {
                     ", Default Value: " + column.getDefaultValue() +
                     ", Description: " + column.getDescription()
             );
-
-            TemplateColumn templateColumn = new TemplateColumn(StringUtils.toCamelCase(column.getColumnName()), column.getColumnName(), column.isPrimaryKey(), dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()), dbTypeMapper.mapToJavaType(column.getDataType()), column.getDescription());
+            // import jar包 的路径，为了去掉重复，放在TemplateTable中用map接收，过滤重复，在TemplateColumn中比较难处理
+            imports.put(dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()), dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()));
+            TemplateColumn templateColumn = new TemplateColumn(StringUtils.toCamelCase(column.getColumnName()), column.getColumnName(), column.isPrimaryKey(), dbTypeMapper.mapToJavaType(column.getDataType()), column.getDescription());
             templateColumns.add(templateColumn);
         }
         templateTable.setColumns(templateColumns);
+        templateTable.setImports(imports);
         return templateTable;
     }
 }

@@ -1,9 +1,9 @@
 <#assign currentTime = .now>
-package ${templateTable.packageName}.infrastructure.repository.convert;
+package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.convert;
 
-import ${templateTable.packageName}.application.dto.${templateTable.javaTableName}DTO;
-import ${templateTable.packageName}.domain.entity.${templateTable.javaTableName}Entity;
-import ${templateTable.packageName}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.dto.${templateTable.javaTableName}DTO;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.domain.entity.${templateTable.javaTableName}Entity;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

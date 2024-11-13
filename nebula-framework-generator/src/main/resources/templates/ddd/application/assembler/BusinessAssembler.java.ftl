@@ -1,11 +1,11 @@
 <#assign currentTime = .now>
-package ${templateTable.packageName}.application.assembler;
+package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.assembler;
 
-import ${templateTable.packageName}.application.dto.${templateTable.javaTableName}DTO;
-import ${templateTable.packageName}.domain.entity.${templateTable.javaTableName}Entity;
-import ${templateTable.packageName}.interfaces.form.New${templateTable.javaTableName}Form;
-import ${templateTable.packageName}.interfaces.form.Query${templateTable.javaTableName}Form;
-import ${templateTable.packageName}.interfaces.form.Update${templateTable.javaTableName}Form;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.dto.${templateTable.javaTableName}DTO;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.domain.entity.${templateTable.javaTableName}Entity;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.New${templateTable.javaTableName}Form;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.Query${templateTable.javaTableName}Form;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.Update${templateTable.javaTableName}Form;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -1,10 +1,11 @@
 <#assign currentTime = .now>
-package ${templateTable.packageName}.interfaces.form;
+package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form;
 
-<#if templateTable.columns?exists>
-    <#list templateTable.columns as column>
-        <#if !(column.fullyQualifiedJavaType?contains("lang"))>
-import ${column.fullyQualifiedJavaType};
+import lombok.Data;
+<#if templateTable.imports?exists>
+    <#list templateTable.imports?keys as key>
+        <#if !(key?contains("lang"))>
+import ${key};
         </#if>
     </#list>
 </#if>

@@ -1,16 +1,16 @@
 <#assign currentTime = .now>
-package ${templateTable.packageName}.interfaces.controller;
+package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.controller;
 
 import com.neegix.base.PageDTO;
 import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.result.Result;
-import ${templateTable.packageName}.application.assembler.${templateTable.javaTableName}Assembler;
-import ${templateTable.packageName}.application.cqrs.query.${templateTable.javaTableName}QueryRepository;
-import ${templateTable.packageName}.application.dto.${templateTable.javaTableName}DTO;
-import ${templateTable.packageName}.application.service.${templateTable.javaTableName}Service;
-import ${templateTable.packageName}.interfaces.form.New${templateTable.javaTableName}Form;
-import ${templateTable.packageName}.interfaces.form.Query${templateTable.javaTableName}Form;
-import ${templateTable.packageName}.interfaces.form.Update${templateTable.javaTableName}Form;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.assembler.${templateTable.javaTableName}Assembler;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.query.${templateTable.javaTableName}QueryRepository;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.dto.${templateTable.javaTableName}DTO;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.service.${templateTable.javaTableName}Service;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.New${templateTable.javaTableName}Form;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.Query${templateTable.javaTableName}Form;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.Update${templateTable.javaTableName}Form;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,13 +48,13 @@ public class ${templateTable.javaTableName}Controller {
 
     @PostMapping
     public Result<Void> create${templateTable.javaTableName}(@RequestBody New${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
-        Void result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.create${templateTable.javaTableName}(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form.getCode(), ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form.getName());
+        Void result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.create${templateTable.javaTableName}(${templateTable.javaTableName}Assembler.INSTANCE.covertEntity(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form));
         return Result.success("创建成功", result);
     }
 
     @PutMapping
     public Result<Void> update${templateTable.javaTableName}(@RequestBody Update${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
-        Void result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.modify${templateTable.javaTableName}(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form.getId(), ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form.getCode(), ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form.getName());
+        Void result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.modify${templateTable.javaTableName}(${templateTable.javaTableName}Assembler.INSTANCE.covertEntity(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form));
         return Result.success("更新成功",result);
     }
 

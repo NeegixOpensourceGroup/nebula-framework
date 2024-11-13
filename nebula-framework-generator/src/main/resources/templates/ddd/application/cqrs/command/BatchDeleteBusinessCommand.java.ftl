@@ -1,8 +1,8 @@
 <#assign currentTime = .now>
-package ${templateTable.packageName}.application.cqrs.command;
+package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.command;
 
 import com.neegix.application.command.ICommand;
-import ${templateTable.packageName}.infrastructure.repository.mapper.${templateTable.javaTableName}Mapper;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.mapper.${templateTable.javaTableName}Mapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.support.TransactionTemplate;
 

@@ -1,6 +1,7 @@
 package com.neegix.template;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -17,6 +18,7 @@ public class TemplateTable {
     private String version = "1.0.0";
     private String copyright = "https://www.neegix.com";
     private List<TemplateColumn> columns;
+    private Map<String, String> imports;
 
     public String getSqlTableName() {
         return sqlTableName;
@@ -64,5 +66,13 @@ public class TemplateTable {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public Map<String, String> getImports() {
+        return imports;
+    }
+
+    public void setImports(Map<String, String> imports) {
+        this.imports = imports;
     }
 }

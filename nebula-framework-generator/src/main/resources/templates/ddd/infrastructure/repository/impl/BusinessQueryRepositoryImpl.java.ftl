@@ -1,15 +1,15 @@
 <#assign currentTime = .now>
-package ${templateTable.packageName}.infrastructure.repository.impl;
+package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.impl;
 
 import com.neegix.application.query.NebulaSQL;
 import com.neegix.base.PageDTO;
-import ${templateTable.packageName}.application.cqrs.query.${templateTable.javaTableName}QueryRepository;
-import ${templateTable.packageName}.application.cqrs.query.condition.${templateTable.javaTableName}WhereGroup;
-import ${templateTable.packageName}.application.dto.${templateTable.javaTableName}DTO;
-import ${templateTable.packageName}.infrastructure.repository.convert.${templateTable.javaTableName}Converter;
-import ${templateTable.packageName}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO;
-import ${templateTable.packageName}.infrastructure.repository.mapper.${templateTable.javaTableName}Mapper;
-import ${templateTable.packageName}.infrastructure.repository.mapper.customized.${templateTable.javaTableName}CustomizedMapper;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.query.${templateTable.javaTableName}QueryRepository;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.query.condition.${templateTable.javaTableName}WhereGroup;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.dto.${templateTable.javaTableName}DTO;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.convert.${templateTable.javaTableName}Converter;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.mapper.${templateTable.javaTableName}Mapper;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.mapper.customized.${templateTable.javaTableName}CustomizedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -40,14 +40,6 @@ public class ${templateTable.javaTableName}QueryRepositoryImpl implements ${temp
     @Override
     public Optional<${templateTable.javaTableName}DTO> findById(Long id) {
         ${templateTable.javaTableName}DO ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DO = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Mapper.selectByPrimaryKey(id);
-        return Optional.ofNullable(${templateTable.javaTableName}Converter.INSTANCE.covertDTO(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DO));
-    }
-
-    @Override
-    public Optional<${templateTable.javaTableName}DTO> findByCodeAndName(String code, String name) {
-        NebulaSQL nebulaSQL = new NebulaSQL();
-        nebulaSQL.createWhereGroups(${templateTable.javaTableName}WhereGroup.class).andNameEqualTo(name).andCodeEqualTo(code);
-        ${templateTable.javaTableName}DO ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DO = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Mapper.selectOne(nebulaSQL);
         return Optional.ofNullable(${templateTable.javaTableName}Converter.INSTANCE.covertDTO(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DO));
     }
 

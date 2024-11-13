@@ -1,9 +1,15 @@
 <#assign currentTime = .now>
-package ${templateTable.packageName}.application.cqrs.query.condition;
+package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.query.condition;
 
 import com.neegix.application.query.EnumOperator;
 import com.neegix.application.query.WhereGroups;
-
+<#if templateTable.imports?exists>
+    <#list templateTable.imports?keys as key>
+        <#if !(key?contains("lang"))>
+import ${key};
+        </#if>
+    </#list>
+</#if>
 import java.util.List;
 
  /**
@@ -70,7 +76,7 @@ public class ${templateTable.javaTableName}WhereGroup extends WhereGroups {
     }
 
 
-    public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}LikeTo(${column.javaType} value, boolean prefix) {
+    public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}LikeTo(${column.javaType} value, boolean suffix) {
         addCriterion("${column.javaName}", EnumOperator.LIKE, false, value, suffix);
         return this;
     }
@@ -90,7 +96,7 @@ public class ${templateTable.javaTableName}WhereGroup extends WhereGroups {
     }
 
 
-    public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}NotLikeTo(${column.javaType} value, boolean prefix) {
+    public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}NotLikeTo(${column.javaType} value, boolean suffix) {
         addCriterion("${column.javaName}", EnumOperator.NOT_LIKE, false, value, suffix);
         return this;
     }
