@@ -110,7 +110,7 @@
   </sql>
     <!-- 查询字典项数量 -->
     <select id="selectCount" resultType="java.lang.Long">
-        select count(1) from ${r"${templateTable.sqlTableName}"}
+        select count(1) from ${templateTable.sqlTableName}
         <include refid="wheres" />
         <if test="groupByClauses != null and groupByClauses.size() > 0">
             GROUP BY
@@ -139,7 +139,7 @@
                 <include refid="columns" />
             </otherwise>
         </choose>
-        FROM ${r"${templateTable.sqlTableName}"}
+        FROM ${templateTable.sqlTableName}
         <include refid="wheres" />
         <if test="groupByClauses != null and groupByClauses.size() > 0">
             GROUP BY
