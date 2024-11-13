@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neegix.system.dict.infrastructure.repository.mapper.customized.DictGroupCustomizedMapper">
+
+    <!-- 根据Ids查询字典项数量 -->
+    <select id="selectCountByIds" resultType="java.lang.Integer">
+        select count(1) from sys_dict_item
+        <where>
+            id in
+            <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                #{id, jdbcType=BIGINT}
+            </foreach>
+        </where>
+    </select>
+
+</mapper>
