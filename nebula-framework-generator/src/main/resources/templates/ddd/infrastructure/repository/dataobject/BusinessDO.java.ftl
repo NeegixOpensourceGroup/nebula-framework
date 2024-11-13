@@ -2,9 +2,9 @@
 package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject;
 
 <#if templateTable.imports?exists>
-    <#list templateTable.imports?keys as key>
-        <#if !(key?contains("lang"))>
-import ${key};
+    <#list templateTable.imports as item>
+        <#if !(item?contains("lang"))>
+import ${item};
         </#if>
     </#list>
 </#if>
