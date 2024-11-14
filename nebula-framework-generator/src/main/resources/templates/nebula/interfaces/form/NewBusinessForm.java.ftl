@@ -1,11 +1,12 @@
 <#assign currentTime = .now>
+<#assign extraColumns = ["id", "create_time", "create_user", "update_time", "update_user"]>
 package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form;
 
 import lombok.Data;
-<#if templateTable.imports?exists>
-    <#list templateTable.imports as item>
-        <#if !(item?contains("lang"))>
-import ${item};
+<#if templateTable.columns?exists>
+    <#list templateTable.columns as column>
+        <#if !(column.fullyQualifiedJavaType?contains("lang")) && column.isFirstImportPackage() && !extraColumns?seq_contains(column.sqlName)>
+import ${column.fullyQualifiedJavaType};
         </#if>
     </#list>
 </#if>
@@ -23,11 +24,13 @@ import ${item};
   * @since ${currentTime?string("yyyy-MM-dd HH:mm:ss")}
   */
 @Data
-public class Update${templateTable.javaTableName}Form {
+public class New${templateTable.javaTableName}Form {
     <#if templateTable.columns?exists>
         <#list templateTable.columns as column>
+            <#if !extraColumns?seq_contains(column.sqlName)>
     // ${column.description}
     private ${column.javaType} ${column.javaName};
+            </#if>
         </#list>
     </#if>
 }

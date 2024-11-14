@@ -14,13 +14,17 @@ public class TemplateColumn {
     private final boolean isPrimaryKey;
     private final String javaType;
     private final String description;
+    private final String fullyQualifiedJavaType;
+    private final boolean isFirstImportPackage;
 
-    public TemplateColumn(String javaName, String sqlName,boolean isPrimaryKey, String javaType, String description) {
+    public TemplateColumn(String javaName, String sqlName,boolean isPrimaryKey, String javaType, String description, String fullyQualifiedJavaType, boolean isFirstImportPackage) {
         this.javaName = javaName;
         this.sqlName = sqlName;
         this.isPrimaryKey = isPrimaryKey;
         this.javaType = javaType;
         this.description = description;
+        this.fullyQualifiedJavaType = fullyQualifiedJavaType;
+        this.isFirstImportPackage = isFirstImportPackage;
     }
 
     public String getJavaName() {
@@ -42,4 +46,13 @@ public class TemplateColumn {
     public String getDescription() {
         return description;
     }
+
+    public String getFullyQualifiedJavaType() {
+        return fullyQualifiedJavaType;
+    }
+
+    public boolean isFirstImportPackage() {
+        return isFirstImportPackage;
+    }
+
 }

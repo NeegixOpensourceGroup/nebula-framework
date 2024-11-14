@@ -1,6 +1,6 @@
 package com.neegix.template.factory;
 
-import com.neegix.template.handler.DomainModelTemplateFile;
+import com.neegix.template.handler.NebulaModelTemplateFile;
 import com.neegix.template.handler.MvcModelTemplateFile;
 import com.neegix.template.strategy.TemplateFileModelStrategy;
 
@@ -15,7 +15,7 @@ import com.neegix.template.strategy.TemplateFileModelStrategy;
 public class TemplateHandlerFactory {
     public static TemplateFileModelStrategy createStrategy(String templateType, String outputBaseDir) {
         return switch (templateType) {
-            case "ddd" -> new DomainModelTemplateFile(outputBaseDir);
+            case "nebula" -> new NebulaModelTemplateFile(outputBaseDir);
             case "mvc" -> new MvcModelTemplateFile(outputBaseDir);
             default -> throw new IllegalArgumentException("Unsupported template type: " + templateType);
         };

@@ -35,24 +35,32 @@ import java.util.List;
 public class NebulaMojo extends AbstractMojo {
     @Parameter(required = true)
     private String driver;
+
     @Parameter(required = true)
     private String url;
+
     @Parameter(required = true)
     private String username;
+
     @Parameter(required = true)
     private String password;
+
     @Parameter(required = true)
     private String tableName;
+
     @Parameter
     private String tablePrefix;
+
     @Parameter(required = true)
     private String packageName;
+
     @Parameter
     private String schemaOrOwner;
+
     @Parameter(required = true)
     private String outputDir;
 
-    @Parameter(defaultValue = "ddd")
+    @Parameter(defaultValue = "nebula")
     private String templateType;
 
     public void execute()
@@ -71,10 +79,11 @@ public class NebulaMojo extends AbstractMojo {
             log.info("模板数据构建完成...");
 
             log.info("开始选择模板["+templateType+"]...");
-            TemplateFileModelStrategy domainModelGenerator = TemplateHandlerFactory.createStrategy(templateType, outputDir);
+            TemplateFileModelStrategy templateFileModelStrategy = TemplateHandlerFactory.createStrategy(templateType, outputDir);
             log.info("模板["+templateType+"]选择结束...");
+
             log.info("开始生成模板...");
-            domainModelGenerator.generate(templateTable, log);
+            templateFileModelStrategy.generate(templateTable, log);
             log.info("模板生成完毕...");
 
         } catch (ClassNotFoundException | SQLException e) {

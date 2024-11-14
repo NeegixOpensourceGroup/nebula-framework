@@ -2,10 +2,10 @@
 package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form;
 
 import lombok.Data;
-<#if templateTable.imports?exists>
-    <#list templateTable.imports as item>
-        <#if !(item?contains("lang"))>
-import ${item};
+<#if templateTable.columns?exists>
+    <#list templateTable.columns as column>
+        <#if !(column.fullyQualifiedJavaType?contains("lang")) && column.isFirstImportPackage()>
+import ${column.fullyQualifiedJavaType};
         </#if>
     </#list>
 </#if>
@@ -22,8 +22,9 @@ import ${item};
   * @version ${templateTable.version}
   * @since ${currentTime?string("yyyy-MM-dd HH:mm:ss")}
   */
+
 @Data
-public class New${templateTable.javaTableName}Form {
+public class Query${templateTable.javaTableName}Form {
     <#if templateTable.columns?exists>
         <#list templateTable.columns as column>
     // ${column.description}

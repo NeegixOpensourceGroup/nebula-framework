@@ -3,10 +3,10 @@ package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case
 
 import com.neegix.application.query.EnumOperator;
 import com.neegix.application.query.WhereGroups;
-<#if templateTable.imports?exists>
-    <#list templateTable.imports as item>
-        <#if !(item?contains("lang"))>
-import ${item};
+<#if templateTable.columns?exists>
+    <#list templateTable.columns as column>
+        <#if !(column.fullyQualifiedJavaType?contains("lang")) && column.isFirstImportPackage()>
+import ${column.fullyQualifiedJavaType};
         </#if>
     </#list>
 </#if>

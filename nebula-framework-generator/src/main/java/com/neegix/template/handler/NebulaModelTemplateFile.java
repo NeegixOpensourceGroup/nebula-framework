@@ -16,14 +16,14 @@ import java.util.Map;
  * @Date: 2024/11/06/14:30
  * @Description:
  */
-public class DomainModelTemplateFile extends AbstractTemplateFileGenerator {
-    public DomainModelTemplateFile(String outputBaseDir) {
+public class NebulaModelTemplateFile extends AbstractTemplateFileGenerator {
+    public NebulaModelTemplateFile(String outputBaseDir) {
         super(outputBaseDir);
     }
 
     @Override
     protected Path getTemplateDirPath() {
-        return Paths.get(File.separator+"templates"+File.separator+"ddd");
+        return Paths.get(File.separator+"templates"+File.separator+"nebula");
     }
 
     @Override
