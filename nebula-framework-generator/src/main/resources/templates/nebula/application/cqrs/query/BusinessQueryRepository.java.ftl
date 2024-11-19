@@ -1,9 +1,9 @@
 <#assign currentTime = .now>
 package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.query;
 
-import com.neegix.base.PageDTO;
+import com.neegix.base.PageVO;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.dto.${templateTable.javaTableName}DTO;
-
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.vo.${templateTable.javaTableName}VO;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ import java.util.Optional;
   */
 
 public interface ${templateTable.javaTableName}QueryRepository {
-    Optional<${templateTable.javaTableName}DTO> findById(Long id);
+    Optional<${templateTable.javaTableName}VO> findById(Long id);
     Integer selectCount(List<Long> ids);
-    PageDTO<${templateTable.javaTableName}DTO> findPage(Integer currentPage, Integer pageSize, ${templateTable.javaTableName}DTO ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO);
+    PageVO<${templateTable.javaTableName}VO> findPage(Integer currentPage, Integer pageSize, ${templateTable.javaTableName}DTO ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO);
 }

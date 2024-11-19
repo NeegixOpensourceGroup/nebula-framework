@@ -2,10 +2,12 @@
 package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.impl;
 
 import com.neegix.application.query.NebulaSQL;
-import com.neegix.base.PageDTO;
+import com.neegix.base.PageVO;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.assembler.${templateTable.javaTableName}Assembler;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.query.${templateTable.javaTableName}QueryRepository;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.query.condition.${templateTable.javaTableName}WhereGroup;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.dto.${templateTable.javaTableName}DTO;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.vo.${templateTable.javaTableName}VO;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.convert.${templateTable.javaTableName}Converter;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.mapper.${templateTable.javaTableName}Mapper;
@@ -39,9 +41,9 @@ public class ${templateTable.javaTableName}QueryRepositoryImpl implements ${temp
     private ${templateTable.javaTableName}CustomizedMapper ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}CustomizedMapper;
 
     @Override
-    public Optional<${templateTable.javaTableName}DTO> findById(Long id) {
+    public Optional<${templateTable.javaTableName}VO> findById(Long id) {
         ${templateTable.javaTableName}DO ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DO = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Mapper.selectByPrimaryKey(id);
-        return Optional.ofNullable(${templateTable.javaTableName}Converter.INSTANCE.covertDTO(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DO));
+        return Optional.ofNullable(${templateTable.javaTableName}Assembler.INSTANCE.covertVO(${templateTable.javaTableName}Converter.INSTANCE.covertDTO(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DO)));
     }
 
     @Override
@@ -50,7 +52,7 @@ public class ${templateTable.javaTableName}QueryRepositoryImpl implements ${temp
     }
 
     @Override
-    public PageDTO<${templateTable.javaTableName}DTO> findPage(Integer currentPage, Integer pageSize, ${templateTable.javaTableName}DTO ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO) {
+    public PageVO<${templateTable.javaTableName}VO> findPage(Integer currentPage, Integer pageSize, ${templateTable.javaTableName}DTO ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO) {
         NebulaSQL nebulaSQL = new NebulaSQL();
         nebulaSQL.createWhereGroups(${templateTable.javaTableName}WhereGroup.class)
         <#if templateTable.columns?exists>
@@ -68,9 +70,9 @@ public class ${templateTable.javaTableName}QueryRepositoryImpl implements ${temp
         nebulaSQL.setPager(currentPage, pageSize);
         List<${templateTable.javaTableName}DO> result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Mapper.selectList(nebulaSQL);
         Long total = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Mapper.selectCount(nebulaSQL);
-        PageDTO<${templateTable.javaTableName}DTO> page = new PageDTO<>(currentPage, pageSize);
+        PageVO<${templateTable.javaTableName}VO> page = new PageVO<>(currentPage, pageSize);
         page.setTotal(total);
-        page.setResult(${templateTable.javaTableName}Converter.INSTANCE.covertDTOS(result));
+        page.setResult(${templateTable.javaTableName}Assembler.INSTANCE.covertVO(${templateTable.javaTableName}Converter.INSTANCE.covertDTOS(result)));
         return page;
     }
 }

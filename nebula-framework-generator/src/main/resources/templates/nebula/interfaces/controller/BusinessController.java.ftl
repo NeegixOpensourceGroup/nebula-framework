@@ -1,12 +1,12 @@
 <#assign currentTime = .now>
 package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.controller;
 
-import com.neegix.base.PageDTO;
+import com.neegix.base.PageVO;
 import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.result.Result;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.assembler.${templateTable.javaTableName}Assembler;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.query.${templateTable.javaTableName}QueryRepository;
-import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.dto.${templateTable.javaTableName}DTO;
+import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.vo.${templateTable.javaTableName}VO;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.service.${templateTable.javaTableName}Service;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.New${templateTable.javaTableName}Form;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.Query${templateTable.javaTableName}Form;
@@ -60,17 +60,17 @@ public class ${templateTable.javaTableName}Controller {
     }
 
     @GetMapping("/{currentPage}/{pageSize}")
-    public Result<PageDTO<${templateTable.javaTableName}DTO>> get${templateTable.javaTableName}s(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @RequestBody(required = false) Query${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
+    public Result<PageVO<${templateTable.javaTableName}VO>> get${templateTable.javaTableName}s(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @RequestBody(required = false) Query${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
         if(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form == null) {
             ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form = new Query${templateTable.javaTableName}Form();
         }
-        PageDTO<${templateTable.javaTableName}DTO> pageDTO = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}QueryRepository.findPage(currentPage, pageSize, ${templateTable.javaTableName}Assembler.INSTANCE.covertDTO(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form));
-        return Result.success("查询成功",pageDTO);
+        PageVO<${templateTable.javaTableName}VO> pageVO = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}QueryRepository.findPage(currentPage, pageSize, ${templateTable.javaTableName}Assembler.INSTANCE.covertDTO(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form));
+        return Result.success("查询成功",pageVO);
     }
 
     @GetMapping("/{id}")
-    public Result<${templateTable.javaTableName}DTO> get${templateTable.javaTableName}ById(@PathVariable("id") Long id) {
-        Optional<${templateTable.javaTableName}DTO> optional = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}QueryRepository.findById(id);
+    public Result<${templateTable.javaTableName}VO> get${templateTable.javaTableName}ById(@PathVariable("id") Long id) {
+        Optional<${templateTable.javaTableName}VO> optional = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}QueryRepository.findById(id);
         return Result.success("获取成功", optional.orElseThrow(()-> new BusinessRuntimeException("查询结果不存在")));
     }
 
