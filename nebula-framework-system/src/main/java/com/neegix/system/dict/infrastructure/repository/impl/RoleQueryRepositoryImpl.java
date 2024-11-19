@@ -1,6 +1,6 @@
 package com.neegix.system.dict.infrastructure.repository.impl;
 
-import com.neegix.base.PageDTO;
+import com.neegix.base.PageVO;
 import com.neegix.system.dict.application.cqrs.query.RoleQueryRepository;
 import com.neegix.system.dict.application.dto.RoleDTO;
 import org.springframework.stereotype.Repository;
@@ -34,7 +34,7 @@ public class RoleQueryRepositoryImpl implements RoleQueryRepository {
     }
 
     @Override
-    public PageDTO<RoleDTO> findPage(Integer currentPage, Integer pageSize, RoleDTO roleDTO) {
+    public PageVO<RoleDTO> findPage(Integer currentPage, Integer pageSize, RoleDTO roleDTO) {
         return null;
     }
 }

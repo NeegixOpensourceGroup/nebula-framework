@@ -1,6 +1,6 @@
 package com.neegix.system.dict.interfaces.controller;
 
-import com.neegix.base.PageDTO;
+import com.neegix.base.PageVO;
 import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.result.Result;
 import com.neegix.system.dict.application.assembler.DictGroupAssembler;
@@ -54,8 +54,8 @@ public class DictGroupController {
     }
 
     @GetMapping("/{currentPage}/{pageSize}")
-    public Result<PageDTO<DictGroupDTO>> getDictGroups(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @RequestBody QueryDictGroupForm dictGroupForm){
-        PageDTO<DictGroupDTO> pageDTO = dictGroupQueryRepository.findPage(currentPage, pageSize, DictGroupAssembler.INSTANCE.covertDTO(dictGroupForm));
+    public Result<PageVO<DictGroupDTO>> getDictGroups(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @RequestBody QueryDictGroupForm dictGroupForm){
+        PageVO<DictGroupDTO> pageDTO = dictGroupQueryRepository.findPage(currentPage, pageSize, DictGroupAssembler.INSTANCE.covertDTO(dictGroupForm));
         return Result.success("查询成功",pageDTO);
     }
 

@@ -1,7 +1,7 @@
 package com.neegix.system.dict.infrastructure.repository.impl;
 
 import com.neegix.application.query.NebulaSQL;
-import com.neegix.base.PageDTO;
+import com.neegix.base.PageVO;
 import com.neegix.system.dict.application.cqrs.query.DictItemQueryRepository;
 import com.neegix.system.dict.application.cqrs.query.condition.DictItemWhereGroup;
 import com.neegix.system.dict.application.dto.DictItemDTO;
@@ -53,13 +53,13 @@ public class DictItemQueryRepositoryImpl implements DictItemQueryRepository {
     }
 
     @Override
-    public PageDTO<DictItemDTO> findPage(Integer currentPage, Integer pageSize, DictItemDTO dictItemDTO) {
+    public PageVO<DictItemDTO> findPage(Integer currentPage, Integer pageSize, DictItemDTO dictItemDTO) {
         NebulaSQL nebulaSQL = new NebulaSQL();
         nebulaSQL.createWhereGroups(DictItemWhereGroup.class);
         nebulaSQL.setPager(currentPage, pageSize);
         List<DictItemDO> result = dictItemMapper.selectList(nebulaSQL);
         Long count = dictItemMapper.selectCount(nebulaSQL);
-        PageDTO<DictItemDTO> page = new PageDTO<>(currentPage, pageSize);
+        PageVO<DictItemDTO> page = new PageVO<>(currentPage, pageSize);
         page.setTotal(count);
         page.setResult(DictItemConverter.INSTANCE.covertDTOS(result));
         return page;

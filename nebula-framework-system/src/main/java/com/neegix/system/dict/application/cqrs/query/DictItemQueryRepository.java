@@ -1,6 +1,6 @@
 package com.neegix.system.dict.application.cqrs.query;
 
-import com.neegix.base.PageDTO;
+import com.neegix.base.PageVO;
 import com.neegix.system.dict.application.dto.DictItemDTO;
 
 import java.util.List;
@@ -18,5 +18,5 @@ public interface DictItemQueryRepository {
     Optional<DictItemDTO> findById(Long id);
     Optional<DictItemDTO> findByName(String name);
     Integer selectCount(List<Long> ids);
-    PageDTO<DictItemDTO> findPage(Integer currentPage, Integer pageSize, DictItemDTO dictItemDTO);
+    PageVO<DictItemDTO> findPage(Integer currentPage, Integer pageSize, DictItemDTO dictItemDTO);
 }

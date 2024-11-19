@@ -1,6 +1,6 @@
 package com.neegix.system.dict.application.cqrs.query;
 
-import com.neegix.base.PageDTO;
+import com.neegix.base.PageVO;
 import com.neegix.system.dict.application.dto.RoleDTO;
 
 import java.util.List;
@@ -18,5 +18,5 @@ public interface RoleQueryRepository {
     Optional<RoleDTO> findById(Long id);
     Optional<RoleDTO> findByName(String name);
     Integer selectCount(List<Long> ids);
-    PageDTO<RoleDTO> findPage(Integer currentPage, Integer pageSize, RoleDTO roleDTO);
+    PageVO<RoleDTO> findPage(Integer currentPage, Integer pageSize, RoleDTO roleDTO);
 }
