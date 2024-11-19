@@ -13,13 +13,13 @@ import java.util.List;
  * @Description:
  */
 @Data
-public class PageDTO<T> {
+public class PageVO<T> {
     private Integer currentPage;
     private Integer pageSize;
     private Long total;
     private List<T> result;
-    public PageDTO(){}
-    public PageDTO(Integer currentPage, Integer pageSize){
+    public PageVO(){}
+    public PageVO(Integer currentPage, Integer pageSize){
         this.currentPage = currentPage;
         this.pageSize = pageSize;
     }
