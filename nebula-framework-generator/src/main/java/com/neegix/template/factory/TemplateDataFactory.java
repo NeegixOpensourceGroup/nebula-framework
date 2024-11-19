@@ -37,6 +37,7 @@ public class TemplateDataFactory {
         DbTypeMapper dbTypeMapper = DbTypeStrategyFactory.createStrategy(driver);
         List<TemplateColumn> templateColumns = new ArrayList<>();
         Set<String> imports = new HashSet<>();
+        String tableDescription = "";
         // 处理结果集...
         for (ColumnMetadata column : columns) {
             log.info("CamelCase Column Name: " + StringUtils.toCamelCase(column.getColumnName()));
@@ -47,7 +48,8 @@ public class TemplateDataFactory {
                     ", Nullable: " + column.getIsNullable() +
                     ", IsPrimaryKey: " + column.isPrimaryKey() +
                     ", Default Value: " + column.getDefaultValue() +
-                    ", Description: " + column.getDescription()
+                    ", Description: " + column.getDescription() +
+                    ", Table Description: " + column.getTableDescription()
             );
             TemplateColumn templateColumn;
 
@@ -63,8 +65,10 @@ public class TemplateDataFactory {
             }
 
             templateColumns.add(templateColumn);
+            tableDescription = column.getTableDescription();
         }
         templateTable.setColumns(templateColumns);
+        templateTable.setDescription(tableDescription);
         return templateTable;
     }
 }

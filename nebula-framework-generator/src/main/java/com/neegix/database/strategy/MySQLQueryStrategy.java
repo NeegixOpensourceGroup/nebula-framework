@@ -25,7 +25,8 @@ public class MySQLQueryStrategy implements DatabaseQueryStrategy {
                     CASE\s
                         WHEN k.COLUMN_NAME IS NOT NULL  THEN TRUE\s
                         ELSE FALSE\s
-                    END AS IS_PRIMARY_KEY
+                    END AS IS_PRIMARY_KEY,
+                    t.TABLE_COMMENT AS TABLE_DESCRIPTION
                 FROM
                     INFORMATION_SCHEMA.COLUMNS c
                 LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE k ON\s
@@ -33,6 +34,9 @@ public class MySQLQueryStrategy implements DatabaseQueryStrategy {
                     AND c.TABLE_NAME = k.TABLE_NAME
                     AND c.COLUMN_NAME = k.COLUMN_NAME
                     AND k.CONSTRAINT_NAME = 'PRIMARY'
+                LEFT JOIN INFORMATION_SCHEMA.TABLES t ON
+                    c.TABLE_SCHEMA = t.TABLE_SCHEMA
+                    AND c.TABLE_NAME = t.TABLE_NAME
                 WHERE
                     c.TABLE_NAME = '%s'
                     %s

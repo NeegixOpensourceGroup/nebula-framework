@@ -15,14 +15,16 @@ public class ColumnMetadata {
     private final boolean isPrimaryKey;
     private final String defaultValue;
     private final String description;
+    private final String tableDescription;
 
-    public ColumnMetadata(String columnName, String dataType, String isNullable, boolean isPrimaryKey,  String defaultValue, String description) {
+    public ColumnMetadata(String columnName, String dataType, String isNullable, boolean isPrimaryKey,  String defaultValue, String description, String tableDescription) {
         this.columnName = columnName;
         this.dataType = dataType;
         this.isNullable = isNullable;
         this.isPrimaryKey = isPrimaryKey;
         this.defaultValue = defaultValue;
         this.description = description;
+        this.tableDescription = tableDescription;
     }
 
     public String getColumnName() {
@@ -49,6 +51,10 @@ public class ColumnMetadata {
         return description;
     }
 
+    public String getTableDescription() {
+        return tableDescription;
+    }
+
     @Override
     public String toString() {
         return "ColumnMetadata{" +
@@ -58,6 +64,7 @@ public class ColumnMetadata {
                 ", isPrimaryKey='" + isPrimaryKey + '\'' +
                 ", defaultValue='" + defaultValue + '\'' +
                 ", description='" + description + '\'' +
+                ", tableDescription='" + tableDescription + '\'' +
                 '}';
     }
 }

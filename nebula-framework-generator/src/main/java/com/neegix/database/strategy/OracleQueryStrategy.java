@@ -25,7 +25,8 @@ public class OracleQueryStrategy implements DatabaseQueryStrategy {
                     CASE\s
                         WHEN pk.COLUMN_NAME IS NOT NULL THEN TRUE\s
                         ELSE FALSE\s
-                    END AS IS_PRIMARY_KEY
+                    END AS IS_PRIMARY_KEY,
+                    c.COMMENTS AS TABLE_DESCRIPTION
                 FROM
                     ALL_TAB_COLUMNS a
                 LEFT JOIN ALL_COL_COMMENTS b ON
@@ -43,6 +44,9 @@ public class OracleQueryStrategy implements DatabaseQueryStrategy {
                     a.OWNER = pk.OWNER
                     AND a.TABLE_NAME = pk.TABLE_NAME
                     AND a.COLUMN_NAME = pk.COLUMN_NAME
+                LEFT JOIN ALL_TAB_COMMENTS c ON
+                    a.OWNER = c.OWNER
+                    AND a.TABLE_NAME = c.TABLE_NAME
                 WHERE
                     a.TABLE_NAME = '%s'
                     %s

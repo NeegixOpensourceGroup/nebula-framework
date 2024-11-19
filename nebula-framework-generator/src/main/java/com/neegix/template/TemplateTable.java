@@ -13,12 +13,21 @@ import java.util.Set;
  * @Description:
  */
 public class TemplateTable {
+    private String description;
     private String sqlTableName;
     private String javaTableName;
     private String packageName;
     private String version = "1.0.0";
     private String copyright = "https://www.neegix.com";
     private List<TemplateColumn> columns;
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     public String getSqlTableName() {
         return sqlTableName;

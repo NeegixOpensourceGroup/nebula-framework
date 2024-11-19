@@ -16,6 +16,8 @@
 -->
 
 <mapper namespace="${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.mapper.${templateTable.javaTableName}Mapper">
+
+    <!-- ${templateTable.description}-表和对象映射关系 -->
     <resultMap id="${templateTable.javaTableName}ResultMap" type="${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO">
         <#if templateTable.columns?exists>
             <#list templateTable.columns as column>
@@ -27,6 +29,8 @@
             </#list>
         </#if>
     </resultMap>
+
+    <!-- ${templateTable.description}-查询条件 -->
     <sql id="wheres">
         <where>
             <if test="whereClauses != null and whereClauses.size() > 0">
@@ -105,12 +109,15 @@
             </if>
         </where>
     </sql>
-  <sql id="columns">
-    <#if templateTable.columns?exists>
-    <#list templateTable.columns as column>${column.sqlName}<#if column_has_next>,</#if></#list>
-    </#if>
-  </sql>
-    <!-- 查询字典项数量 -->
+
+    <!-- ${templateTable.description}-字段列 -->
+    <sql id="columns">
+       <#if templateTable.columns?exists>
+       <#list templateTable.columns as column>${column.sqlName}<#if column_has_next>,</#if></#list>
+       </#if>
+    </sql>
+
+    <!-- 条件查询-${templateTable.description}-数量 -->
     <select id="selectCount" resultType="java.lang.Long">
         select count(1) from ${templateTable.sqlTableName}
         <include refid="wheres" />
@@ -128,6 +135,7 @@
         </if>
     </select>
 
+    <!-- 条件查询-${templateTable.description}-单条记录 -->
     <select id="selectOne" resultMap="${templateTable.javaTableName}ResultMap">
         SELECT
         <if test="distinct">DISTINCT</if>
@@ -166,6 +174,7 @@
         </if>
     </select>
 
+    <!-- 条件查询-${templateTable.description}-记录 -->
     <select id="selectList" resultMap="${templateTable.javaTableName}ResultMap">
         SELECT
         <if test="distinct">DISTINCT</if>
@@ -204,12 +213,12 @@
         </if>
     </select>
 
-    <!-- 根据Id查询字典组 -->
+    <!-- 根据Id查询-${templateTable.description}-记录 -->
     <select id="selectByPrimaryKey" resultMap="${templateTable.javaTableName}ResultMap">
         select <include refid="columns" /> from ${templateTable.sqlTableName}  where id=${r"#{id,jdbcType=BIGINT}"}
     </select>
 
-    <!--新增字典组-->
+    <!--新增-${templateTable.description}-记录-->
     <insert id="insert" parameterType="${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO">
       insert into ${templateTable.sqlTableName}
       <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -228,8 +237,7 @@
       </trim>
     </insert>
 
-
-    <!--更新字典组-->
+    <!--更新-${templateTable.description}-记录-->
     <update id="updateByPrimaryKey" parameterType="${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO">
         update ${templateTable.sqlTableName}
           <set>
@@ -246,7 +254,7 @@
           where id = ${r"#{id}"}
     </update>
 
-    <!--批量删除字典项-->
+    <!--批量删除-${templateTable.description}-记录-->
     <delete id="deleteByPrimaryKeys">
         delete from ${templateTable.sqlTableName}
         <where>

@@ -67,7 +67,8 @@ public class DatabaseMetadata implements Serializable {
                     boolean isPrimaryKey = rs.getBoolean("IS_PRIMARY_KEY");
                     String defaultValue = rs.getString("COLUMN_DEFAULT");
                     String description = rs.getString("DESCRIPTION");
-                    columns.add(new ColumnMetadata(columnName, dataType, isNullable, isPrimaryKey, defaultValue, description));
+                    String tableDescription = rs.getString("TABLE_DESCRIPTION");
+                    columns.add(new ColumnMetadata(columnName, dataType, isNullable, isPrimaryKey, defaultValue, description, tableDescription));
                 }
             }
             return columns;

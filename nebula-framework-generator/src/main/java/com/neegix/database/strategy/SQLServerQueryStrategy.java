@@ -24,7 +24,8 @@ public class SQLServerQueryStrategy implements DatabaseQueryStrategy {
                     CASE\s
                         WHEN KC.COLUMN_NAME IS NOT NULL THEN TRUE\s
                         ELSE FALSE\s
-                    END AS IS_PRIMARY_KEY
+                    END AS IS_PRIMARY_KEY,
+                    TP.value AS TABLE_DESCRIPTION
                 FROM
                     INFORMATION_SCHEMA.COLUMNS C
                 LEFT JOIN sys.columns SC ON
@@ -49,6 +50,10 @@ public class SQLServerQueryStrategy implements DatabaseQueryStrategy {
                 ) KC ON\s
                     KC.COLUMN_NAME = C.COLUMN_NAME\s
                     AND KC.object_id = OBJECT_ID('%s')
+                LEFT JOIN sys.extended_properties TP ON
+                    TP.major_id = OBJECT_ID('%s')
+                    AND TP.minor_id = 0
+                    AND TP.name = 'MS_Description'
                 WHERE
                     C.TABLE_NAME = '%s'
                     %s;
