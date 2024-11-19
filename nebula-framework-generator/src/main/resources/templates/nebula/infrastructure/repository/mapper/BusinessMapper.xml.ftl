@@ -35,56 +35,56 @@
                         <trim prefix="(" suffix=")" prefixOverrides="AND ">
                             <foreach collection="group.wheres" item="where" separator=" AND ">
                                 <choose>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@EQUAL">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@EQUAL and where.value != null">
                                         ${r"${where.column}"} = ${r"#{where.value}"}
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_EQUAL">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_EQUAL and where.value != null">
                                         ${r"${where.column}"} != ${r"#{where.value}"}
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@GREATER_THAN">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@GREATER_THAN and where.value != null">
                                         ${r"${where.column}"} &gt; ${r"#{where.value}"}
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LESS_THAN">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LESS_THAN and where.value != null">
                                         ${r"${where.column}"} &lt; ${r"#{where.value}"}
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@GREATER_EQUAL_THAN">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@GREATER_EQUAL_THAN and where.value != null">
                                         ${r"${where.column}"} &gt;= ${r"#{where.value}"}
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LESS_EQUAL_THAN">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LESS_EQUAL_THAN and where.value != null">
                                         ${r"${where.column}"} &lt;= ${r"#{where.value}"}
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and where.prefix and where.suffix">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and where.prefix and where.suffix and where.value != null">
                                         ${r"${where.column}"} LIKE CONCAT('%', ${r"#{where.value}"}, '%')
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and where.prefix and !where.suffix">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and where.prefix and !where.suffix and where.value != null">
                                         ${r"${where.column}"} LIKE CONCAT('%', ${r"#{where.value}"})
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and !where.prefix and where.suffix">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and !where.prefix and where.suffix and where.value != null">
                                         ${r"${where.column}"} LIKE CONCAT(${r"#{where.value}"}, '%')
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and !where.prefix and !where.suffix">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@LIKE and !where.prefix and !where.suffix and where.value != null">
                                         ${r"${where.column}"} LIKE ${r"#{where.value}"}
                                     </when>
 
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and where.prefix and where.suffix">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and where.prefix and where.suffix and where.value != null">
                                         ${r"${where.column}"} NOT LIKE CONCAT('%', ${r"#{where.value}"}, '%')
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and where.prefix and !where.suffix">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and where.prefix and !where.suffix and where.value != null">
                                         ${r"${where.column}"} NOT LIKE CONCAT('%', ${r"#{where.value}"})
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and !where.prefix and where.suffix">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and !where.prefix and where.suffix and where.value != null">
                                         ${r"${where.column}"} NOT LIKE CONCAT(${r"#{where.value}"}, '%')
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and !where.prefix and !where.suffix">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_LIKE and !where.prefix and !where.suffix and where.value != null">
                                         ${r"${where.column}"} NOT LIKE ${r"#{where.value}"}
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@IN">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@IN and where.value != null and where.value.size() > 0">
                                        ${r"${where.column}"} IN
                                         <foreach collection="where.value" item="item" open="(" separator="," close=")">
                                             ${r"#{item}"}
                                         </foreach>
                                     </when>
-                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_IN">
+                                    <when test="where.enumOperator == @com.neegix.application.query.EnumOperator@NOT_IN and where.value != null and where.value.size() > 0">
                                         ${r"${where.column}"} NOT IN
                                         <foreach collection="where.value" item="item" open="(" separator="," close=")">
                                             ${r"#{item}"}

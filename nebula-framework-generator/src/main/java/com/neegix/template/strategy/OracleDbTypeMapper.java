@@ -1,6 +1,7 @@
 package com.neegix.template.strategy;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 
 /**
@@ -41,8 +42,7 @@ public class OracleDbTypeMapper implements DbTypeMapper {
             case "FLOAT" -> Float.class;
             case "DOUBLE PRECISION" -> Double.class;
             case "BOOLEAN" -> Boolean.class;
-            case "DATE" -> Date.class;
-            case "TIMESTAMP" -> Timestamp.class;
+            case "DATE", "TIMESTAMP" -> Instant.class;
             default -> Object.class;
         };
     }

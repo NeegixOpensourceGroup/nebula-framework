@@ -27,8 +27,15 @@ import ${column.fullyQualifiedJavaType};
 public class Query${templateTable.javaTableName}Form {
     <#if templateTable.columns?exists>
         <#list templateTable.columns as column>
+            <#if column.fullyQualifiedJavaType?contains("Instant")>
+    // ${column.description}-开始
+    private ${column.javaType} start${column.javaName?cap_first};
+    // ${column.description}-结束
+    private ${column.javaType} end${column.javaName?cap_first};
+            <#else>
     // ${column.description}
     private ${column.javaType} ${column.javaName};
+            </#if>
         </#list>
     </#if>
 }

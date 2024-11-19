@@ -1,6 +1,7 @@
 package com.neegix.template.strategy;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 
 /**
@@ -32,8 +33,7 @@ public class MySqlDbTypeMapper implements DbTypeMapper {
             case "FLOAT" -> Float.class;
             case "DOUBLE" -> Double.class;
             case "BOOLEAN","TINYINT" -> Boolean.class;
-            case "DATE" -> Date.class;
-            case "TIMESTAMP","DATETIME" -> Timestamp.class;
+            case "DATE","TIMESTAMP","DATETIME" -> Instant.class;
             default -> Object.class;
         };
     }

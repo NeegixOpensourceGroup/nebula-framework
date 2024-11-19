@@ -1,6 +1,7 @@
 package com.neegix.template.strategy;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 
 /**
@@ -32,8 +33,7 @@ public class SqlServerDbTypeMapper implements DbTypeMapper {
             case "FLOAT" -> Double.class; // SQL Server 中的 FLOAT 默认是双精度
             case "REAL" -> Float.class;
             case "BIT" -> Boolean.class;
-            case "DATE" -> Date.class;
-            case "DATETIME", "SMALLDATETIME", "DATETIME2" -> Timestamp.class;
+            case "DATE", "DATETIME", "SMALLDATETIME", "DATETIME2" -> Instant.class;
             default -> Object.class;
         };
     }

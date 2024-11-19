@@ -50,11 +50,16 @@ public class TemplateDataFactory {
                     ", Description: " + column.getDescription()
             );
             TemplateColumn templateColumn;
+
             if (!imports.contains(dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()))){
-                templateColumn = new TemplateColumn(StringUtils.toCamelCase(column.getColumnName()), column.getColumnName(), column.isPrimaryKey(), dbTypeMapper.mapToJavaType(column.getDataType()), column.getDescription(),dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()), true);
+                templateColumn = new TemplateColumn(StringUtils.toCamelCase(column.getColumnName()), column.getColumnName(), column.isPrimaryKey(), column.getIsNullable().contains("N"), dbTypeMapper.mapToJavaType(column.getDataType()), column.getDescription(),dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()), true);
                 imports.add(dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()));
             } else {
-                templateColumn = new TemplateColumn(StringUtils.toCamelCase(column.getColumnName()), column.getColumnName(), column.isPrimaryKey(), dbTypeMapper.mapToJavaType(column.getDataType()), column.getDescription(),dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()), false);
+                templateColumn = new TemplateColumn(StringUtils.toCamelCase(column.getColumnName()), column.getColumnName(), column.isPrimaryKey(), column.getIsNullable().contains("N"), dbTypeMapper.mapToJavaType(column.getDataType()), column.getDescription(),dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()), false);
+            }
+            if(column.getIsNullable().contains("N") && !imports.contains("jakarta.validation.constraints.NotEmpty")){
+                imports.add("jakarta.validation.constraints.NotEmpty");
+                templateColumn.setFirstEmptyPackage(true);
             }
 
             templateColumns.add(templateColumn);

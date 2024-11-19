@@ -1,11 +1,16 @@
 <#assign currentTime = .now>
+    <#assign extraColumns = ["create_time", "create_user", "update_time", "update_user"]>
+
 package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form;
 
 import lombok.Data;
 <#if templateTable.columns?exists>
     <#list templateTable.columns as column>
-        <#if !(column.fullyQualifiedJavaType?contains("lang")) && column.isFirstImportPackage()>
+        <#if !(column.fullyQualifiedJavaType?contains("lang")) && column.isFirstImportPackage() && !extraColumns?seq_contains(column.sqlName)>
 import ${column.fullyQualifiedJavaType};
+        </#if>
+        <#if column.isFirstEmptyPackage()>
+import jakarta.validation.constraints.NotEmpty;
         </#if>
     </#list>
 </#if>
@@ -27,8 +32,13 @@ import ${column.fullyQualifiedJavaType};
 public class Update${templateTable.javaTableName}Form {
     <#if templateTable.columns?exists>
         <#list templateTable.columns as column>
+            <#if !extraColumns?seq_contains(column.sqlName)>
     // ${column.description}
+                <#if column.isAllowedNull()>
+    @NotEmpty(message="${column.description}不能为空")
+                </#if>
     private ${column.javaType} ${column.javaName};
+            </#if>
         </#list>
     </#if>
 }
