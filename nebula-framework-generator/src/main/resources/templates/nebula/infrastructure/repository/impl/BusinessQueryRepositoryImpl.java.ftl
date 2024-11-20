@@ -54,19 +54,17 @@ public class ${templateTable.javaTableName}QueryRepositoryImpl implements ${temp
     @Override
     public PageVO<${templateTable.javaTableName}VO> findPage(Integer currentPage, Integer pageSize, ${templateTable.javaTableName}DTO ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO) {
         NebulaSQL nebulaSQL = new NebulaSQL();
-        nebulaSQL.createWhereGroups(${templateTable.javaTableName}WhereGroup.class)
-        <#if templateTable.columns?exists>
-            <#list templateTable.columns as column>
-                <#if column.fullyQualifiedJavaType?contains("Instant")>
-            .and${column.javaName?cap_first}Between(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO.getStart${column.javaName?cap_first}(),${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO.getEnd${column.javaName?cap_first}())
-                <#elseif column.fullyQualifiedJavaType?contains("String")>
-            .and${column.javaName?cap_first}LikeTo(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO.get${column.javaName?cap_first}())
-                <#else>
-            .and${column.javaName?cap_first}EqualTo(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO.get${column.javaName?cap_first}())
-                </#if>
-            </#list>
-            ;
-        </#if>
+        nebulaSQL.createWhereGroups(${templateTable.javaTableName}WhereGroup.class)<#if templateTable.columns?exists>
+           <#list templateTable.columns as column>
+               <#if column.fullyQualifiedJavaType?contains("Instant")>
+           .and${column.javaName?cap_first}Between(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO.getStart${column.javaName?cap_first}(),${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO.getEnd${column.javaName?cap_first}())<#if !column?has_next>;</#if>
+               <#elseif column.fullyQualifiedJavaType?contains("String")>
+           .and${column.javaName?cap_first}LikeTo(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO.get${column.javaName?cap_first}())<#if !column?has_next>;</#if>
+               <#else>
+           .and${column.javaName?cap_first}EqualTo(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DTO.get${column.javaName?cap_first}())<#if !column?has_next>;</#if>
+               </#if>
+           </#list>
+           <#else>;</#if>
         nebulaSQL.setPager(currentPage, pageSize);
         List<${templateTable.javaTableName}DO> result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Mapper.selectList(nebulaSQL);
         Long total = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Mapper.selectCount(nebulaSQL);
