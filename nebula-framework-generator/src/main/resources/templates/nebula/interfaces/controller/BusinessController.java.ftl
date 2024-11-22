@@ -1,4 +1,9 @@
 <#assign currentTime = .now>
+<#-- 使用 ?split 方法将字符串按 '.' 分割成列表 -->
+<#assign modules = templateTable.packageName?split(".")>
+<#-- 使用 last 方法获取列表中的最后一个元素 -->
+<#assign module = modules?last>
+
 package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.controller;
 
 import com.neegix.base.PageVO;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,18 +53,21 @@ public class ${templateTable.javaTableName}Controller {
     @Autowired
     private ${templateTable.javaTableName}Service ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service;
 
+    @PreAuthorize("hasAuthority('${module}:${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}:add')")
     @PostMapping
     public Result<Void> create${templateTable.javaTableName}(@RequestBody New${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
         Void result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.create${templateTable.javaTableName}(${templateTable.javaTableName}Assembler.INSTANCE.covertEntity(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form));
         return Result.success("创建成功", result);
     }
 
+    @PreAuthorize("hasAuthority('${module}:${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}:modify')")
     @PutMapping
     public Result<Void> update${templateTable.javaTableName}(@RequestBody Update${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
         Void result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.modify${templateTable.javaTableName}(${templateTable.javaTableName}Assembler.INSTANCE.covertEntity(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form));
         return Result.success("更新成功",result);
     }
 
+    @PreAuthorize("hasAuthority('${module}:${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}:list')")
     @GetMapping("/{currentPage}/{pageSize}")
     public Result<PageVO<${templateTable.javaTableName}VO>> get${templateTable.javaTableName}s(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @RequestBody(required = false) Query${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
         if(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form == null) {
@@ -68,12 +77,14 @@ public class ${templateTable.javaTableName}Controller {
         return Result.success("查询成功",pageVO);
     }
 
+    @PreAuthorize("hasAuthority('${module}:${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}:get')")
     @GetMapping("/{id}")
     public Result<${templateTable.javaTableName}VO> get${templateTable.javaTableName}ById(@PathVariable("id") Long id) {
         Optional<${templateTable.javaTableName}VO> optional = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}QueryRepository.findById(id);
         return Result.success("获取成功", optional.orElseThrow(()-> new BusinessRuntimeException("查询结果不存在")));
     }
 
+    @PreAuthorize("hasAuthority('${module}:${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}:remove')")
     @DeleteMapping
     public Result<Void> remove${templateTable.javaTableName}(@RequestBody List<Long> ids){
         return Result.success("删除成功", ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.remove${templateTable.javaTableName}(ids));
