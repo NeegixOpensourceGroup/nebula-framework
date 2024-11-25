@@ -5,6 +5,7 @@ import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.domain.entity.${templateTable.javaTableName}Entity;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -24,8 +25,20 @@ import java.util.List;
 
 @Mapper
 public interface ${templateTable.javaTableName}Converter {
+
     ${templateTable.javaTableName}Converter INSTANCE = Mappers.getMapper(${templateTable.javaTableName}Converter.class);
+
     ${templateTable.javaTableName}DO covertDO(${templateTable.javaTableName}Entity ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity);
+
+    @Mapping(target = "startCreateTime", ignore = true)
+    @Mapping(target = "startUpdateTime", ignore = true)
+    @Mapping(target = "endCreateTime", ignore = true)
+    @Mapping(target = "endUpdateTime", ignore = true)
     ${templateTable.javaTableName}DTO covertDTO(${templateTable.javaTableName}DO ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DO);
+
+    @Mapping(target = "startCreateTime", ignore = true)
+    @Mapping(target = "startUpdateTime", ignore = true)
+    @Mapping(target = "endCreateTime", ignore = true)
+    @Mapping(target = "endUpdateTime", ignore = true)
     List<${templateTable.javaTableName}DTO> covertDTOS(List<${templateTable.javaTableName}DO> ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}DOS);
 }

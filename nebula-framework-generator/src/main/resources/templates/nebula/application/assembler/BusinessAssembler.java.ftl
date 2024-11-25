@@ -8,6 +8,7 @@ import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.Query${templateTable.javaTableName}Form;
 import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.Update${templateTable.javaTableName}Form;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import java.util.List;
 
@@ -28,10 +29,22 @@ import java.util.List;
 public interface ${templateTable.javaTableName}Assembler {
     ${templateTable.javaTableName}Assembler INSTANCE = Mappers.getMapper(${templateTable.javaTableName}Assembler.class);
 
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "createUser", ignore = true)
+    @Mapping(target = "updateUser", ignore = true)
     ${templateTable.javaTableName}Entity covertEntity(New${templateTable.javaTableName}Form new${templateTable.javaTableName}Form);
 
+    @Mapping(target = "createTime", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "createUser", ignore = true)
+    @Mapping(target = "updateUser", ignore = true)
     ${templateTable.javaTableName}Entity covertEntity(Update${templateTable.javaTableName}Form update${templateTable.javaTableName}Form);
 
+    @Mapping(target = "createTime", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
     ${templateTable.javaTableName}DTO covertDTO(Query${templateTable.javaTableName}Form query${templateTable.javaTableName}Form);
 
     List<${templateTable.javaTableName}VO> covertVO(List<${templateTable.javaTableName}DTO> ${templateTable.javaTableName}DTOs);
