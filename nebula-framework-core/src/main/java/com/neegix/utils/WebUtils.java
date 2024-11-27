@@ -18,10 +18,10 @@ import java.io.IOException;
 @Slf4j
 public class WebUtils {
 
-    public static void renderString(HttpServletResponse response, Result<?> result) {
+    public static void renderString( HttpServletResponse response, Result<?> result) {
         try
         {
-            response.setStatus(200);
+            response.setStatus(result.getCode());
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().print(JSON.toJSONString(result));

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.security.auth.login.CredentialException;
 import java.util.Arrays;
 
 /**
@@ -39,9 +40,9 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(CredentialException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public  <T> Result<T> handlerCommonException(Exception ex){
-        return Result.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), Arrays.toString(ex.getStackTrace()), ex);
+    public  <T> Result<T> handlerCommonException(CredentialException ex){
+        return Result.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage(), ex);
     }
 }
