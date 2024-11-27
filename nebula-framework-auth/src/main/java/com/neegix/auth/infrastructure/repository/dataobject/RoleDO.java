@@ -16,5 +16,5 @@ import lombok.EqualsAndHashCode;
 @Data
 public class RoleDO extends BaseDO {
     private String name;
-    private String sign;
+    private String description;
 }

@@ -32,6 +32,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         String errorMessage = "";
+        int code = HttpStatus.FORBIDDEN.value();
         if (authException instanceof BadCredentialsException) {
             errorMessage = authException.getMessage();
             // 处理错误的凭据异常
@@ -46,11 +47,12 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
             // 处理凭据过期异常
         } else if (authException instanceof InsufficientAuthenticationException) {
            errorMessage = "访问这个资源需要完整的认证";
+           code = HttpStatus.METHOD_NOT_ALLOWED.value();
         } else {
             errorMessage = "其他认证异常";
             // 通用处理
         }
-        Result<?> result = Result.failure(HttpStatus.FORBIDDEN.value(), errorMessage);
+        Result<?> result = Result.failure(code, errorMessage);
         WebUtils.renderString(response, result);
     }
 }

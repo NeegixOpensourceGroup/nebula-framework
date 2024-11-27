@@ -2,12 +2,15 @@ package com.neegix.auth.infrastructure.config.filter;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.neegix.auth.interfaces.vo.NebulaUserDetails;
+import com.neegix.result.Result;
 import com.neegix.utils.JWTUtils;
+import com.neegix.utils.WebUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -45,7 +48,8 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         // 如果用户失效，则验证失败
         if (nebulaUserDetails == null){
-            filterChain.doFilter(request, response);
+            WebUtils.renderString(response, Result.failure(HttpStatus.FORBIDDEN.value(), "凭证过期！"));
+            //filterChain.doFilter(request, response);
             return;
         }
         //TODO 否则 重置生效时间(需引入redis)

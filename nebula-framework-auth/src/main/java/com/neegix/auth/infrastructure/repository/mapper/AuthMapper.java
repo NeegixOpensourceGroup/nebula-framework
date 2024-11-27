@@ -17,5 +17,7 @@ import java.util.List;
 @Mapper
 public interface AuthMapper {
     List<RoleDO> selectRoleByUserId(Long userId);
+    List<String> selectMenuPermissionByRoleIds(List<Long> roleIds);
+    List<String> selectApiPermissionByRoleIds(List<Long> roleIds);
     UserDO selectUserByName(String name);
 }

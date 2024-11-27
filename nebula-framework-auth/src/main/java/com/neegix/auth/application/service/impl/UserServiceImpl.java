@@ -4,10 +4,14 @@ import com.neegix.auth.application.dto.UserDTO;
 import com.neegix.auth.application.query.AuthQueryRepository;
 import com.neegix.auth.interfaces.vo.NebulaUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -29,7 +33,8 @@ public class UserServiceImpl implements UserDetailsService {
         NebulaUserDetails nebulaUserDetails = new NebulaUserDetails();
         nebulaUserDetails.setId(userDTO.getId());
         nebulaUserDetails.setUsername(userDTO.getName());
-        nebulaUserDetails.setRoles(userDTO.getRoleDTOs());
+        nebulaUserDetails.setMenuPermissions(userDTO.getMenuPermissions());
+        nebulaUserDetails.setAuthorities(userDTO.getApiPermissions().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
         nebulaUserDetails.setPassword(userDTO.getPassword());
         return nebulaUserDetails;
     }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -29,9 +30,11 @@ public class AuthQueryRepositoryImpl implements AuthQueryRepository {
     public UserDTO findUserByName(String name) {
         UserDO user = authMapper.selectUserByName(name);
         List<RoleDO> roleDOS = authMapper.selectRoleByUserId(user.getId());
+        List<String> menuPermissions = authMapper.selectMenuPermissionByRoleIds(roleDOS.stream().map(RoleDO::getId).collect(Collectors.toList()));
+        List<String> apiPermissions = authMapper.selectApiPermissionByRoleIds(roleDOS.stream().map(RoleDO::getId).collect(Collectors.toList()));
         UserDTO userDTO = UserAssembler.INSTANCE.covertToUserDTO(user);
-        List<RoleDTO> roleDTOList = UserAssembler.INSTANCE.convertToRoleDTOList(roleDOS);
-        userDTO.setRoleDTOs(roleDTOList);
+        userDTO.setMenuPermissions(menuPermissions);
+        userDTO.setApiPermissions(apiPermissions);
         return userDTO;
     }
 }

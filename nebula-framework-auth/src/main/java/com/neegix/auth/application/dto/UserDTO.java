@@ -20,5 +20,6 @@ public class UserDTO extends BaseDTO {
     private Long id;
     private String name;
     private String password;
-    private List<RoleDTO> roleDTOs;
+    private List<String> menuPermissions;
+    private List<String> apiPermissions;
 }

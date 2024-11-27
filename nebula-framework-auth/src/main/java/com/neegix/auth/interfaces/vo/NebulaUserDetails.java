@@ -28,21 +28,10 @@ public class NebulaUserDetails implements UserDetails {
 
     private String password;
 
-    private List<RoleDTO> roles;
+    private List<String> menuPermissions;
 
     //存储SpringSecurity所需要的权限信息的集合
     @JSONField(serialize = false)
     private List<GrantedAuthority> authorities;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(authorities!=null){
-            return authorities;
-        }
-        //把roles中权限信息转换成GrantedAuthority对象存入authorities中
-        authorities = roles.stream().map(RoleDTO::getSign).
-                map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-        return authorities;
-    }
 }

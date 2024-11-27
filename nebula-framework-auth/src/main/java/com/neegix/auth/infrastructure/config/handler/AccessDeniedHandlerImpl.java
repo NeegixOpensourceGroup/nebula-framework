@@ -24,7 +24,7 @@ import java.io.IOException;
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        Result<?> result = Result.failure( HttpStatus.METHOD_NOT_ALLOWED.value(), "此接口没有权限");
+        Result<?> result = Result.failure( HttpStatus.METHOD_NOT_ALLOWED.value(), "此接口没有访问权限");
         WebUtils.renderString(response, result);
     }
 }

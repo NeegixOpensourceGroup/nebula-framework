@@ -8,12 +8,50 @@
         <result column="create_user" property="createUser" />
         <result column="update_user" property="updateUser" />
         <result column="name" property="name" />
-        <result column="sign" property="sign" />
+        <result column="description" property="description" />
     </resultMap>
 
     <!-- 根据账号名称查询用户信息 -->
     <select id="selectRoleByUserId" resultMap="SysRoleResultMap">
         select role.* from sys_user_role_rel rel left join sys_role role on rel.pk_role = role.id  where pk_user=#{userId,jdbcType=BIGINT}
+    </select>
+
+    <!--  根据角色ID查询菜单权限  -->
+    <select id="selectMenuPermissionByRoleIds" resultType="java.lang.String">
+        select
+            sm.access
+        from
+            sys_role sr
+            left join sys_role_menu_rel srmr on
+            sr.id = srmr.pk_role
+            left join sys_menu sm on
+            srmr.pk_menu = sm.id
+        <where>
+            sr.id in
+            <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+            AND sm.access IS NOT NULL
+        </where>
+    </select>
+
+    <!--  根据角色ID查询菜单权限  -->
+    <select id="selectApiPermissionByRoleIds" resultType="java.lang.String">
+        select
+            sa.access
+        from
+            sys_role sr
+            left join sys_role_api_rel srar on
+            sr.id = srar.pk_role
+            left join sys_api sa on
+            srar.pk_api = sa.id
+        <where>
+            sr.id in
+            <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+            AND sa.access IS NOT NULL
+        </where>
     </select>
 
     <resultMap id="SysUserResultMap" type="com.neegix.auth.infrastructure.repository.dataobject.UserDO">

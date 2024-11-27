@@ -1,9 +1,11 @@
 package com.neegix.auth.interfaces.controller;
 
 import com.neegix.auth.application.service.AuthService;
+import com.neegix.auth.interfaces.vo.NebulaUserDetails;
 import com.neegix.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,10 +43,15 @@ public class AuthController {
         return Result.success("注册成功");
     }
 
-    @GetMapping("/authorities")
-    @PreAuthorize("hasAuthority('system:authority')")
-    public Result<List<String>> authorities(){
-        List<String> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+    @GetMapping("/access")
+    @PreAuthorize("hasAuthority('system:menu:access')")
+    public Result<List<String>> access(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<String> authorities = null;
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof NebulaUserDetails nebulaUserDetails){
+            authorities = nebulaUserDetails.getMenuPermissions();
+        }
         return Result.success("权限获取成功", authorities);
     }
 }

@@ -22,8 +22,7 @@ import java.util.List;
 public interface UserAssembler {
     UserAssembler INSTANCE = Mappers.getMapper(UserAssembler.class);
 
-    @Mapping(target = "roleDTOs", ignore = true)
+    @Mapping(target = "menuPermissions", ignore = true)
+    @Mapping(target = "apiPermissions", ignore = true)
     UserDTO covertToUserDTO(UserDO userDO);
-
-    List<RoleDTO> convertToRoleDTOList(List<RoleDO> roleDOS);
 }
