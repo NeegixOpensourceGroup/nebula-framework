@@ -1,7 +1,5 @@
 package com.neegix.application.query;
 
-import com.neegix.base.PageVO;
-
 import java.util.List;
 import java.util.Optional;
 

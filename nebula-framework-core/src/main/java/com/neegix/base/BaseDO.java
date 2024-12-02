@@ -2,6 +2,7 @@ package com.neegix.base;
 
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.Date;
 
 /**
@@ -15,8 +16,8 @@ import java.util.Date;
 @Data
 public class BaseDO {
     private Long id;
-    private Date createTime;
-    private Date updateTime;
+    private Instant createTime;
+    private Instant updateTime;
     private Long createUser;
     private Long updateUser;
 

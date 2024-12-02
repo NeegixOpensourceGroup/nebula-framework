@@ -3,6 +3,7 @@ package com.neegix.base;
 import com.neegix.utils.SnowFlake;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.Date;
 
 /**
@@ -16,8 +17,8 @@ import java.util.Date;
 @Data
 public class BaseEntity {
     private Long id = new SnowFlake(1, 1).nextId();
-    private Date createTime;
-    private Date updateTime;
+    private Instant createTime;
+    private Instant updateTime;
     private Long createUser;
     private Long updateUser;
 }
