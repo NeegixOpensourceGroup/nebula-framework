@@ -17,6 +17,6 @@ import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+
   * @since ${currentTime?string("yyyy-MM-dd HH:mm:ss")}
   */
 
-public interface ${templateTable.javaTableName}QueryRepository extends IQueryRepository<<#if templateTable.columns?exists><#list templateTable.columns as column><#if column.isPrimaryKey()>${column.javaType}</#if></#list></#if>, ${templateTable.javaTableName}DTO, ${templateTable.javaTableName}VO> {
+public interface ${templateTable.javaTableName}QueryRepository<<#if templateTable.columns?exists><#list templateTable.columns as column><#if column.isPrimaryKey()>${column.javaType}</#if></#list></#if>, ${templateTable.javaTableName}DTO, ${templateTable.javaTableName}VO> extends IPageableQueryRepository<<#if templateTable.columns?exists><#list templateTable.columns as column><#if column.isPrimaryKey()>${column.javaType}</#if></#list></#if>, ${templateTable.javaTableName}DTO, ${templateTable.javaTableName}VO> {
 
 }

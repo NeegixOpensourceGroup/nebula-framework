@@ -29,55 +29,55 @@ public class ${templateTable.javaTableName}WhereGroup extends WhereGroups {
     <#if templateTable.columns?exists>
         <#list templateTable.columns as column>
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}IsNull() {
-        addCriterion("${column.javaName}", EnumOperator.IS_NULL, null);
+        addCriterion("${column.sqlName}", EnumOperator.IS_NULL, null);
         return this;
     }
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}IsNotNull() {
-        addCriterion("${column.javaName}", EnumOperator.IS_NOT_NULL, null);
+        addCriterion("${column.sqlName}", EnumOperator.IS_NOT_NULL, null);
         return this;
     }
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}EqualTo(${column.javaType} value) {
-        addCriterion("${column.javaName}", EnumOperator.EQUAL, value);
+        addCriterion("${column.sqlName}", EnumOperator.EQUAL, value);
         return this;
     }
 
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}NotEqualTo(${column.javaType} value) {
-        addCriterion("${column.javaName}", EnumOperator.NOT_EQUAL, value);
+        addCriterion("${column.sqlName}", EnumOperator.NOT_EQUAL, value);
         return this;
     }
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}Between(${column.javaType} value1, ${column.javaType} value2) {
-        addCriterion("${column.javaName}", EnumOperator.GREATER_EQUAL_THAN, value1);
-        addCriterion("${column.javaName}", EnumOperator.LESS_EQUAL_THAN, value2);
+        addCriterion("${column.sqlName}", EnumOperator.GREATER_EQUAL_THAN, value1);
+        addCriterion("${column.sqlName}", EnumOperator.LESS_EQUAL_THAN, value2);
         return this;
     }
 
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}NotBetween(${column.javaType} value1, ${column.javaType} value2) {
-        addCriterion("${column.javaName}", EnumOperator.LESS_THAN, value1);
-        addCriterion("${column.javaName}", EnumOperator.GREATER_THAN, value2);
+        addCriterion("${column.sqlName}", EnumOperator.LESS_THAN, value1);
+        addCriterion("${column.sqlName}", EnumOperator.GREATER_THAN, value2);
         return this;
     }
 
 
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}LikeTo(${column.javaType} value) {
-        addCriterion("${column.javaName}", EnumOperator.LIKE, true, value, true);
+        addCriterion("${column.sqlName}", EnumOperator.LIKE, true, value, true);
         return this;
     }
 
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}LikeTo(boolean prefix, ${column.javaType} value) {
-        addCriterion("${column.javaName}", EnumOperator.LIKE, prefix, value, false);
+        addCriterion("${column.sqlName}", EnumOperator.LIKE, prefix, value, false);
         return this;
     }
 
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}LikeTo(${column.javaType} value, boolean suffix) {
-        addCriterion("${column.javaName}", EnumOperator.LIKE, false, value, suffix);
+        addCriterion("${column.sqlName}", EnumOperator.LIKE, false, value, suffix);
         return this;
     }
 
@@ -85,32 +85,32 @@ public class ${templateTable.javaTableName}WhereGroup extends WhereGroups {
 
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}NotLikeTo(${column.javaType} value) {
-        addCriterion("${column.javaName}", EnumOperator.NOT_LIKE, true, value, true);
+        addCriterion("${column.sqlName}", EnumOperator.NOT_LIKE, true, value, true);
         return this;
     }
 
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}NotLikeTo(boolean prefix, ${column.javaType} value) {
-        addCriterion("${column.javaName}", EnumOperator.NOT_LIKE, prefix, value, false);
+        addCriterion("${column.sqlName}", EnumOperator.NOT_LIKE, prefix, value, false);
         return this;
     }
 
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}NotLikeTo(${column.javaType} value, boolean suffix) {
-        addCriterion("${column.javaName}", EnumOperator.NOT_LIKE, false, value, suffix);
+        addCriterion("${column.sqlName}", EnumOperator.NOT_LIKE, false, value, suffix);
         return this;
     }
 
 
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}In(List<${column.javaType}> list) {
-        addCriterion("${column.javaName}", EnumOperator.IN, list);
+        addCriterion("${column.sqlName}", EnumOperator.IN, list);
         return this;
     }
 
 
     public ${templateTable.javaTableName}WhereGroup and${column.javaName?cap_first}NotIn(List<${column.javaType}> list) {
-        addCriterion("${column.javaName}", EnumOperator.NOT_IN, list);
+        addCriterion("${column.sqlName}", EnumOperator.NOT_IN, list);
         return this;
     }
 

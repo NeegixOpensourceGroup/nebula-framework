@@ -61,9 +61,11 @@ public class ${templateTable.javaTableName}Controller {
     }
 
     @PreAuthorize("hasAuthority('${module}:${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}:modify')")
-    @PutMapping
-    public Result<Void> update${templateTable.javaTableName}(@RequestBody Update${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
-        Void result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.modify${templateTable.javaTableName}(${templateTable.javaTableName}Assembler.INSTANCE.covertEntity(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form));
+    @PutMapping("/{id}")
+    public Result<Void> update${templateTable.javaTableName}(@PathVariable Long id, @RequestBody Update${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
+        ${templateTable.javaTableName}Entity ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity = ${templateTable.javaTableName}Assembler.INSTANCE.covertEntity(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form);
+        ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity.setId(id);
+        Void result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.modify${templateTable.javaTableName}(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity);
         return Result.success("更新成功",result);
     }
 
