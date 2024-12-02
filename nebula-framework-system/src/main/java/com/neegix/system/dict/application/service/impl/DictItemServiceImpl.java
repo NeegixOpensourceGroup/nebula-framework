@@ -2,7 +2,6 @@ package com.neegix.system.dict.application.service.impl;
 
 import com.neegix.application.command.BaseService;
 import com.neegix.exception.BusinessRuntimeException;
-import com.neegix.system.dict.application.assembler.DictItemAssembler;
 import com.neegix.system.dict.application.cqrs.command.BatchDeleteDictItemCommand;
 import com.neegix.system.dict.application.cqrs.command.NewDictItemCommand;
 import com.neegix.system.dict.application.cqrs.command.UpdateDictItemCommand;
@@ -10,8 +9,6 @@ import com.neegix.system.dict.application.cqrs.query.DictItemQueryRepository;
 import com.neegix.system.dict.application.dto.DictItemDTO;
 import com.neegix.system.dict.application.service.DictItemService;
 import com.neegix.system.dict.domain.entity.DictItemEntity;
-import com.neegix.system.dict.interfaces.form.NewDictItemForm;
-import com.neegix.system.dict.interfaces.form.UpdateDictItemForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,25 +29,23 @@ public class DictItemServiceImpl extends BaseService implements DictItemService 
     private DictItemQueryRepository dictItemQueryRepository;
 
     @Override
-    public Void createDictItem(NewDictItemForm newDictItemForm) {
-        Optional<DictItemDTO> optional = dictItemQueryRepository.findByName(newDictItemForm.getName());
+    public Void createDictItem(DictItemEntity dictItemEntity) {
+        Optional<DictItemDTO> optional = dictItemQueryRepository.findByName(dictItemEntity.getName());
         optional.ifPresent((dictItemDTO)-> {throw new BusinessRuntimeException("字典项已经存在！");});
-        DictItemEntity dictItemEntity = DictItemAssembler.INSTANCE.covertEntity(newDictItemForm);
         return commandInvoker.execute(new NewDictItemCommand(dictItemEntity));
     }
 
     @Override
-    public Void modifyDictItem(UpdateDictItemForm updateDictItemForm) {
-        DictItemEntity dictItemEntity = DictItemAssembler.INSTANCE.covertEntity(updateDictItemForm);
+    public Void modifyDictItem(DictItemEntity dictItemEntity) {
         return commandInvoker.execute(new UpdateDictItemCommand(dictItemEntity));
     }
 
     @Override
-    public Void removeDictItem(List<Long> ids) {
+    public Void removeDictItem(Long pkDictGroup, List<Long> ids) {
         Integer count = dictItemQueryRepository.selectCount(ids);
         if (count.equals(0)){
             throw new BusinessRuntimeException("要删除的记录不存在！");
         }
-        return commandInvoker.execute(new BatchDeleteDictItemCommand(ids));
+        return commandInvoker.execute(new BatchDeleteDictItemCommand(pkDictGroup, ids));
     }
 }

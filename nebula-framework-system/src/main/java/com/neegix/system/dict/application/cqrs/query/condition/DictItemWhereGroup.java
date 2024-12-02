@@ -43,6 +43,12 @@ public class DictItemWhereGroup extends WhereGroups {
         return this;
     }
 
+
+    public DictItemWhereGroup andIdIn(List<Long> list) {
+        addCriterion("id", EnumOperator.IN, list);
+        return this;
+    }
+
     public DictItemWhereGroup andNameIsNull() {
         addCriterion("name", EnumOperator.IS_NULL, null);
         return this;
@@ -99,6 +105,10 @@ public class DictItemWhereGroup extends WhereGroups {
         return this;
     }
 
+    public DictItemWhereGroup andPkDictGroupEqualTo(Long value) {
+        addCriterion("pk_dict_group", EnumOperator.EQUAL, value);
+        return this;
+    }
     public DictItemWhereGroup andPkDictGroupIn(List<Long> list) {
         addCriterion("pk_dict_group", EnumOperator.IN, list);
         return this;

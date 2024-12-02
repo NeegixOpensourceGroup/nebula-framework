@@ -54,7 +54,7 @@ public class DictGroupQueryRepositoryImpl implements DictGroupQueryRepository {
     @Override
     public PageVO<DictGroupDTO> findPage(Integer currentPage, Integer pageSize, DictGroupDTO dictGroupDTO) {
         NebulaSQL nebulaSQL = new NebulaSQL();
-        nebulaSQL.createWhereGroups(DictGroupWhereGroup.class);
+        nebulaSQL.createWhereGroups(DictGroupWhereGroup.class).andNameLikeTo(dictGroupDTO.getName());
         nebulaSQL.setPager(currentPage, pageSize);
         List<DictGroupDO> result = dictGroupMapper.selectList(nebulaSQL);
         Long total = dictGroupMapper.selectCount(nebulaSQL);

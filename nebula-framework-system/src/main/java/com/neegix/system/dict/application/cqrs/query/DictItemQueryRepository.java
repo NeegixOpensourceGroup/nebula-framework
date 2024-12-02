@@ -1,7 +1,9 @@
 package com.neegix.system.dict.application.cqrs.query;
 
+import com.neegix.application.query.IQueryRepository;
 import com.neegix.base.PageVO;
 import com.neegix.system.dict.application.dto.DictItemDTO;
+import com.neegix.system.dict.interfaces.vo.DictItemVO;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +16,8 @@ import java.util.Optional;
  * @Date: 2024/09/20/20:39
  * @Description:
  */
-public interface DictItemQueryRepository {
-    Optional<DictItemDTO> findById(Long id);
+public interface DictItemQueryRepository extends IQueryRepository<Long, DictItemDTO, DictItemVO> {
     Optional<DictItemDTO> findByName(String name);
     Integer selectCount(List<Long> ids);
-    PageVO<DictItemDTO> findPage(Integer currentPage, Integer pageSize, DictItemDTO dictItemDTO);
+    PageVO<DictItemVO> findPage(Integer currentPage, Integer pageSize, Long dictGroupId, DictItemDTO dictItemDTO);
 }

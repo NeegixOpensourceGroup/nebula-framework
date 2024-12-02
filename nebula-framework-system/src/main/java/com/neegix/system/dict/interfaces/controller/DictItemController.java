@@ -5,14 +5,16 @@ import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.result.Result;
 import com.neegix.system.dict.application.assembler.DictItemAssembler;
 import com.neegix.system.dict.application.cqrs.query.DictItemQueryRepository;
-import com.neegix.system.dict.application.dto.DictItemDTO;
 import com.neegix.system.dict.application.service.DictItemService;
+import com.neegix.system.dict.domain.entity.DictItemEntity;
 import com.neegix.system.dict.interfaces.form.NewDictItemForm;
 import com.neegix.system.dict.interfaces.form.QueryDictItemForm;
 import com.neegix.system.dict.interfaces.form.UpdateDictItemForm;
+import com.neegix.system.dict.interfaces.vo.DictItemVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,7 +34,7 @@ import java.util.Optional;
  * @Description:
  */
 @RestController
-@RequestMapping("/api/v1/dictItems")
+@RequestMapping("/api/v1/dictItem")
 public class DictItemController {
 
     @Autowired
@@ -41,32 +43,37 @@ public class DictItemController {
     @Autowired
     private DictItemService dictItemService;
 
-    @PostMapping
-    public Result<Void> createDictItem(@RequestBody NewDictItemForm newDictItemForm){
-        Void result = dictItemService.createDictItem(newDictItemForm);
+    @PostMapping("/{pkDictGroup}")
+    public Result<Void> createDictItem(@PathVariable("pkDictGroup") Long pkDictGroup, @RequestBody NewDictItemForm newDictItemForm){
+        DictItemEntity dictItemEntity = DictItemAssembler.INSTANCE.covertEntity(newDictItemForm);
+        dictItemEntity.setPkDictGroup(pkDictGroup);
+        Void result = dictItemService.createDictItem(dictItemEntity);
         return Result.success("创建成功", result);
     }
 
-    @PutMapping
-    public Result<Void> updateDictItem(@RequestBody UpdateDictItemForm updateDictItemForm){
-        Void result = dictItemService.modifyDictItem(updateDictItemForm);
+    @PutMapping("/{pkDictGroup}/{id}")
+    public Result<Void> updateDictItem(@PathVariable("pkDictGroup") Long pkDictGroup, @PathVariable("id") Long id,  @RequestBody UpdateDictItemForm updateDictItemForm){
+        DictItemEntity dictItemEntity = DictItemAssembler.INSTANCE.covertEntity(updateDictItemForm);
+        dictItemEntity.setPkDictGroup(pkDictGroup);
+        dictItemEntity.setId(id);
+        Void result = dictItemService.modifyDictItem(dictItemEntity);
         return Result.success("更新成功",result);
     }
 
-    @GetMapping("/{currentPage}/{pageSize}")
-    public Result<PageVO<DictItemDTO>> getDictItems(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @RequestBody QueryDictItemForm queryDictItemForm){
-        PageVO<DictItemDTO> pageDTO = dictItemQueryRepository.findPage(currentPage, pageSize, DictItemAssembler.INSTANCE.covertDTO(queryDictItemForm));
-        return Result.success("查询成功",pageDTO);
+    @GetMapping("/{currentPage}/{pageSize}/{dictGroupId}")
+    public Result<PageVO<DictItemVO>> getDictItems(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @PathVariable("dictGroupId") Long dictGroupId,  @ModelAttribute QueryDictItemForm queryDictItemForm){
+        PageVO<DictItemVO> pageVO = dictItemQueryRepository.findPage(currentPage, pageSize, dictGroupId, DictItemAssembler.INSTANCE.covertDTO(queryDictItemForm));
+        return Result.success("查询成功",pageVO);
     }
 
     @GetMapping("/{id}")
-    public Result<DictItemDTO> getDictItemById(@PathVariable("id") Long id) {
-        Optional<DictItemDTO> optional = dictItemQueryRepository.findById(id);
+    public Result<DictItemVO> getDictItemByDictGroupId(@PathVariable("id") Long id) {
+        Optional<DictItemVO> optional = dictItemQueryRepository.findById(id);
         return Result.success("获取成功", optional.orElseThrow(()-> new BusinessRuntimeException("查询结果不存在")));
     }
 
-    @DeleteMapping
-    public Result<Void> removeDictItem(@RequestBody List<Long> ids){
-        return Result.success("删除成功", dictItemService.removeDictItem(ids));
+    @DeleteMapping("/{pkDictGroup}")
+    public Result<Void> removeDictItem(@PathVariable("pkDictGroup") Long pkDictGroup, @RequestBody List<Long> ids){
+        return Result.success("删除成功", dictItemService.removeDictItem(pkDictGroup, ids));
     }
 }

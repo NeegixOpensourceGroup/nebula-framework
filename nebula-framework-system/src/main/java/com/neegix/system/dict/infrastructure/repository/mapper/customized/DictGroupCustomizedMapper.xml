@@ -4,7 +4,7 @@
 
     <!-- 根据Ids查询字典项数量 -->
     <select id="selectCountByIds" resultType="java.lang.Integer">
-        select count(1) from sys_dict_item
+        select count(1) from sys_dict_group
         <where>
             id in
             <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">

@@ -1,4 +1,4 @@
-package com.neegix.system.dict.interfaces.form;
+package com.neegix.system.dict.interfaces.vo;
 
 import lombok.Data;
 
@@ -11,7 +11,9 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class QueryDictItemForm {
+public class DictItemVO {
+    private Long id;
+    private Long pkDictGroup;
     private String name;
     private String value;
     private Integer sort;

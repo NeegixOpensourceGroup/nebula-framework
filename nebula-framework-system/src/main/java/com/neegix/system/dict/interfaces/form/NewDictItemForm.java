@@ -12,7 +12,6 @@ import lombok.Data;
  */
 @Data
 public class NewDictItemForm {
-    private Long pkDictGroup;
     private String name;
     private String value;
     private Integer sort;

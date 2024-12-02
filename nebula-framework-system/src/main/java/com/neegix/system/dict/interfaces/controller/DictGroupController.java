@@ -13,6 +13,7 @@ import com.neegix.system.dict.interfaces.form.UpdateDictGroupForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,7 +33,7 @@ import java.util.Optional;
  * @Description:
  */
 @RestController
-@RequestMapping("/api/v1/dictGroups")
+@RequestMapping("/api/v1/dictGroup")
 public class DictGroupController {
 
     @Autowired
@@ -47,14 +48,14 @@ public class DictGroupController {
         return Result.success("创建成功", result);
     }
 
-    @PutMapping
-    public Result<Void> updateDictGroup(@RequestBody UpdateDictGroupForm dictGroupForm){
-        Void result = dictGroupService.modifyDictGroup(dictGroupForm.getId(), dictGroupForm.getCode(), dictGroupForm.getName());
+    @PutMapping("/{id}")
+    public Result<Void> updateDictGroup(@PathVariable("id") Long id, @RequestBody UpdateDictGroupForm dictGroupForm){
+        Void result = dictGroupService.modifyDictGroup(id, dictGroupForm.getCode(), dictGroupForm.getName());
         return Result.success("更新成功",result);
     }
 
     @GetMapping("/{currentPage}/{pageSize}")
-    public Result<PageVO<DictGroupDTO>> getDictGroups(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @RequestBody QueryDictGroupForm dictGroupForm){
+    public Result<PageVO<DictGroupDTO>> getDictGroups(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @ModelAttribute QueryDictGroupForm dictGroupForm){
         PageVO<DictGroupDTO> pageDTO = dictGroupQueryRepository.findPage(currentPage, pageSize, DictGroupAssembler.INSTANCE.covertDTO(dictGroupForm));
         return Result.success("查询成功",pageDTO);
     }

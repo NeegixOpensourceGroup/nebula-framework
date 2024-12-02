@@ -5,8 +5,11 @@ import com.neegix.system.dict.domain.entity.DictItemEntity;
 import com.neegix.system.dict.interfaces.form.NewDictItemForm;
 import com.neegix.system.dict.interfaces.form.QueryDictItemForm;
 import com.neegix.system.dict.interfaces.form.UpdateDictItemForm;
+import com.neegix.system.dict.interfaces.vo.DictItemVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -25,4 +28,8 @@ public interface DictItemAssembler {
     DictItemEntity covertEntity(UpdateDictItemForm updateDictItemForm);
 
     DictItemDTO covertDTO(QueryDictItemForm queryDictItemForm);
+
+    List<DictItemVO> covertVO(List<DictItemDTO> dictItemDTOS);
+
+    DictItemVO covertVO(DictItemDTO dictItemDTO);
 }

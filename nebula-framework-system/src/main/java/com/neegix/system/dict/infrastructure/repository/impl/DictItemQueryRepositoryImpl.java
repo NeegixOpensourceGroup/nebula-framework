@@ -2,6 +2,7 @@ package com.neegix.system.dict.infrastructure.repository.impl;
 
 import com.neegix.application.query.NebulaSQL;
 import com.neegix.base.PageVO;
+import com.neegix.system.dict.application.assembler.DictItemAssembler;
 import com.neegix.system.dict.application.cqrs.query.DictItemQueryRepository;
 import com.neegix.system.dict.application.cqrs.query.condition.DictItemWhereGroup;
 import com.neegix.system.dict.application.dto.DictItemDTO;
@@ -9,6 +10,7 @@ import com.neegix.system.dict.infrastructure.repository.convert.DictItemConverte
 import com.neegix.system.dict.infrastructure.repository.dataobject.DictItemDO;
 import com.neegix.system.dict.infrastructure.repository.mapper.DictItemMapper;
 import com.neegix.system.dict.infrastructure.repository.mapper.customized.DictItemCustomizedMapper;
+import com.neegix.system.dict.interfaces.vo.DictItemVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,9 +35,9 @@ public class DictItemQueryRepositoryImpl implements DictItemQueryRepository {
     private DictItemCustomizedMapper dictItemCustomizedMapper;
 
     @Override
-    public Optional<DictItemDTO> findById(Long id) {
+    public Optional<DictItemVO> findById(Long id) {
         DictItemDO dictItemDO = dictItemMapper.selectByPrimaryKey(id);
-        return Optional.ofNullable(DictItemConverter.INSTANCE.covertDTO(dictItemDO));
+        return Optional.ofNullable(DictItemAssembler.INSTANCE.covertVO(DictItemConverter.INSTANCE.covertDTO(dictItemDO)));
     }
 
 
@@ -53,15 +55,15 @@ public class DictItemQueryRepositoryImpl implements DictItemQueryRepository {
     }
 
     @Override
-    public PageVO<DictItemDTO> findPage(Integer currentPage, Integer pageSize, DictItemDTO dictItemDTO) {
+    public PageVO<DictItemVO> findPage(Integer currentPage, Integer pageSize, Long dictGroupId, DictItemDTO dictItemDTO) {
         NebulaSQL nebulaSQL = new NebulaSQL();
-        nebulaSQL.createWhereGroups(DictItemWhereGroup.class);
+        nebulaSQL.createWhereGroups(DictItemWhereGroup.class).andPkDictGroupEqualTo(dictGroupId);
         nebulaSQL.setPager(currentPage, pageSize);
         List<DictItemDO> result = dictItemMapper.selectList(nebulaSQL);
         Long count = dictItemMapper.selectCount(nebulaSQL);
-        PageVO<DictItemDTO> page = new PageVO<>(currentPage, pageSize);
+        PageVO<DictItemVO> page = new PageVO<>(currentPage, pageSize);
         page.setTotal(count);
-        page.setResult(DictItemConverter.INSTANCE.covertDTOS(result));
+        page.setResult(DictItemAssembler.INSTANCE.covertVO(DictItemConverter.INSTANCE.covertDTOS(result)));
         return page;
     }
 }

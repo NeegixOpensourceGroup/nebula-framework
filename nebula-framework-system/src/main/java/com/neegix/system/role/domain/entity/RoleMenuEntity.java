@@ -1,4 +1,4 @@
-package com.neegix.system.dict.interfaces.form;
+package com.neegix.system.role.domain.entity;
 
 import lombok.Data;
 
@@ -7,12 +7,11 @@ import lombok.Data;
  * Thank you to JetBrains for their contributions to the vast number of developers
  *
  * @Author: kushu001
- * @Date: 2024/09/20/17:19
+ * @Date: 2024/12/02/14:55
  * @Description:
  */
 @Data
-public class QueryDictItemForm {
-    private String name;
-    private String value;
-    private Integer sort;
+public class RoleMenuEntity {
+    private Long pkMenu;
+    private Boolean isHalf;
 }

@@ -1,7 +1,6 @@
 package com.neegix.system.dict.application.service;
 
-import com.neegix.system.dict.interfaces.form.NewDictItemForm;
-import com.neegix.system.dict.interfaces.form.UpdateDictItemForm;
+import com.neegix.system.dict.domain.entity.DictItemEntity;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
  * @Description:
  */
 public interface DictItemService {
-    Void createDictItem(NewDictItemForm newDictItemForm);
-    Void modifyDictItem(UpdateDictItemForm updateDictItemForm);
-    Void removeDictItem(List<Long> ids);
+    Void createDictItem(DictItemEntity dictItemEntity);
+    Void modifyDictItem(DictItemEntity dictItemEntity);
+    Void removeDictItem(Long pkDictGroup, List<Long> ids);
 }

@@ -56,12 +56,11 @@
                     <url>jdbc:mysql://127.0.0.1:3306/nebula?serverTimezone=GMT%2B8&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</url>
                     <username>root</username>
                     <password>12345678</password>
-                    <packageName>com.neegix.development</packageName>
-                    <tableName>sys_user</tableName>
+                    <packageName>com.neegix.system</packageName>
+                    <tableName>sys_role</tableName>
                     <tablePrefix>sys_</tablePrefix>
                     <schemaOrOwner>nebula</schemaOrOwner>
-                    <templateType>ddd</templateType>
-                    <outputDir>/Users/taoyj/Documents/4-项目管理</outputDir>
+                    <outputDir>/Users/taoyj/Documents/4-项目管理/7-开发平台/1-neegix/1-开源项目/2-代码/1-预览版/nebula-framework/nebula-framework-system/src/main/java</outputDir>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -70,44 +69,44 @@
                         <version>8.4.0</version>
                     </dependency>
                 </dependencies>
-<!--       SQLSERVER DEMO         -->
-<!--                <configuration>-->
-<!--                    <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>-->
-<!--                    <url>jdbc:sqlserver://172.25.25.16:1433;DatabaseName=WMS_CZ;trustServerCertificate=true</url>-->
-<!--                    <username>sa</username>-->
-<!--                    <password>123</password>-->
-<!--                    <tableName>OutInBill</tableName>-->
-<!--                    <schemaOrOwner>BDD</schemaOrOwner>-->
-<!--                </configuration>-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>com.microsoft.sqlserver</groupId>-->
-<!--                        <artifactId>mssql-jdbc</artifactId>-->
-<!--                        <version>12.6.4.jre11</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
-<!--        Oracle Demo        -->
-<!--                <configuration>-->
-<!--                    <driver>oracle.jdbc.OracleDriver</driver>-->
-<!--                    <url>jdbc:oracle:thin:@172.25.25.40:1521:orcl</url>-->
-<!--                    <username>bipmdm</username>-->
-<!--                    <password>bip300190</password>-->
-<!--                    <tableName>BD_MATERIAL</tableName>-->
-<!--                    <schemaOrOwner>BIPDB</schemaOrOwner>-->
-<!--                </configuration>-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>com.oracle.database.jdbc</groupId>-->
-<!--                        <artifactId>ojdbc8</artifactId>-->
-<!--                        <version>21.5.0.0</version>-->
-<!--                    </dependency>-->
-<!--                    &lt;!&ndash; https://mvnrepository.com/artifact/com.oracle.database.nls/orai18n &ndash;&gt;-->
-<!--                    <dependency>-->
-<!--                        <groupId>com.oracle.database.nls</groupId>-->
-<!--                        <artifactId>orai18n</artifactId>-->
-<!--                        <version>21.9.0.0</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
+                <!--       SQLSERVER DEMO         -->
+                <!--                <configuration>-->
+                <!--                    <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>-->
+                <!--                    <url>jdbc:sqlserver://172.25.25.16:1433;DatabaseName=WMS_CZ;trustServerCertificate=true</url>-->
+                <!--                    <username>sa</username>-->
+                <!--                    <password>123</password>-->
+                <!--                    <tableName>OutInBill</tableName>-->
+                <!--                    <schemaOrOwner>BDD</schemaOrOwner>-->
+                <!--                </configuration>-->
+                <!--                <dependencies>-->
+                <!--                    <dependency>-->
+                <!--                        <groupId>com.microsoft.sqlserver</groupId>-->
+                <!--                        <artifactId>mssql-jdbc</artifactId>-->
+                <!--                        <version>12.6.4.jre11</version>-->
+                <!--                    </dependency>-->
+                <!--                </dependencies>-->
+                <!--        Oracle Demo        -->
+                <!--                <configuration>-->
+                <!--                    <driver>oracle.jdbc.OracleDriver</driver>-->
+                <!--                    <url>jdbc:oracle:thin:@172.25.25.40:1521:orcl</url>-->
+                <!--                    <username>bipmdm</username>-->
+                <!--                    <password>bip300190</password>-->
+                <!--                    <tableName>BD_MATERIAL</tableName>-->
+                <!--                    <schemaOrOwner>BIPDB</schemaOrOwner>-->
+                <!--                </configuration>-->
+                <!--                <dependencies>-->
+                <!--                    <dependency>-->
+                <!--                        <groupId>com.oracle.database.jdbc</groupId>-->
+                <!--                        <artifactId>ojdbc8</artifactId>-->
+                <!--                        <version>21.5.0.0</version>-->
+                <!--                    </dependency>-->
+                <!--                    &lt;!&ndash; https://mvnrepository.com/artifact/com.oracle.database.nls/orai18n &ndash;&gt;-->
+                <!--                    <dependency>-->
+                <!--                        <groupId>com.oracle.database.nls</groupId>-->
+                <!--                        <artifactId>orai18n</artifactId>-->
+                <!--                        <version>21.9.0.0</version>-->
+                <!--                    </dependency>-->
+                <!--                </dependencies>-->
             </plugin>
         </plugins>
     </build>

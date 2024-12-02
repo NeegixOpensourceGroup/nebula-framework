@@ -1,6 +1,8 @@
 package com.neegix.system.dict.application.cqrs.command;
 
 import com.neegix.application.command.ICommand;
+import com.neegix.application.query.NebulaSQL;
+import com.neegix.system.dict.application.cqrs.query.condition.DictItemWhereGroup;
 import com.neegix.system.dict.infrastructure.repository.mapper.DictItemMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -18,8 +20,10 @@ import java.util.List;
 
 public class BatchDeleteDictItemCommand implements ICommand<Void> {
     private final List<Long> ids;
+    private final Long pkDictGroup;
 
-    public BatchDeleteDictItemCommand(List<Long> ids) {
+    public BatchDeleteDictItemCommand(Long pkDictGroup, List<Long> ids) {
+        this.pkDictGroup = pkDictGroup;
         this.ids = ids;
     }
     @Override
@@ -27,7 +31,9 @@ public class BatchDeleteDictItemCommand implements ICommand<Void> {
         TransactionTemplate transactionTemplate = context.getBean(TransactionTemplate.class);
         transactionTemplate.execute(status -> {
             DictItemMapper dictItemMapper = context.getBean(DictItemMapper.class);
-            dictItemMapper.deleteByPrimaryKeys(ids);
+            NebulaSQL nebulaSQL = new NebulaSQL();
+            nebulaSQL.createWhereGroups(DictItemWhereGroup.class).andPkDictGroupEqualTo(pkDictGroup).andIdIn(ids);
+            dictItemMapper.delete(nebulaSQL);
             return null;
         });
         return null;
