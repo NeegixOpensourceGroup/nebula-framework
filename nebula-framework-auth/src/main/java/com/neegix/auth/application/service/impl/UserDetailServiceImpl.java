@@ -4,7 +4,6 @@ import com.neegix.auth.application.dto.UserDTO;
 import com.neegix.auth.application.query.AuthQueryRepository;
 import com.neegix.auth.interfaces.vo.NebulaUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

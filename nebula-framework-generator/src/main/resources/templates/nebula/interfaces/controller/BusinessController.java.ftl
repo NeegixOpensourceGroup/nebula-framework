@@ -4,19 +4,30 @@
 <#-- 使用 last 方法获取列表中的最后一个元素 -->
 <#assign module = modules?last>
 
-package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.controller;
+<#-- 包名 -->
+<#assign packageName = templateTable.packageName>
+
+<#-- 模块名 -->
+<#assign moduleName = templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]>
+
+<#-- 类名 -->
+<#assign className = templateTable.javaTableName>
+
+package ${packageName}.${moduleName}.interfaces.controller;
 
 import com.neegix.base.PageVO;
 import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.result.Result;
-import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.assembler.${templateTable.javaTableName}Assembler;
-import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.cqrs.query.${templateTable.javaTableName}QueryRepository;
-import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.vo.${templateTable.javaTableName}VO;
-import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.application.service.${templateTable.javaTableName}Service;
-import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.New${templateTable.javaTableName}Form;
-import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.Query${templateTable.javaTableName}Form;
-import ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.interfaces.form.Update${templateTable.javaTableName}Form;
+import ${packageName}.${moduleName}.application.assembler.${className}Assembler;
+import ${packageName}.${moduleName}.application.cqrs.query.${className}QueryRepository;
+import ${packageName}.${moduleName}.domain.entity.${className}Entity;
+import ${packageName}.${moduleName}.interfaces.vo.${className}VO;
+import ${packageName}.${moduleName}.application.service.${className}Service;
+import ${packageName}.${moduleName}.interfaces.form.New${className}Form;
+import ${packageName}.${moduleName}.interfaces.form.Query${className}Form;
+import ${packageName}.${moduleName}.interfaces.form.Update${className}Form;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,51 +55,51 @@ import java.util.Optional;
   */
 
 @RestController
-@RequestMapping("/api/v1/${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}")
-public class ${templateTable.javaTableName}Controller {
+@RequestMapping("/api/v1/${moduleName}")
+public class ${className}Controller {
 
     @Autowired
-    private ${templateTable.javaTableName}QueryRepository ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}QueryRepository;
+    private ${className}QueryRepository ${moduleName}QueryRepository;
 
     @Autowired
-    private ${templateTable.javaTableName}Service ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service;
+    private ${className}Service ${moduleName}Service;
 
-    @PreAuthorize("hasAuthority('${module}:${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}:add')")
+    @PreAuthorize("hasAuthority('${module}:${moduleName}:add')")
     @PostMapping
-    public Result<Void> create${templateTable.javaTableName}(@RequestBody New${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
-        Void result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.create${templateTable.javaTableName}(${templateTable.javaTableName}Assembler.INSTANCE.covertEntity(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form));
+    public Result<Void> create${className}(@RequestBody New${className}Form ${moduleName}Form){
+        Void result = ${moduleName}Service.create${className}(${className}Assembler.INSTANCE.covertEntity(${moduleName}Form));
         return Result.success("创建成功", result);
     }
 
-    @PreAuthorize("hasAuthority('${module}:${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}:modify')")
+    @PreAuthorize("hasAuthority('${module}:${moduleName}:modify')")
     @PutMapping("/{id}")
-    public Result<Void> update${templateTable.javaTableName}(@PathVariable Long id, @RequestBody Update${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
-        ${templateTable.javaTableName}Entity ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity = ${templateTable.javaTableName}Assembler.INSTANCE.covertEntity(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form);
-        ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity.setId(id);
-        Void result = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.modify${templateTable.javaTableName}(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Entity);
+    public Result<Void> update${className}(@PathVariable Long id, @RequestBody Update${className}Form ${moduleName}Form){
+        ${className}Entity ${moduleName}Entity = ${className}Assembler.INSTANCE.covertEntity(${moduleName}Form);
+        ${moduleName}Entity.setId(id);
+        Void result = ${moduleName}Service.modify${className}(${moduleName}Entity);
         return Result.success("更新成功",result);
     }
 
-    @PreAuthorize("hasAuthority('${module}:${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}:list')")
+    @PreAuthorize("hasAuthority('${module}:${moduleName}:list')")
     @GetMapping("/{currentPage}/{pageSize}")
-    public Result<PageVO<${templateTable.javaTableName}VO>> get${templateTable.javaTableName}s(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @RequestBody(required = false) Query${templateTable.javaTableName}Form ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form){
-        if(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form == null) {
-            ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form = new Query${templateTable.javaTableName}Form();
+    public Result<PageVO<${className}VO>> get${className}s(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @ModelAttribute Query${className}Form ${moduleName}Form){
+        if(${moduleName}Form == null) {
+            ${moduleName}Form = new Query${className}Form();
         }
-        PageVO<${templateTable.javaTableName}VO> pageVO = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}QueryRepository.findPage(currentPage, pageSize, ${templateTable.javaTableName}Assembler.INSTANCE.covertDTO(${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Form));
+        PageVO<${className}VO> pageVO = ${moduleName}QueryRepository.findPage(currentPage, pageSize, ${className}Assembler.INSTANCE.covertDTO(${moduleName}Form));
         return Result.success("查询成功",pageVO);
     }
 
-    @PreAuthorize("hasAuthority('${module}:${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}:get')")
+    @PreAuthorize("hasAuthority('${module}:${moduleName}:get')")
     @GetMapping("/{id}")
-    public Result<${templateTable.javaTableName}VO> get${templateTable.javaTableName}ById(@PathVariable("id") Long id) {
-        Optional<${templateTable.javaTableName}VO> optional = ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}QueryRepository.findById(id);
+    public Result<${className}VO> get${className}ById(@PathVariable("id") Long id) {
+        Optional<${className}VO> optional = ${moduleName}QueryRepository.findById(id);
         return Result.success("获取成功", optional.orElseThrow(()-> new BusinessRuntimeException("查询结果不存在")));
     }
 
-    @PreAuthorize("hasAuthority('${module}:${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}:remove')")
+    @PreAuthorize("hasAuthority('${module}:${moduleName}:remove')")
     @DeleteMapping
-    public Result<Void> remove${templateTable.javaTableName}(@RequestBody List<Long> ids){
-        return Result.success("删除成功", ${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}Service.remove${templateTable.javaTableName}(ids));
+    public Result<Void> remove${className}(@RequestBody List<Long> ids){
+        return Result.success("删除成功", ${moduleName}Service.remove${className}(ids));
     }
 }
