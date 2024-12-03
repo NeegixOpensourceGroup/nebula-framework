@@ -57,7 +57,7 @@
                     <username>root</username>
                     <password>12345678</password>
                     <packageName>com.neegix.system</packageName>
-                    <tableName>sys_role</tableName>
+                    <tableName>sys_user</tableName>
                     <tablePrefix>sys_</tablePrefix>
                     <schemaOrOwner>nebula</schemaOrOwner>
                     <outputDir>/Users/taoyj/Documents/4-项目管理/7-开发平台/1-neegix/1-开源项目/2-代码/1-预览版/nebula-framework/nebula-framework-system/src/main/java</outputDir>
