@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @Description:
  */
 @Service
-public class UserServiceImpl implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
     private AuthQueryRepository authRepository;
