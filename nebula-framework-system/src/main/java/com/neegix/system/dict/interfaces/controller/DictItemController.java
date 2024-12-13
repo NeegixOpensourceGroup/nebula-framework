@@ -76,4 +76,9 @@ public class DictItemController {
     public Result<Void> removeDictItem(@PathVariable("pkDictGroup") Long pkDictGroup, @RequestBody List<Long> ids){
         return Result.success("删除成功", dictItemService.removeDictItem(pkDictGroup, ids));
     }
+
+    @GetMapping("/dictGroupCode/{dictGroupCode}")
+    public Result<List<DictItemVO>> getDictItemByDictGroupCode(@PathVariable("dictGroupCode") String dictGroupCode){
+        return Result.success("获取成功", dictItemQueryRepository.findDictItemsByGroupCode(dictGroupCode));
+    }
 }

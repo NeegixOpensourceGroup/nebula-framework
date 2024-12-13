@@ -20,4 +20,5 @@ public interface DictItemQueryRepository extends IQueryRepository<Long, DictItem
     Optional<DictItemDTO> findByName(String name);
     Integer selectCount(List<Long> ids);
     PageVO<DictItemVO> findPage(Integer currentPage, Integer pageSize, Long dictGroupId, DictItemDTO dictItemDTO);
+    List<DictItemVO> findDictItemsByGroupCode(String code);
 }

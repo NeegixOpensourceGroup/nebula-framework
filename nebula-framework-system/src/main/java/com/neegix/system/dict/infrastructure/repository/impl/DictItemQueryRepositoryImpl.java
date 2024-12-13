@@ -4,10 +4,13 @@ import com.neegix.application.query.NebulaSQL;
 import com.neegix.base.PageVO;
 import com.neegix.system.dict.application.assembler.DictItemAssembler;
 import com.neegix.system.dict.application.cqrs.query.DictItemQueryRepository;
+import com.neegix.system.dict.application.cqrs.query.condition.DictGroupWhereGroup;
 import com.neegix.system.dict.application.cqrs.query.condition.DictItemWhereGroup;
 import com.neegix.system.dict.application.dto.DictItemDTO;
 import com.neegix.system.dict.infrastructure.repository.convert.DictItemConverter;
+import com.neegix.system.dict.infrastructure.repository.dataobject.DictGroupDO;
 import com.neegix.system.dict.infrastructure.repository.dataobject.DictItemDO;
+import com.neegix.system.dict.infrastructure.repository.mapper.DictGroupMapper;
 import com.neegix.system.dict.infrastructure.repository.mapper.DictItemMapper;
 import com.neegix.system.dict.infrastructure.repository.mapper.customized.DictItemCustomizedMapper;
 import com.neegix.system.dict.interfaces.vo.DictItemVO;
@@ -30,6 +33,9 @@ public class DictItemQueryRepositoryImpl implements DictItemQueryRepository {
 
     @Autowired
     private DictItemMapper dictItemMapper;
+
+    @Autowired
+    private DictGroupMapper dictGroupMapper;
 
     @Autowired
     private DictItemCustomizedMapper dictItemCustomizedMapper;
@@ -65,5 +71,17 @@ public class DictItemQueryRepositoryImpl implements DictItemQueryRepository {
         page.setTotal(count);
         page.setResult(DictItemAssembler.INSTANCE.covertVO(DictItemConverter.INSTANCE.covertDTOS(result)));
         return page;
+    }
+
+    @Override
+    public List<DictItemVO> findDictItemsByGroupCode(String code) {
+        NebulaSQL nebulaSQL = new NebulaSQL();
+        nebulaSQL.createWhereGroups(DictGroupWhereGroup.class).andCodeEqualTo(code);
+        DictGroupDO dictGroupDO = dictGroupMapper.selectOne(nebulaSQL);
+
+        nebulaSQL.clear();
+        nebulaSQL.createWhereGroups(DictItemWhereGroup.class).andPkDictGroupEqualTo(dictGroupDO.getId());
+        List<DictItemDO> dictItemDOS = dictItemMapper.selectList(nebulaSQL);
+        return DictItemAssembler.INSTANCE.covertVO(DictItemConverter.INSTANCE.covertDTOS(dictItemDOS));
     }
 }

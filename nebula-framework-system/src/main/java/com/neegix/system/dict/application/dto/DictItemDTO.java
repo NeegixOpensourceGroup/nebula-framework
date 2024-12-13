@@ -13,6 +13,7 @@ import lombok.Data;
 @Data
 public class DictItemDTO {
     private Long id;
+    private Long pkDictGroup;
     private String name;
     private String value;
     private Integer sort;
