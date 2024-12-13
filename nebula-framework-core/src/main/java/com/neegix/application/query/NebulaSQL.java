@@ -36,9 +36,16 @@ public class NebulaSQL {
 
     public void clear() {
         whereClauses.clear();
-        groupByClauses.clear();
-        orderByClauses.clear();
-        havingClauses.clear();
+        if (groupByClauses != null){
+            groupByClauses.clear();
+        }
+        if (orderByClauses != null) {
+            orderByClauses.clear();
+        }
+        if (havingClauses != null){
+            havingClauses.clear();
+        }
+
         pager = null;
         distinct = false;
     }
