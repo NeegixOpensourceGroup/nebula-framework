@@ -40,6 +40,8 @@ public class MySQLQueryStrategy implements DatabaseQueryStrategy {
                 WHERE
                     c.TABLE_NAME = '%s'
                     %s
+                ORDER BY
+                    c.ORDINAL_POSITION
                 """.formatted(tableName, whereSchemaOrOwner);
     }
 }

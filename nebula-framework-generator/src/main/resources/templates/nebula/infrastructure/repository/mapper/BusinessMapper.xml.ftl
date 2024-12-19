@@ -21,7 +21,7 @@
     <resultMap id="${templateTable.javaTableName}ResultMap" type="${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case+templateTable.javaTableName[1..]}.infrastructure.repository.dataobject.${templateTable.javaTableName}DO">
         <#if templateTable.columns?exists>
             <#list templateTable.columns as column>
-                <#if column.isPrimaryKey??>
+                <#if column.isPrimaryKey()>
         <id column="${column.sqlName}" property="${column.javaName}" />
                 <#else>
         <result column="${column.sqlName}" property="${column.javaName}" />
