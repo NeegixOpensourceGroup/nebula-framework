@@ -28,3 +28,7 @@
 ### MACOS ###
 .DS_Store
 */.DS_Store
+
+### test, pro yml ###
+**/*-pro.yml
+**/*-test.yml
