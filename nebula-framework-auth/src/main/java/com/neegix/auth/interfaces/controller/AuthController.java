@@ -1,12 +1,13 @@
 package com.neegix.auth.interfaces.controller;
 
+import com.github.benmanes.caffeine.cache.Cache;
 import com.neegix.auth.application.service.AuthService;
 import com.neegix.auth.interfaces.vo.NebulaUserDetails;
+import com.neegix.infrastructure.annotation.LoginLog;
 import com.neegix.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,10 +32,20 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private Cache<String, Object> caffeineCache;
+
     @PostMapping("/login")
+    @LoginLog
     public Result<?> login(@RequestParam("username") String username, @RequestParam("password") String password){
         authService.login(username, password);
         return Result.success("登录成功");
+    }
+
+    @PostMapping("/logout")
+    public Result<?> logout(){
+        caffeineCache.invalidateAll();
+        return Result.success("退出成功");
     }
 
     @PostMapping("/register")
