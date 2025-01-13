@@ -26,6 +26,7 @@ import ${packageName}.${moduleName}.application.service.${className}Service;
 import ${packageName}.${moduleName}.interfaces.form.New${className}Form;
 import ${packageName}.${moduleName}.interfaces.form.Query${className}Form;
 import ${packageName}.${moduleName}.interfaces.form.Update${className}Form;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -66,14 +67,14 @@ public class ${className}Controller {
 
     @PreAuthorize("hasAuthority('${module}:${moduleName}:add')")
     @PostMapping
-    public Result<Void> create${className}(@RequestBody New${className}Form ${moduleName}Form){
+    public Result<Void> create${className}(@RequestBody @Valid New${className}Form ${moduleName}Form){
         Void result = ${moduleName}Service.create${className}(${className}Assembler.INSTANCE.covertEntity(${moduleName}Form));
         return Result.success("创建成功", result);
     }
 
     @PreAuthorize("hasAuthority('${module}:${moduleName}:modify')")
     @PutMapping("/{id}")
-    public Result<Void> update${className}(@PathVariable Long id, @RequestBody Update${className}Form ${moduleName}Form){
+    public Result<Void> update${className}(@PathVariable Long id, @RequestBody @Valid Update${className}Form ${moduleName}Form){
         ${className}Entity ${moduleName}Entity = ${className}Assembler.INSTANCE.covertEntity(${moduleName}Form);
         ${moduleName}Entity.setId(id);
         Void result = ${moduleName}Service.modify${className}(${moduleName}Entity);

@@ -3,13 +3,26 @@ package ${templateTable.packageName}.${templateTable.javaTableName[0]?lower_case
 
 import com.neegix.application.query.EnumOperator;
 import com.neegix.application.query.WhereGroups;
-<#if templateTable.columns?exists>
-    <#list templateTable.columns as column>
-        <#if !(column.fullyQualifiedJavaType?contains("lang")) && column.isFirstImportPackage()>
-import ${column.fullyQualifiedJavaType};
-        </#if>
-    </#list>
-</#if>
+<#-- 过滤数据 -->
+<#assign filteredTypes = []>
+<#list templateTable.columns as column>
+    <#assign filteredTypes = filteredTypes + [column.fullyQualifiedJavaType]>
+</#list>
+
+<#-- 去重 -->
+<#assign uniqueTypes = []>
+<#list filteredTypes as type>
+    <#if !uniqueTypes?seq_contains(type)>
+        <#assign uniqueTypes = uniqueTypes + [type]>
+    </#if>
+</#list>
+
+<#-- 输出结果，排除包含 "lang" 的类型 -->
+<#list uniqueTypes as type>
+    <#if !type?contains("lang")>
+import ${type};
+    </#if>
+</#list>
 import java.util.List;
 
  /**

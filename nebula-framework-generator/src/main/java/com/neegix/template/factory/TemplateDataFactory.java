@@ -8,11 +8,8 @@ import com.neegix.utils.StringUtils;
 import org.apache.maven.plugin.logging.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -37,36 +34,41 @@ public class TemplateDataFactory {
         DbTypeMapper dbTypeMapper = DbTypeStrategyFactory.createStrategy(driver);
         List<TemplateColumn> templateColumns = new ArrayList<>();
         Set<String> imports = new HashSet<>();
+        String[] extraColumns = new String[]{"id", "create_time", "create_user", "update_time", "update_user"};
         String tableDescription = "";
         // 处理结果集...
         for (ColumnMetadata column : columns) {
-            log.info("CamelCase Column Name: " + StringUtils.toCamelCase(column.getColumnName()));
-            log.info("FullyQualifiedJavaType: " + dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()));
-            log.info("JavaType: " + dbTypeMapper.mapToJavaType(column.getDataType()));
-            log.info("Column Name: " + column.getColumnName() +
-                    ", Data Type: " + column.getDataType() +
-                    ", Nullable: " + column.getIsNullable() +
-                    ", IsPrimaryKey: " + column.isPrimaryKey() +
-                    ", Default Value: " + column.getDefaultValue() +
-                    ", Description: " + column.getDescription() +
-                    ", Table Description: " + column.getTableDescription()
-            );
-            TemplateColumn templateColumn;
-
-            if (!imports.contains(dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()))){
-                templateColumn = new TemplateColumn(StringUtils.toCamelCase(column.getColumnName()), column.getColumnName(), column.isPrimaryKey(), column.getIsNullable().contains("N"), dbTypeMapper.mapToJavaType(column.getDataType()), column.getDescription(),dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()), true);
+//            log.info("CamelCase Column Name: " + StringUtils.toCamelCase(column.getColumnName()));
+//            log.info("FullyQualifiedJavaType: " + dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()));
+//            log.info("JavaType: " + dbTypeMapper.mapToJavaType(column.getDataType()));
+//            log.info("Column Name: " + column.getColumnName() +
+//                    ", Data Type: " + column.getDataType() +
+//                    ", Nullable: " + column.getIsNullable() +
+//                    ", IsPrimaryKey: " + column.isPrimaryKey() +
+//                    ", Default Value: " + column.getDefaultValue() +
+//                    ", Description: " + column.getDescription() +
+//                    ", Table Description: " + column.getTableDescription()
+//            );
+            TemplateColumn templateColumn = new TemplateColumn(StringUtils.toCamelCase(column.getColumnName()), column.getColumnName(), column.isPrimaryKey(), column.getIsNullable().contains("Y"), dbTypeMapper.mapToJavaType(column.getDataType()), column.getDescription(),dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()));
+            log.info(templateColumn.getSqlName()+": " + templateColumn.isAllowedNull()+":"+dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()));
+            if (!dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()).contains("lang")){
                 imports.add(dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()));
-            } else {
-                templateColumn = new TemplateColumn(StringUtils.toCamelCase(column.getColumnName()), column.getColumnName(), column.isPrimaryKey(), column.getIsNullable().contains("N"), dbTypeMapper.mapToJavaType(column.getDataType()), column.getDescription(),dbTypeMapper.getFullyQualifiedJavaType(column.getDataType()), false);
             }
-            if(column.getIsNullable().contains("N") && !imports.contains("jakarta.validation.constraints.NotEmpty")){
-                imports.add("jakarta.validation.constraints.NotEmpty");
-                templateColumn.setFirstEmptyPackage(true);
+            if(!templateColumn.isAllowedNull()){
+                if (dbTypeMapper.mapToJavaType(column.getDataType()).contains("Long")){
+                    imports.add("jakarta.validation.constraints.NotNull");
+                    //templateColumn.setFullyQualifiedJavaType("jakarta.validation.constraints.NotNull");
+                } else {
+                    imports.add("jakarta.validation.constraints.NotEmpty");
+                   // templateColumn.setFullyQualifiedJavaType("jakarta.validation.constraints.NotEmpty");
+                }
             }
 
             templateColumns.add(templateColumn);
             tableDescription = column.getTableDescription();
         }
+        templateTable.setExtraColumns(extraColumns);
+        templateTable.setImports(imports);
         templateTable.setColumns(templateColumns);
         templateTable.setDescription(tableDescription);
         return templateTable;

@@ -1,7 +1,6 @@
 package com.neegix.template;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -20,6 +19,8 @@ public class TemplateTable {
     private String version = "1.0.0";
     private String copyright = "https://www.neegix.com";
     private List<TemplateColumn> columns;
+    private Set<String> imports;
+    private String[] extraColumns;
 
     public void setDescription(String description) {
         this.description = description;
@@ -77,4 +78,19 @@ public class TemplateTable {
         this.version = version;
     }
 
+    public Set<String> getImports() {
+        return imports;
+    }
+
+    public void setImports(Set<String> imports) {
+        this.imports = imports;
+    }
+
+    public String[] getExtraColumns() {
+        return extraColumns;
+    }
+
+    public void setExtraColumns(String[] extraColumns) {
+        this.extraColumns = extraColumns;
+    }
 }

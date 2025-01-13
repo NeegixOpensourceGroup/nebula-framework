@@ -15,11 +15,9 @@ public class TemplateColumn {
     private final boolean isAllowedNull;
     private final String javaType;
     private final String description;
-    private final String fullyQualifiedJavaType;
-    private final boolean isFirstImportPackage;
-    private boolean isFirstEmptyPackage;
+    private String fullyQualifiedJavaType;
 
-    public TemplateColumn(String javaName, String sqlName,boolean isPrimaryKey,boolean isAllowedNull, String javaType, String description, String fullyQualifiedJavaType, boolean isFirstImportPackage) {
+    public TemplateColumn(String javaName, String sqlName,boolean isPrimaryKey,boolean isAllowedNull, String javaType, String description, String fullyQualifiedJavaType) {
         this.javaName = javaName;
         this.sqlName = sqlName;
         this.isPrimaryKey = isPrimaryKey;
@@ -27,7 +25,6 @@ public class TemplateColumn {
         this.javaType = javaType;
         this.description = description;
         this.fullyQualifiedJavaType = fullyQualifiedJavaType;
-        this.isFirstImportPackage = isFirstImportPackage;
     }
 
     public String getJavaName() {
@@ -54,19 +51,13 @@ public class TemplateColumn {
         return description;
     }
 
+    public void setFullyQualifiedJavaType(String fullyQualifiedJavaType) {
+        this.fullyQualifiedJavaType = fullyQualifiedJavaType;
+    }
+
     public String getFullyQualifiedJavaType() {
         return fullyQualifiedJavaType;
     }
 
-    public boolean isFirstImportPackage() {
-        return isFirstImportPackage;
-    }
 
-    public boolean isFirstEmptyPackage() {
-        return isFirstEmptyPackage;
-    }
-
-    public void setFirstEmptyPackage(boolean firstEmptyPackage) {
-        isFirstEmptyPackage = firstEmptyPackage;
-    }
 }
