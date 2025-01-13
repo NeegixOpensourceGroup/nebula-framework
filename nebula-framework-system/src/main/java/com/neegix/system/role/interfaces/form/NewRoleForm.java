@@ -1,5 +1,6 @@
 package com.neegix.system.role.interfaces.form;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class NewRoleForm {
     // 是否启用（0 否 1 是）
     private Boolean enabled;
     // 角色名称
+    @NotBlank(message = "角色名称不能为空")
     private String name;
     private String description;
     // Api权限

@@ -10,6 +10,7 @@ import com.neegix.system.dict.application.service.DictGroupService;
 import com.neegix.system.dict.interfaces.form.NewDictGroupForm;
 import com.neegix.system.dict.interfaces.form.QueryDictGroupForm;
 import com.neegix.system.dict.interfaces.form.UpdateDictGroupForm;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,13 +44,13 @@ public class DictGroupController {
     private DictGroupService dictGroupService;
 
     @PostMapping
-    public Result<Void> createDictGroup(@RequestBody NewDictGroupForm dictGroupForm){
+    public Result<Void> createDictGroup(@RequestBody @Valid NewDictGroupForm dictGroupForm){
         Void result = dictGroupService.createDictGroup(dictGroupForm.getCode(), dictGroupForm.getName());
         return Result.success("创建成功", result);
     }
 
     @PutMapping("/{id}")
-    public Result<Void> updateDictGroup(@PathVariable("id") Long id, @RequestBody UpdateDictGroupForm dictGroupForm){
+    public Result<Void> updateDictGroup(@PathVariable("id") Long id, @RequestBody @Valid UpdateDictGroupForm dictGroupForm){
         Void result = dictGroupService.modifyDictGroup(id, dictGroupForm.getCode(), dictGroupForm.getName());
         return Result.success("更新成功",result);
     }

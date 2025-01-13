@@ -1,8 +1,8 @@
 
 package com.neegix.system.role.interfaces.form;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class UpdateRoleForm {
     // 是否启用（0 否 1 是）
     private Boolean enabled;
     // 角色名称
-    @NotEmpty(message="角色名称不能为空")
+    @NotBlank(message="角色名称不能为空")
     private String name;
     private String description;
     // Api权限

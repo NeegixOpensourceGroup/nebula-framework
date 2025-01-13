@@ -11,6 +11,7 @@ import com.neegix.system.dict.interfaces.form.NewDictItemForm;
 import com.neegix.system.dict.interfaces.form.QueryDictItemForm;
 import com.neegix.system.dict.interfaces.form.UpdateDictItemForm;
 import com.neegix.system.dict.interfaces.vo.DictItemVO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +45,7 @@ public class DictItemController {
     private DictItemService dictItemService;
 
     @PostMapping("/{pkDictGroup}")
-    public Result<Void> createDictItem(@PathVariable("pkDictGroup") Long pkDictGroup, @RequestBody NewDictItemForm newDictItemForm){
+    public Result<Void> createDictItem(@PathVariable("pkDictGroup") Long pkDictGroup, @RequestBody @Valid NewDictItemForm newDictItemForm){
         DictItemEntity dictItemEntity = DictItemAssembler.INSTANCE.covertEntity(newDictItemForm);
         dictItemEntity.setPkDictGroup(pkDictGroup);
         Void result = dictItemService.createDictItem(dictItemEntity);
@@ -52,7 +53,7 @@ public class DictItemController {
     }
 
     @PutMapping("/{pkDictGroup}/{id}")
-    public Result<Void> updateDictItem(@PathVariable("pkDictGroup") Long pkDictGroup, @PathVariable("id") Long id,  @RequestBody UpdateDictItemForm updateDictItemForm){
+    public Result<Void> updateDictItem(@PathVariable("pkDictGroup") Long pkDictGroup, @PathVariable("id") Long id,  @RequestBody @Valid UpdateDictItemForm updateDictItemForm){
         DictItemEntity dictItemEntity = DictItemAssembler.INSTANCE.covertEntity(updateDictItemForm);
         dictItemEntity.setPkDictGroup(pkDictGroup);
         dictItemEntity.setId(id);

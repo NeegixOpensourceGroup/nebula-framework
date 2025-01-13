@@ -12,6 +12,7 @@ import com.neegix.system.user.application.service.UserService;
 import com.neegix.system.user.interfaces.form.NewUserForm;
 import com.neegix.system.user.interfaces.form.QueryUserForm;
 import com.neegix.system.user.interfaces.form.UpdateUserForm;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,14 +53,14 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('system:user:add')")
     @PostMapping
-    public Result<Void> createUser(@RequestBody NewUserForm userForm){
+    public Result<Void> createUser(@RequestBody @Valid NewUserForm userForm){
         Void result = userService.createUser(UserAssembler.INSTANCE.covertEntity(userForm));
         return Result.success("创建成功", result);
     }
 
     @PreAuthorize("hasAuthority('system:user:modify')")
     @PutMapping("/{id}")
-    public Result<Void> updateUser(@PathVariable Long id, @RequestBody UpdateUserForm userForm){
+    public Result<Void> updateUser(@PathVariable Long id, @RequestBody @Valid UpdateUserForm userForm){
         UserEntity userEntity = UserAssembler.INSTANCE.covertEntity(userForm);
         userEntity.setId(id);
         Void result = userService.modifyUser(userEntity);

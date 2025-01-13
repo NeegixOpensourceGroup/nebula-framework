@@ -1,5 +1,6 @@
 package com.neegix.system.dict.interfaces.form;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -12,6 +13,8 @@ import lombok.Data;
  */
 @Data
 public class NewDictGroupForm {
+    @NotBlank(message = "编码不能为空")
     private String code;
+    @NotBlank(message = "名称不能为空")
     private String name;
 }

@@ -12,6 +12,7 @@ import com.neegix.system.role.application.service.RoleService;
 import com.neegix.system.role.interfaces.form.NewRoleForm;
 import com.neegix.system.role.interfaces.form.QueryRoleForm;
 import com.neegix.system.role.interfaces.form.UpdateRoleForm;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,14 +53,14 @@ public class RoleController {
 
     @PreAuthorize("hasAuthority('system:role:add')")
     @PostMapping
-    public Result<Void> createRole(@RequestBody NewRoleForm roleForm){
+    public Result<Void> createRole(@RequestBody @Valid NewRoleForm roleForm){
         Void result = roleService.createRole(RoleAssembler.INSTANCE.covertEntity(roleForm));
         return Result.success("创建成功", result);
     }
 
     @PreAuthorize("hasAuthority('system:role:modify')")
     @PutMapping("/{id}")
-    public Result<Void> updateRole(@PathVariable("id") Long id, @RequestBody UpdateRoleForm roleForm){
+    public Result<Void> updateRole(@PathVariable("id") Long id, @RequestBody @Valid UpdateRoleForm roleForm){
         RoleEntity roleEntity = RoleAssembler.INSTANCE.covertEntity(roleForm);
         roleEntity.setId(id);
         Void result = roleService.modifyRole(roleEntity);
