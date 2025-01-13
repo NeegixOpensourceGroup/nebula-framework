@@ -1,18 +1,16 @@
 package com.neegix.development.menu.interfaces.controller;
 
-import com.neegix.base.PageVO;
-import com.neegix.development.api.application.assembler.ApiAssembler;
-import com.neegix.development.api.domain.entity.ApiEntity;
-import com.neegix.development.menu.domain.entity.MenuEntity;
-import com.neegix.exception.BusinessRuntimeException;
-import com.neegix.result.Result;
 import com.neegix.development.menu.application.assembler.MenuAssembler;
 import com.neegix.development.menu.application.cqrs.query.MenuQueryRepository;
-import com.neegix.development.menu.interfaces.vo.MenuVO;
 import com.neegix.development.menu.application.service.MenuService;
+import com.neegix.development.menu.domain.entity.MenuEntity;
 import com.neegix.development.menu.interfaces.form.NewMenuForm;
 import com.neegix.development.menu.interfaces.form.QueryMenuForm;
 import com.neegix.development.menu.interfaces.form.UpdateMenuForm;
+import com.neegix.development.menu.interfaces.vo.MenuVO;
+import com.neegix.exception.BusinessRuntimeException;
+import com.neegix.result.Result;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,14 +50,14 @@ public class MenuController {
 
     @PreAuthorize("hasAuthority('development:menu:add')")
     @PostMapping
-    public Result<Void> createMenu(@RequestBody NewMenuForm menuForm){
+    public Result<Void> createMenu(@RequestBody @Valid NewMenuForm menuForm){
         Void result = menuService.createMenu(MenuAssembler.INSTANCE.covertEntity(menuForm));
         return Result.success("创建成功", result);
     }
 
     @PreAuthorize("hasAuthority('development:menu:modify')")
     @PutMapping("/{id}")
-    public Result<Void> updateMenu(@PathVariable Long id, @RequestBody UpdateMenuForm menuForm){
+    public Result<Void> updateMenu(@PathVariable Long id, @RequestBody @Valid UpdateMenuForm menuForm){
         MenuEntity menuEntity = MenuAssembler.INSTANCE.covertEntity(menuForm);
         menuEntity.setId(id);
         Void result = menuService.modifyMenu(menuEntity);

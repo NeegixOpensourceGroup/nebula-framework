@@ -12,6 +12,7 @@ import com.neegix.development.api.application.service.ApiService;
 import com.neegix.development.api.interfaces.form.NewApiForm;
 import com.neegix.development.api.interfaces.form.QueryApiForm;
 import com.neegix.development.api.interfaces.form.UpdateApiForm;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,14 +53,14 @@ public class ApiController {
 
     @PreAuthorize("hasAuthority('development:api:add')")
     @PostMapping
-    public Result<Void> createApi(@RequestBody NewApiForm apiForm){
+    public Result<Void> createApi(@RequestBody @Valid NewApiForm apiForm){
         Void result = apiService.createApi(ApiAssembler.INSTANCE.covertEntity(apiForm));
         return Result.success("创建成功", result);
     }
 
     @PreAuthorize("hasAuthority('development:api:modify')")
     @PutMapping("/{id}")
-    public Result<Void> updateApi(@PathVariable Long id, @RequestBody UpdateApiForm apiForm){
+    public Result<Void> updateApi(@PathVariable Long id, @RequestBody @Valid  UpdateApiForm apiForm){
         ApiEntity apiEntity = ApiAssembler.INSTANCE.covertEntity(apiForm);
         apiEntity.setId(id);
         Void result = apiService.modifyApi(apiEntity);
