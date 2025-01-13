@@ -12,7 +12,7 @@ import lombok.Data;
         <#-- 处理 isAllowedNull 和 javaType -->
         <#if !column.isAllowedNull()>
             <#if column.javaType == "String">
-                <#assign filteredTypes = filteredTypes + ["jakarta.validation.constraints.NotEmpty"]>
+                <#assign filteredTypes = filteredTypes + ["jakarta.validation.constraints.NotBlank"]>
             <#else>
                 <#assign filteredTypes = filteredTypes + ["jakarta.validation.constraints.NotNull"]>
             </#if>
@@ -56,7 +56,7 @@ public class New${templateTable.javaTableName}Form {
     // ${column.description}
                 <#if !column.isAllowedNull()>
                     <#if column.javaType == "String">
-    @NotEmpty(message="${column.description}不能为空")
+    @NotBlank(message="${column.description}不能为空")
                     <#elseif column.javaType == "String">
     @NotNull(message="${column.description}不能为空")
                     </#if>
