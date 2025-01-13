@@ -11,6 +11,7 @@ import com.neegix.organization.bizUnit.interfaces.form.QueryBizUnitForm;
 import com.neegix.organization.bizUnit.interfaces.form.UpdateBizUnitForm;
 import com.neegix.organization.bizUnit.interfaces.vo.BizUnitVO;
 import com.neegix.result.Result;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,14 +52,14 @@ public class BizUnitController {
 
     @PreAuthorize("hasAuthority('organization:bizUnit:add')")
     @PostMapping
-    public Result<Void> createBizUnit(@RequestBody NewBizUnitForm bizUnitForm){
+    public Result<Void> createBizUnit(@RequestBody @Valid NewBizUnitForm bizUnitForm){
         Void result = bizUnitService.createBizUnit(BizUnitAssembler.INSTANCE.covertEntity(bizUnitForm));
         return Result.success("创建成功", result);
     }
 
     @PreAuthorize("hasAuthority('organization:bizUnit:modify')")
     @PutMapping("/{id}")
-    public Result<Void> updateBizUnit(@PathVariable Long id, @RequestBody UpdateBizUnitForm bizUnitForm){
+    public Result<Void> updateBizUnit(@PathVariable Long id, @RequestBody @Valid UpdateBizUnitForm bizUnitForm){
         BizUnitEntity bizUnitEntity = BizUnitAssembler.INSTANCE.covertEntity(bizUnitForm);
         bizUnitEntity.setId(id);
         Void result = bizUnitService.modifyBizUnit(bizUnitEntity);

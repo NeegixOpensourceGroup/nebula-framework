@@ -11,6 +11,7 @@ import com.neegix.organization.dept.interfaces.form.QueryDeptForm;
 import com.neegix.organization.dept.interfaces.form.UpdateDeptForm;
 import com.neegix.organization.dept.interfaces.vo.DeptVO;
 import com.neegix.result.Result;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,7 +52,7 @@ public class DeptController {
 
     @PreAuthorize("hasAuthority('organization:dept:add')")
     @PostMapping("/bizUnit/{pkBizUnit}")
-    public Result<Void> createDept(@PathVariable("pkBizUnit") Long pkBizUnit, @RequestBody NewDeptForm deptForm){
+    public Result<Void> createDept(@PathVariable("pkBizUnit") Long pkBizUnit, @RequestBody @Valid NewDeptForm deptForm){
         DeptEntity deptEntity = DeptAssembler.INSTANCE.covertEntity(deptForm);
         deptEntity.setPkBizUnit(pkBizUnit);
         Void result = deptService.createDept(deptEntity);
@@ -60,7 +61,7 @@ public class DeptController {
 
     @PreAuthorize("hasAuthority('organization:dept:modify')")
     @PutMapping("/{id}/bizUnit/{pkBizUnit}")
-    public Result<Void> updateDept(@PathVariable Long id, @PathVariable Long pkBizUnit, @RequestBody UpdateDeptForm deptForm){
+    public Result<Void> updateDept(@PathVariable Long id, @PathVariable Long pkBizUnit, @RequestBody @Valid UpdateDeptForm deptForm){
         DeptEntity deptEntity = DeptAssembler.INSTANCE.covertEntity(deptForm);
         deptEntity.setId(id);
         deptEntity.setPkBizUnit(pkBizUnit);

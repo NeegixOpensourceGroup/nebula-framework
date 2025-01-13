@@ -12,6 +12,7 @@ import com.neegix.organization.psn.application.service.PsnService;
 import com.neegix.organization.psn.interfaces.form.NewPsnForm;
 import com.neegix.organization.psn.interfaces.form.QueryPsnForm;
 import com.neegix.organization.psn.interfaces.form.UpdatePsnForm;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,14 +53,14 @@ public class PsnController {
 
     @PreAuthorize("hasAuthority('organization:psn:add')")
     @PostMapping
-    public Result<Void> createPsn(@RequestBody NewPsnForm psnForm){
+    public Result<Void> createPsn(@RequestBody @Valid NewPsnForm psnForm){
         Void result = psnService.createPsn(PsnAssembler.INSTANCE.covertEntity(psnForm));
         return Result.success("创建成功", result);
     }
 
     @PreAuthorize("hasAuthority('organization:psn:modify')")
     @PutMapping("/{id}")
-    public Result<Void> updatePsn(@PathVariable Long id, @RequestBody UpdatePsnForm psnForm){
+    public Result<Void> updatePsn(@PathVariable Long id, @RequestBody @Valid UpdatePsnForm psnForm){
         PsnEntity psnEntity = PsnAssembler.INSTANCE.covertEntity(psnForm);
         psnEntity.setId(id);
         Void result = psnService.modifyPsn(psnEntity);

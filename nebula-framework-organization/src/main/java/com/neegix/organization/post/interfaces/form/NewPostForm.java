@@ -1,6 +1,6 @@
 package com.neegix.organization.post.interfaces.form;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -26,7 +26,7 @@ public class NewPostForm {
     // 是否启用（0 否 1 是）
     private Boolean enabled;
     // 名称
-    @NotEmpty(message="名称不能为空")
+    @NotBlank(message="名称不能为空")
     private String name;
     // 业务单元ID
     @NotNull(message="业务单元不能为空")

@@ -60,7 +60,7 @@ public class PostController {
 
     @PreAuthorize("hasAuthority('organization:post:modify')")
     @PutMapping("/{id}")
-    public Result<Void> updatePost(@PathVariable Long id, @RequestBody UpdatePostForm postForm){
+    public Result<Void> updatePost(@PathVariable Long id, @RequestBody @Valid UpdatePostForm postForm){
         PostEntity postEntity = PostAssembler.INSTANCE.covertEntity(postForm);
         postEntity.setId(id);
         Void result = postService.modifyPost(postEntity);

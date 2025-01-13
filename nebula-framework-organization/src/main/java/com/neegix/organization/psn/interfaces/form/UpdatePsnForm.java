@@ -1,8 +1,9 @@
 
 package com.neegix.organization.psn.interfaces.form;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class UpdatePsnForm {
     // 出生日期
     private String birth;
     // 人员编码
-    @NotEmpty(message="人员编码不能为空")
+    @NotBlank(message="人员编码不能为空")
     private String code;
     // 联系电话
     private String contactTel;
@@ -43,7 +44,7 @@ public class UpdatePsnForm {
     // 家庭电话
     private String homeTel;
     // ID
-    @NotEmpty(message="ID不能为空")
+    @NotNull(message="ID不能为空")
     private Long id;
     // 证件号码
     private String idNo;
@@ -52,7 +53,7 @@ public class UpdatePsnForm {
     // 手机号
     private String mobilePhone;
     // 人员名称
-    @NotEmpty(message="人员名称不能为空")
+    @NotBlank(message="人员名称不能为空")
     private String name;
     // 人员昵称
     private String nickname;
