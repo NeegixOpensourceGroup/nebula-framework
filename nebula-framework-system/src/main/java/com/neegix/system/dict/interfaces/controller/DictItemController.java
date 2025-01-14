@@ -13,6 +13,7 @@ import com.neegix.system.dict.interfaces.form.UpdateDictItemForm;
 import com.neegix.system.dict.interfaces.vo.DictItemVO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,6 +46,7 @@ public class DictItemController {
     private DictItemService dictItemService;
 
     @PostMapping("/{pkDictGroup}")
+    @PreAuthorize("hasAuthority('system:dictItem:add')")
     public Result<Void> createDictItem(@PathVariable("pkDictGroup") Long pkDictGroup, @RequestBody @Valid NewDictItemForm newDictItemForm){
         DictItemEntity dictItemEntity = DictItemAssembler.INSTANCE.covertEntity(newDictItemForm);
         dictItemEntity.setPkDictGroup(pkDictGroup);
@@ -53,6 +55,7 @@ public class DictItemController {
     }
 
     @PutMapping("/{pkDictGroup}/{id}")
+    @PreAuthorize("hasAuthority('system:dictItem:modify')")
     public Result<Void> updateDictItem(@PathVariable("pkDictGroup") Long pkDictGroup, @PathVariable("id") Long id,  @RequestBody @Valid UpdateDictItemForm updateDictItemForm){
         DictItemEntity dictItemEntity = DictItemAssembler.INSTANCE.covertEntity(updateDictItemForm);
         dictItemEntity.setPkDictGroup(pkDictGroup);
@@ -62,23 +65,27 @@ public class DictItemController {
     }
 
     @GetMapping("/{currentPage}/{pageSize}/{dictGroupId}")
+    @PreAuthorize("hasAuthority('system:dictItem:list')")
     public Result<PageVO<DictItemVO>> getDictItems(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @PathVariable("dictGroupId") Long dictGroupId,  @ModelAttribute QueryDictItemForm queryDictItemForm){
         PageVO<DictItemVO> pageVO = dictItemQueryRepository.findPage(currentPage, pageSize, dictGroupId, DictItemAssembler.INSTANCE.covertDTO(queryDictItemForm));
         return Result.success("查询成功",pageVO);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('system:dictItem:get')")
     public Result<DictItemVO> getDictItemByDictGroupId(@PathVariable("id") Long id) {
         Optional<DictItemVO> optional = dictItemQueryRepository.findById(id);
         return Result.success("获取成功", optional.orElseThrow(()-> new BusinessRuntimeException("查询结果不存在")));
     }
 
     @DeleteMapping("/{pkDictGroup}")
+    @PreAuthorize("hasAuthority('system:dictItem:remove')")
     public Result<Void> removeDictItem(@PathVariable("pkDictGroup") Long pkDictGroup, @RequestBody List<Long> ids){
         return Result.success("删除成功", dictItemService.removeDictItem(pkDictGroup, ids));
     }
 
     @GetMapping("/dictGroupCode/{dictGroupCode}")
+    @PreAuthorize("hasAuthority('system:dictItem:getByDictGroupCode')")
     public Result<List<DictItemVO>> getDictItemByDictGroupCode(@PathVariable("dictGroupCode") String dictGroupCode){
         return Result.success("获取成功", dictItemQueryRepository.findDictItemsByGroupCode(dictGroupCode));
     }

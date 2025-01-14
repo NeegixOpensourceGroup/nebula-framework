@@ -12,6 +12,7 @@ import com.neegix.system.dict.interfaces.form.QueryDictGroupForm;
 import com.neegix.system.dict.interfaces.form.UpdateDictGroupForm;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,30 +45,35 @@ public class DictGroupController {
     private DictGroupService dictGroupService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('system:dictGroup:add')")
     public Result<Void> createDictGroup(@RequestBody @Valid NewDictGroupForm dictGroupForm){
         Void result = dictGroupService.createDictGroup(dictGroupForm.getCode(), dictGroupForm.getName());
         return Result.success("创建成功", result);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('system:dictGroup:modify')")
     public Result<Void> updateDictGroup(@PathVariable("id") Long id, @RequestBody @Valid UpdateDictGroupForm dictGroupForm){
         Void result = dictGroupService.modifyDictGroup(id, dictGroupForm.getCode(), dictGroupForm.getName());
         return Result.success("更新成功",result);
     }
 
     @GetMapping("/{currentPage}/{pageSize}")
+    @PreAuthorize("hasAuthority('system:dictGroup:list')")
     public Result<PageVO<DictGroupDTO>> getDictGroups(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @ModelAttribute QueryDictGroupForm dictGroupForm){
         PageVO<DictGroupDTO> pageDTO = dictGroupQueryRepository.findPage(currentPage, pageSize, DictGroupAssembler.INSTANCE.covertDTO(dictGroupForm));
         return Result.success("查询成功",pageDTO);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('system:dictGroup:get')")
     public Result<DictGroupDTO> getDictGroupById(@PathVariable("id") Long id) {
         Optional<DictGroupDTO> optional = dictGroupQueryRepository.findById(id);
         return Result.success("获取成功", optional.orElseThrow(()-> new BusinessRuntimeException("查询结果不存在")));
     }
 
     @DeleteMapping
+    @PreAuthorize("hasAuthority('system:dictGroup:remove')")
     public Result<Void> removeDictGroup(@RequestBody List<Long> ids){
         return Result.success("删除成功", dictGroupService.removeDictGroup(ids));
     }
