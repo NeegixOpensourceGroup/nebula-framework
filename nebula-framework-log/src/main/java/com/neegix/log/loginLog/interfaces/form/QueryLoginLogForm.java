@@ -18,6 +18,8 @@ import java.time.Instant;
 
 @Data
 public class QueryLoginLogForm {
+     // 登录人
+     private String user;
     // ID
     private Long id;
     // 创建时间-开始

@@ -21,6 +21,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class LoginLogEntity extends BaseEntity {
+     // 登录人
+     private String user;
     // IP
     private String ip;
     // 地区

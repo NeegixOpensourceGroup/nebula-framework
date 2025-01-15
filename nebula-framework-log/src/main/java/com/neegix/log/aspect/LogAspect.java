@@ -10,8 +10,10 @@ import com.neegix.log.loginLog.infrastructure.repository.dataobject.LoginLogDO;
 import com.neegix.log.loginLog.infrastructure.repository.mapper.LoginLogMapper;
 import com.neegix.log.operationLog.infrastructure.repository.dataobject.OperationLogDO;
 import com.neegix.log.operationLog.infrastructure.repository.mapper.OperationLogMapper;
+import com.neegix.utils.ClientInfoUtil;
 import com.neegix.utils.IPAddressUtil;
 import com.neegix.utils.IPInfo;
+import com.neegix.utils.PlatformTypeUtil;
 import com.neegix.utils.SnowFlake;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.JoinPoint;
@@ -20,6 +22,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,20 +52,29 @@ public class LogAspect {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
 
     @AfterReturning(pointcut = "@annotation(loginLog)")
     public void loginSuccess(JoinPoint joinPoint, LoginLog loginLog) {
+        Object[] args = joinPoint.getArgs();
+        String username = (String)args[0];
         String ip = IPAddressUtil.getIpAddress(httpServletRequest);
         IPInfo region = IPAddressUtil.getIpRegion(ip);
         LoginLogDO loginLogDO = new LoginLogDO();
+        loginLogDO.setUser(username);
         loginLogDO.setId(new SnowFlake(1,1).nextId());
         loginLogDO.setIp(region.ip());
+        loginLogDO.setClient(ClientInfoUtil.getClientInfo(httpServletRequest));
+        loginLogDO.setType(PlatformTypeUtil.getClientType(httpServletRequest));
         loginLogDO.setArea(region.country()+"|"+region.province()+"|"+region.city());
         loginLogMapper.insert(loginLogDO);
     }
 
     @AfterReturning(pointcut = "@annotation(bizLog)")
     public void success(JoinPoint joinPoint, BizLog bizLog) {
+
         String userName = getUserName();
         // 获取注解的属性
         String module = bizLog.module();
@@ -70,6 +82,11 @@ public class LogAspect {
         LogTypeEnum type = bizLog.type();
 
         OperationLogDO operationLogDO = new OperationLogDO();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof NebulaUserDetails nebulaUserDetails){
+            operationLogDO.setUser(nebulaUserDetails.getUsername());
+        }
         operationLogDO.setModule(module);
         operationLogDO.setType(type.ordinal());
         operationLogDO.setDescription(description);

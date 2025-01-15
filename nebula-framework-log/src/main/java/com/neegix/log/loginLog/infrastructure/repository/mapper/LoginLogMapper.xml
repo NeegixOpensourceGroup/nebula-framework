@@ -23,6 +23,7 @@
         <result column="update_time" property="updateTime" />
         <result column="create_user" property="createUser" />
         <result column="update_user" property="updateUser" />
+        <result column="user" property="user" />
         <result column="ip" property="ip" />
         <result column="area" property="area" />
         <result column="type" property="type" />
@@ -113,7 +114,7 @@
 
     <!-- 登录日志-字段列 -->
     <sql id="columns">
-       id,create_time,update_time,create_user,update_user,ip,area,type,client,enabled,deleted
+       id,create_time,update_time,create_user,update_user,user,ip,area,type,client,enabled,deleted
     </sql>
 
     <!-- 条件查询-登录日志-数量 -->
@@ -226,6 +227,7 @@
         <if test="updateTime != null">update_time,</if>
         <if test="createUser != null">create_user,</if>
         <if test="updateUser != null">update_user,</if>
+        <if test="user != null">user,</if>
         <if test="ip != null">ip,</if>
         <if test="area != null">area,</if>
         <if test="type != null">type,</if>
@@ -239,6 +241,7 @@
         <if test="updateTime != null">#{updateTime},</if>
         <if test="createUser != null">#{createUser},</if>
         <if test="updateUser != null">#{updateUser},</if>
+        <if test="user != null">#{user},</if>
         <if test="ip != null">#{ip},</if>
         <if test="area != null">#{area},</if>
         <if test="type != null">#{type},</if>
@@ -263,6 +266,9 @@
             </if>
             <if test="updateUser != null">
               update_user = #{updateUser},
+            </if>
+            <if test="user != null">
+              user = #{user},
             </if>
             <if test="ip != null">
               ip = #{ip},

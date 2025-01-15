@@ -28,6 +28,8 @@ public class LoginLogVO {
     private Long createUser;
     // 更新人
     private Long updateUser;
+     // 登录人
+     private String user;
     // IP
     private String ip;
     // 地区

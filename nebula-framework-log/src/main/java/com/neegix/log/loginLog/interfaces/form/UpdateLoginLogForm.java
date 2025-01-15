@@ -22,6 +22,8 @@ public class UpdateLoginLogForm {
     // ID
     @NotEmpty(message="ID不能为空")
     private Long id;
+     // 登录人
+     private String user;
     // IP
     private String ip;
     // 地区
