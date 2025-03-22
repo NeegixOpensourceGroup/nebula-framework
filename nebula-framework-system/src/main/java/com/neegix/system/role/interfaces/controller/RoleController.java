@@ -77,6 +77,14 @@ public class RoleController {
         return Result.success("查询成功",pageVO);
     }
 
+
+     @PreAuthorize("hasAuthority('system:role:list')")
+     @GetMapping
+     public Result<List<RoleVO>> getAllRoles(){
+         List<RoleVO> roleVOS = roleQueryRepository.findAll();
+         return Result.success("查询成功", roleVOS);
+     }
+
     @PreAuthorize("hasAuthority('system:role:get')")
     @GetMapping("/{id}")
     public Result<RoleVO> getRoleById(@PathVariable("id") Long id) {

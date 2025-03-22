@@ -79,4 +79,10 @@ public class RoleQueryRepositoryImpl implements RoleQueryRepository {
         page.setResult(RoleAssembler.INSTANCE.covertVO(RoleConverter.INSTANCE.covertDTOS(result)));
         return page;
     }
-}
+
+     @Override
+     public List<RoleVO> findAll() {
+         NebulaSQL nebulaSQL = new NebulaSQL();
+         return RoleAssembler.INSTANCE.covertVO(RoleConverter.INSTANCE.covertDTOS(roleMapper.selectList(nebulaSQL)));
+     }
+ }
