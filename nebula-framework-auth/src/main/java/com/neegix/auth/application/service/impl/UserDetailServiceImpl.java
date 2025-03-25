@@ -3,6 +3,7 @@ package com.neegix.auth.application.service.impl;
 import com.neegix.auth.application.dto.UserDTO;
 import com.neegix.auth.application.query.AuthQueryRepository;
 import com.neegix.auth.interfaces.vo.NebulaUserDetails;
+import com.neegix.exception.BusinessRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +30,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDTO userDTO = authRepository.findUserByName(username);
+        if (!userDTO.getEnabled()){
+            throw new BusinessRuntimeException("用户已禁用，请找管理员处理！");
+        }
         NebulaUserDetails nebulaUserDetails = new NebulaUserDetails();
         nebulaUserDetails.setId(userDTO.getId());
         nebulaUserDetails.setUsername(userDTO.getName());

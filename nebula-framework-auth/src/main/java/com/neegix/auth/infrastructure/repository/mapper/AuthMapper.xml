@@ -62,6 +62,7 @@
         <result column="update_user" property="updateUser" jdbcType="BIGINT" />
         <result column="name" property="name" jdbcType="VARCHAR" />
         <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="enabled" property="enabled" javaType="BOOLEAN" />
     </resultMap>
     <!-- 根据账号名称查询用户信息 -->
     <select id="selectUserByName" resultMap="SysUserResultMap">

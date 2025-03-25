@@ -17,4 +17,5 @@ import lombok.EqualsAndHashCode;
 public class UserDO extends BaseDO {
     private String name;
     private String password;
+    private Boolean enabled;
 }
