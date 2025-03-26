@@ -10,6 +10,7 @@ import com.neegix.system.user.application.service.UserService;
 import com.neegix.system.user.domain.entity.UserEntity;
 import com.neegix.system.user.interfaces.form.NewUserForm;
 import com.neegix.system.user.interfaces.form.QueryUserForm;
+import com.neegix.system.user.interfaces.form.ModifyPasswordForm;
 import com.neegix.system.user.interfaces.form.UpdateUserForm;
 import com.neegix.system.user.interfaces.form.UserRolesForm;
 import com.neegix.system.user.interfaces.vo.UserVO;
@@ -104,4 +105,9 @@ public class UserController {
         return Result.success("获取成功", userService.getRolesByPkUser(pkUser));
     }
 
+    @PutMapping("/password")
+    public Result<Void> modifyPassword(@RequestBody ModifyPasswordForm modifyPasswordForm) {
+        userService.modifyPassword(modifyPasswordForm.getOldPassword(), modifyPasswordForm.getNewPassword(), modifyPasswordForm.getConfirmPassword());
+        return Result.success();
+    }
 }

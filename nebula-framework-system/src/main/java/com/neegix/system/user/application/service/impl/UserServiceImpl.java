@@ -1,15 +1,19 @@
 package com.neegix.system.user.application.service.impl;
 
 import com.neegix.application.command.BaseService;
+import com.neegix.auth.interfaces.vo.NebulaUserDetails;
 import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.system.user.application.cqrs.command.BatchDeleteUserCommand;
 import com.neegix.system.user.application.cqrs.command.BindRolesCommand;
 import com.neegix.system.user.application.cqrs.command.NewUserCommand;
+import com.neegix.system.user.application.cqrs.command.ModifyPasswordCommand;
 import com.neegix.system.user.application.cqrs.command.UpdateUserCommand;
 import com.neegix.system.user.application.cqrs.query.UserQueryRepository;
 import com.neegix.system.user.application.service.UserService;
 import com.neegix.system.user.domain.entity.UserEntity;
+import com.neegix.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +36,9 @@ import java.util.Set;
 public class UserServiceImpl extends BaseService implements UserService{
     @Autowired
     private UserQueryRepository userQueryRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Void createUser(UserEntity userEntity) {
@@ -60,5 +67,27 @@ public class UserServiceImpl extends BaseService implements UserService{
     @Override
     public Set<Long> getRolesByPkUser(Long pkUser) {
         return userQueryRepository.getRolesByPkUser(pkUser);
+    }
+
+    @Override
+    public void modifyPassword(String oldPassword, String newPassword, String confirmPassword) {
+        // 验证两密码是否一致
+        if (!newPassword.equals(confirmPassword)){
+            throw new BusinessRuntimeException("密码输入不一致！");
+        }
+        // 验证旧密码是否正确
+        NebulaUserDetails userDetails = SecurityUtils.getCurrentUser(NebulaUserDetails.class);
+
+        assert userDetails != null;
+        boolean isConfirm = passwordEncoder.matches(oldPassword, userDetails.getPassword());
+        if (!isConfirm){
+            throw new BusinessRuntimeException("旧密码不正确，请重新输入！");
+        }
+        // 更新密码
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+
+        UserEntity userEntity = commandInvoker.execute(new ModifyPasswordCommand(userDetails.getId(), encryptedPassword));
+
+        commandInvoker.execute(new UpdateUserCommand(userEntity));
     }
 }
