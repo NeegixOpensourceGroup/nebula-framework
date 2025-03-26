@@ -46,7 +46,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
             errorMessage = "凭据过期";
             // 处理凭据过期异常
         } else if (authException instanceof InsufficientAuthenticationException) {
-           errorMessage = "访问这个资源需要完整的认证";
+           errorMessage = "接口不存在或者未授权";
            code = HttpStatus.METHOD_NOT_ALLOWED.value();
         } else {
             errorMessage = "其他认证异常";
