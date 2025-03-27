@@ -37,7 +37,7 @@ public class ApiServiceImpl extends BaseService implements ApiService{
     public Void createApi(ApiEntity apiEntity) {
         Optional<ApiDTO> optional = apiQueryRepository.findByAccess(apiEntity.getAccess());
         if (optional.isPresent()){
-            throw new BusinessRuntimeException("菜单["+apiEntity.getName()+ "]已存在！");
+            throw new BusinessRuntimeException("接口标识["+apiEntity.getAccess()+ "]已存在！");
         }
         return commandInvoker.execute(new NewApiCommand(apiEntity));
     }
