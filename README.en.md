@@ -1,5 +1,5 @@
 <div style="display: flex; justify-content: center;">
-    <img src="https://nebula.neegix.com/nebula-graph.svg" alt="Nebula Logo" width="50" height="50" />
+    <img src="https://nebula.neegix.com/nebula.svg" alt="Nebula Logo" width="50" height="50" />
 </div>
 <h3 style="text-align: center;">
   Nebula Framework
