@@ -5,8 +5,8 @@ import com.neegix.auth.interfaces.vo.NebulaUserDetails;
 import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.system.user.application.cqrs.command.BatchDeleteUserCommand;
 import com.neegix.system.user.application.cqrs.command.BindRolesCommand;
-import com.neegix.system.user.application.cqrs.command.NewUserCommand;
 import com.neegix.system.user.application.cqrs.command.ModifyPasswordCommand;
+import com.neegix.system.user.application.cqrs.command.NewUserCommand;
 import com.neegix.system.user.application.cqrs.command.UpdateUserCommand;
 import com.neegix.system.user.application.cqrs.query.UserQueryRepository;
 import com.neegix.system.user.application.service.UserService;
@@ -15,8 +15,10 @@ import com.neegix.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -89,5 +91,34 @@ public class UserServiceImpl extends BaseService implements UserService{
         UserEntity userEntity = commandInvoker.execute(new ModifyPasswordCommand(userDetails.getId(), encryptedPassword));
 
         commandInvoker.execute(new UpdateUserCommand(userEntity));
+    }
+
+    @Override
+    @Transactional
+    public String resetPassword(List<Long> userIds) {
+        String resetPassword = generateRandomPassword(8);
+        String encryptedPassword = passwordEncoder.encode(resetPassword);
+        for (Long userId : userIds) {
+            UserEntity userEntity = commandInvoker.execute(new ModifyPasswordCommand(userId, encryptedPassword));
+            commandInvoker.execute(new UpdateUserCommand(userEntity));
+        }
+
+        return resetPassword;
+    }
+
+
+    private String generateRandomPassword(int length) {
+        // 定义密码字符集，包含大小写字母和数字
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder password = new StringBuilder();
+        Random random = new Random();
+
+        // 随机选择字符拼接成密码
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            password.append(characters.charAt(index));
+        }
+
+        return password.toString();
     }
 }

@@ -25,4 +25,5 @@ public interface UserService {
     void bindRoles(List<Long> userIds, List<Long> roleIds);
     Set<Long> getRolesByPkUser(Long pkUser);
     void modifyPassword(String oldPassword, String newPassword, String confirmPassword);
+    String resetPassword(List<Long> ids);
 }

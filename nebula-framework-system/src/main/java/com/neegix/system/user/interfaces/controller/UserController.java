@@ -110,4 +110,9 @@ public class UserController {
         userService.modifyPassword(modifyPasswordForm.getOldPassword(), modifyPasswordForm.getNewPassword(), modifyPasswordForm.getConfirmPassword());
         return Result.success();
     }
+
+    @PutMapping("/resetPassword")
+    public Result<String> resetPassword(@RequestBody List<Long> ids){
+        return Result.success("密码重置成功！", userService.resetPassword(ids));
+    }
 }
