@@ -1,14 +1,11 @@
 package com.neegix.log.operationLog.application.assembler;
 
-import com.neegix.log.operationLog.application.dto.OperationLogDTO;
-import com.neegix.log.operationLog.interfaces.vo.OperationLogVO;
 import com.neegix.log.operationLog.domain.entity.OperationLogEntity;
-import com.neegix.log.operationLog.interfaces.form.NewOperationLogForm;
-import com.neegix.log.operationLog.interfaces.form.QueryOperationLogForm;
-import com.neegix.log.operationLog.interfaces.form.UpdateOperationLogForm;
+import com.neegix.log.operationLog.infrastructure.repository.dataobject.OperationLogDO;
+import com.neegix.log.operationLog.interfaces.vo.OperationLogVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 
  /**
@@ -28,24 +25,7 @@ import java.util.List;
 public interface OperationLogAssembler {
     OperationLogAssembler INSTANCE = Mappers.getMapper(OperationLogAssembler.class);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    OperationLogEntity covertEntity(NewOperationLogForm newOperationLogForm);
+    List<OperationLogVO> covertVO(List<OperationLogDO> OperationLogDOs);
 
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    OperationLogEntity covertEntity(UpdateOperationLogForm updateOperationLogForm);
-
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    OperationLogDTO covertDTO(QueryOperationLogForm queryOperationLogForm);
-
-    List<OperationLogVO> covertVO(List<OperationLogDTO> OperationLogDTOs);
-
-    OperationLogVO covertVO(OperationLogDTO queryOperationLogDTO);
+     OperationLogVO covertVO(OperationLogEntity queryOperationLogEntity);
 }

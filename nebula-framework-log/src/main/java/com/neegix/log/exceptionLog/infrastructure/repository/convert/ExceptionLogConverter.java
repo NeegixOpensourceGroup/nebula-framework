@@ -29,6 +29,8 @@ public interface ExceptionLogConverter {
 
     ExceptionLogDO covertDO(ExceptionLogEntity exceptionLogEntity);
 
+    ExceptionLogEntity convertEntity(ExceptionLogDO exceptionLogDO);
+
     @Mapping(target = "startCreateTime", ignore = true)
     @Mapping(target = "startUpdateTime", ignore = true)
     @Mapping(target = "endCreateTime", ignore = true)

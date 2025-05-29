@@ -1,7 +1,8 @@
 
-package com.neegix.log.exceptionLog.application.cqrs.query;
+package com.neegix.log.exceptionLog.application.repository;
+
 import com.neegix.application.query.IPageableQueryRepository;
-import com.neegix.log.exceptionLog.application.dto.ExceptionLogDTO;
+import com.neegix.application.query.NebulaSQL;
 import com.neegix.log.exceptionLog.interfaces.vo.ExceptionLogVO;
 
  /**
@@ -17,6 +18,6 @@ import com.neegix.log.exceptionLog.interfaces.vo.ExceptionLogVO;
   * @since 2024-12-19 15:04:54
   */
 
-public interface ExceptionLogQueryRepository extends IPageableQueryRepository<Long, ExceptionLogDTO, ExceptionLogVO> {
+public interface ExceptionLogQueryRepository extends IPageableQueryRepository<Long, NebulaSQL, ExceptionLogVO> {
 
 }

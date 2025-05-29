@@ -1,5 +1,6 @@
 package com.neegix.log.exceptionLog.interfaces.vo;
 
+import com.neegix.base.BaseVO;
 import lombok.Data;
 import java.time.Instant;
 
@@ -17,7 +18,7 @@ import java.time.Instant;
   */
 
 @Data
-public class ExceptionLogVO {
+public class ExceptionLogVO implements BaseVO {
     // ID
     private Long id;
     // 创建时间

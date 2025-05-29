@@ -1,5 +1,6 @@
 package com.neegix.log.operationLog.interfaces.vo;
 
+import com.neegix.base.BaseVO;
 import lombok.Data;
 import java.time.Instant;
 
@@ -17,7 +18,7 @@ import java.time.Instant;
   */
 
 @Data
-public class OperationLogVO {
+public class OperationLogVO implements BaseVO {
     private String user;
     // 创建时间
     private Instant createTime;

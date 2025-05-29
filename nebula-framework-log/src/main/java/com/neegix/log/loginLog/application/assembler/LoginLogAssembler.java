@@ -1,14 +1,11 @@
 package com.neegix.log.loginLog.application.assembler;
 
-import com.neegix.log.loginLog.application.dto.LoginLogDTO;
-import com.neegix.log.loginLog.interfaces.vo.LoginLogVO;
 import com.neegix.log.loginLog.domain.entity.LoginLogEntity;
-import com.neegix.log.loginLog.interfaces.form.NewLoginLogForm;
-import com.neegix.log.loginLog.interfaces.form.QueryLoginLogForm;
-import com.neegix.log.loginLog.interfaces.form.UpdateLoginLogForm;
+import com.neegix.log.loginLog.infrastructure.repository.dataobject.LoginLogDO;
+import com.neegix.log.loginLog.interfaces.vo.LoginLogVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 
  /**
@@ -28,25 +25,7 @@ import java.util.List;
 public interface LoginLogAssembler {
     LoginLogAssembler INSTANCE = Mappers.getMapper(LoginLogAssembler.class);
 
+    List<LoginLogVO> covertVO(List<LoginLogDO> LoginLogDOs);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    LoginLogEntity covertEntity(NewLoginLogForm newLoginLogForm);
-
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    LoginLogEntity covertEntity(UpdateLoginLogForm updateLoginLogForm);
-
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    LoginLogDTO covertDTO(QueryLoginLogForm queryLoginLogForm);
-
-    List<LoginLogVO> covertVO(List<LoginLogDTO> LoginLogDTOs);
-
-    LoginLogVO covertVO(LoginLogDTO queryLoginLogDTO);
+    LoginLogVO covertVO(LoginLogEntity entity);
 }

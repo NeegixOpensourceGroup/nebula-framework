@@ -1,4 +1,4 @@
-package com.neegix.log.operationLog.application.cqrs.query;
+package com.neegix.log.operationLog.application.repository;
 
 import com.neegix.application.query.IPageableQueryRepository;
 import com.neegix.application.query.NebulaSQL;
