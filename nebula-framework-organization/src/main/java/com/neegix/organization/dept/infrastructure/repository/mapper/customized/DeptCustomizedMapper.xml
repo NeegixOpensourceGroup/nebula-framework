@@ -27,4 +27,18 @@
         </where>
     </select>
 
+    <!-- 根据父id删除包含本身在内的子结点数据   -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        WITH RECURSIVE node_tree AS (
+            SELECT id
+            FROM sys_dept
+            WHERE id = #{id}
+            UNION ALL
+            SELECT sd.id
+            FROM sys_dept sd
+            JOIN node_tree nt ON sd.pid = nt.id
+        )
+        DELETE FROM sys_dept
+        WHERE id IN (SELECT id FROM node_tree);
+    </delete>
 </mapper>

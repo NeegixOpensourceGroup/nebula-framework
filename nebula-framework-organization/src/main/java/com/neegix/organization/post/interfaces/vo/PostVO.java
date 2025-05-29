@@ -1,5 +1,6 @@
 package com.neegix.organization.post.interfaces.vo;
 
+import com.neegix.base.BaseVO;
 import lombok.Data;
 import java.time.Instant;
 
@@ -17,7 +18,7 @@ import java.time.Instant;
   */
 
 @Data
-public class PostVO {
+public class PostVO implements BaseVO {
     // 编码
     private String code;
     // 创建时间

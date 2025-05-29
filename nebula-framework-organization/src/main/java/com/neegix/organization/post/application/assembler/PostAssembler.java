@@ -1,14 +1,13 @@
 package com.neegix.organization.post.application.assembler;
 
-import com.neegix.organization.post.application.dto.PostDTO;
-import com.neegix.organization.post.interfaces.vo.PostVO;
+import com.neegix.organization.post.application.service.command.CreatePostCommand;
+import com.neegix.organization.post.application.service.command.UpdatePostCommand;
 import com.neegix.organization.post.domain.entity.PostEntity;
-import com.neegix.organization.post.interfaces.form.NewPostForm;
-import com.neegix.organization.post.interfaces.form.QueryPostForm;
-import com.neegix.organization.post.interfaces.form.UpdatePostForm;
+import com.neegix.organization.post.infrastructure.repository.dataobject.PostDO;
+import com.neegix.organization.post.interfaces.vo.PostVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 
  /**
@@ -28,24 +27,11 @@ import java.util.List;
 public interface PostAssembler {
     PostAssembler INSTANCE = Mappers.getMapper(PostAssembler.class);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    PostEntity covertEntity(NewPostForm newPostForm);
+    PostEntity covertEntity(CreatePostCommand postCommand);
 
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    PostEntity covertEntity(UpdatePostForm updatePostForm);
+    PostEntity covertEntity(UpdatePostCommand postCommand);
 
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    PostDTO covertDTO(QueryPostForm queryPostForm);
+    PostVO covertVO(PostEntity postEntity);
 
-    List<PostVO> covertVO(List<PostDTO> PostDTOs);
-
-    PostVO covertVO(PostDTO queryPostDTO);
+    List<PostVO> covertVO(List<PostDO> PostDOs);
 }

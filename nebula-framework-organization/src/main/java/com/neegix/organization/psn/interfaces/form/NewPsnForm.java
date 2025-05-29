@@ -1,5 +1,6 @@
 package com.neegix.organization.psn.interfaces.form;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -54,7 +55,7 @@ public class NewPsnForm {
     private String nickname;
     // 业务单元PK
     private Long pkBizUnit;
-
+    @Valid
     private List<PsnWorkInfoForm> psnWorkInfos;
 }
 

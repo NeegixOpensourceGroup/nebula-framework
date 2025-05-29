@@ -1,9 +1,8 @@
 
-package com.neegix.organization.bizUnit.application.cqrs.query;
+package com.neegix.organization.bizUnit.application.repository;
 
 import com.neegix.application.query.IQueryRepository;
 import com.neegix.application.query.NebulaSQL;
-import com.neegix.organization.bizUnit.application.dto.BizUnitDTO;
 import com.neegix.organization.bizUnit.interfaces.vo.BizUnitVO;
 
 import java.util.List;
@@ -21,6 +20,6 @@ import java.util.List;
   * @since 2024-12-10 10:58:59
   */
 
-public interface BizUnitQueryRepository extends IQueryRepository<Long, BizUnitDTO, BizUnitVO> {
+public interface BizUnitQueryRepository extends IQueryRepository<Long, NebulaSQL, BizUnitVO> {
    List<BizUnitVO> findList(NebulaSQL nebulaSQL);
 }

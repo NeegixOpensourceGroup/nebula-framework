@@ -1,6 +1,5 @@
 package com.neegix.organization.psn.infrastructure.repository.convert;
 
-import com.neegix.organization.psn.application.dto.PsnWorkInfoDTO;
 import com.neegix.organization.psn.domain.entity.PsnWorkInfoValue;
 import com.neegix.organization.psn.infrastructure.repository.dataobject.PsnWorkInfoDO;
 import org.mapstruct.Mapper;
@@ -30,5 +29,5 @@ public interface PsnWorkInfoConverter {
 
    List<PsnWorkInfoDO> covertDO(List<PsnWorkInfoValue> psnWorkInfoValue);
 
-   List<PsnWorkInfoDTO> covertDTOS(List<PsnWorkInfoDO> psnWorkInfoDOS);
+   List<PsnWorkInfoValue> covertValues(List<PsnWorkInfoDO> psnWorkInfoDOS);
 }

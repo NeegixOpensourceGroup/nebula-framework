@@ -1,14 +1,13 @@
 package com.neegix.organization.dept.application.assembler;
 
-import com.neegix.organization.dept.application.dto.DeptDTO;
-import com.neegix.organization.dept.interfaces.vo.DeptVO;
+import com.neegix.organization.dept.application.service.command.CreateDeptCommand;
+import com.neegix.organization.dept.application.service.command.UpdateDeptCommand;
 import com.neegix.organization.dept.domain.entity.DeptEntity;
-import com.neegix.organization.dept.interfaces.form.NewDeptForm;
-import com.neegix.organization.dept.interfaces.form.QueryDeptForm;
-import com.neegix.organization.dept.interfaces.form.UpdateDeptForm;
+import com.neegix.organization.dept.infrastructure.repository.dataobject.DeptDO;
+import com.neegix.organization.dept.interfaces.vo.DeptVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 
  /**
@@ -27,26 +26,12 @@ import java.util.List;
 @Mapper
 public interface DeptAssembler {
     DeptAssembler INSTANCE = Mappers.getMapper(DeptAssembler.class);
+    DeptEntity covertEntity(CreateDeptCommand deptCommand);
 
+    DeptEntity covertEntity(UpdateDeptCommand deptCommand);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    DeptEntity covertEntity(NewDeptForm newDeptForm);
+    DeptVO covertVO(DeptEntity deptEntity);
 
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    DeptEntity covertEntity(UpdateDeptForm updateDeptForm);
+    List<DeptVO> covertVO(List<DeptDO> DeptDOs);
 
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    DeptDTO covertDTO(QueryDeptForm queryDeptForm);
-
-    List<DeptVO> covertVO(List<DeptDTO> DeptDTOs);
-
-    DeptVO covertVO(DeptDTO queryDeptDTO);
 }

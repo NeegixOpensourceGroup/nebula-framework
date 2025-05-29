@@ -1,5 +1,6 @@
 package com.neegix.organization.dept.interfaces.vo;
 
+import com.neegix.base.BaseVO;
 import lombok.Data;
 import java.time.Instant;
 
@@ -17,7 +18,7 @@ import java.time.Instant;
   */
 
 @Data
-public class DeptVO {
+public class DeptVO implements BaseVO {
     // 简称
     private String abbreviation;
     // 编码

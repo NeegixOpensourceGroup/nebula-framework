@@ -1,5 +1,5 @@
 
-package com.neegix.organization.dept.application.cqrs.query;
+package com.neegix.organization.dept.application.repository;
 
 import com.neegix.application.query.IQueryRepository;
 import com.neegix.application.query.NebulaSQL;

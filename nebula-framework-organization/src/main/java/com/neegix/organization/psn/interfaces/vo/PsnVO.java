@@ -1,5 +1,6 @@
 package com.neegix.organization.psn.interfaces.vo;
 
+import com.neegix.base.BaseVO;
 import lombok.Data;
 
 import java.time.Instant;
@@ -19,7 +20,7 @@ import java.util.List;
   */
 
 @Data
-public class PsnVO {
+public class PsnVO implements BaseVO {
     // 出生日期
     private String birth;
     // 人员编码

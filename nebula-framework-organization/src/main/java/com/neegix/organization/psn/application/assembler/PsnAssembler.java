@@ -1,14 +1,13 @@
 package com.neegix.organization.psn.application.assembler;
 
-import com.neegix.organization.psn.application.dto.PsnDTO;
-import com.neegix.organization.psn.interfaces.vo.PsnVO;
+import com.neegix.organization.psn.application.service.command.CreatePsnCommand;
+import com.neegix.organization.psn.application.service.command.UpdatePsnCommand;
 import com.neegix.organization.psn.domain.entity.PsnEntity;
-import com.neegix.organization.psn.interfaces.form.NewPsnForm;
-import com.neegix.organization.psn.interfaces.form.QueryPsnForm;
-import com.neegix.organization.psn.interfaces.form.UpdatePsnForm;
+import com.neegix.organization.psn.infrastructure.repository.dataobject.PsnDO;
+import com.neegix.organization.psn.interfaces.vo.PsnVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 
  /**
@@ -27,26 +26,11 @@ import java.util.List;
 @Mapper
 public interface PsnAssembler {
     PsnAssembler INSTANCE = Mappers.getMapper(PsnAssembler.class);
+    PsnEntity covertEntity(CreatePsnCommand psnCommand);
 
+    PsnEntity covertEntity(UpdatePsnCommand psnCommand);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    PsnEntity covertEntity(NewPsnForm newPsnForm);
+    List<PsnVO> covertVO(List<PsnDO> PsnDOs);
 
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    PsnEntity covertEntity(UpdatePsnForm updatePsnForm);
-
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    PsnDTO covertDTO(QueryPsnForm queryPsnForm);
-
-    List<PsnVO> covertVO(List<PsnDTO> PsnDTOs);
-
-    PsnVO covertVO(PsnDTO queryPsnDTO);
+    PsnVO covertVO(PsnEntity psnEntity);
 }

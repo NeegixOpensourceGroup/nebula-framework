@@ -20,4 +20,6 @@ import java.util.List;
 @Mapper
 public interface DeptCustomizedMapper {
     Integer selectCountByIds(List<Long> ids);
+
+    void deleteById(Long id);
 }

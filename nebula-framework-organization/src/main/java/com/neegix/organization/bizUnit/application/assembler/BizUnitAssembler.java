@@ -1,14 +1,13 @@
 package com.neegix.organization.bizUnit.application.assembler;
 
-import com.neegix.organization.bizUnit.application.dto.BizUnitDTO;
-import com.neegix.organization.bizUnit.interfaces.vo.BizUnitVO;
+import com.neegix.organization.bizUnit.application.service.command.CreateBizUnitCommand;
+import com.neegix.organization.bizUnit.application.service.command.UpdateBizUnitCommand;
 import com.neegix.organization.bizUnit.domain.entity.BizUnitEntity;
-import com.neegix.organization.bizUnit.interfaces.form.NewBizUnitForm;
-import com.neegix.organization.bizUnit.interfaces.form.QueryBizUnitForm;
-import com.neegix.organization.bizUnit.interfaces.form.UpdateBizUnitForm;
+import com.neegix.organization.bizUnit.infrastructure.repository.dataobject.BizUnitDO;
+import com.neegix.organization.bizUnit.interfaces.vo.BizUnitVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 
  /**
@@ -28,25 +27,11 @@ import java.util.List;
 public interface BizUnitAssembler {
     BizUnitAssembler INSTANCE = Mappers.getMapper(BizUnitAssembler.class);
 
+    BizUnitEntity covertEntity(CreateBizUnitCommand bizUnitCommand);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    BizUnitEntity covertEntity(NewBizUnitForm newBizUnitForm);
+    BizUnitEntity covertEntity(UpdateBizUnitCommand bizUnitCommand);
 
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    BizUnitEntity covertEntity(UpdateBizUnitForm updateBizUnitForm);
+    List<BizUnitVO> covertVO(List<BizUnitDO> BizUnitDOs);
 
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    BizUnitDTO covertDTO(QueryBizUnitForm queryBizUnitForm);
-
-    List<BizUnitVO> covertVO(List<BizUnitDTO> BizUnitDTOs);
-
-    BizUnitVO covertVO(BizUnitDTO queryBizUnitDTO);
+    BizUnitVO covertVO(BizUnitEntity queryBizUnitEntity);
 }
