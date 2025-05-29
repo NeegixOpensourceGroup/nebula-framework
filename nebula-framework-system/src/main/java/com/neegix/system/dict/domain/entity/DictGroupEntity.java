@@ -2,7 +2,6 @@ package com.neegix.system.dict.domain.entity;
 
 import com.neegix.domain.entity.AggregateRoot;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -12,11 +11,13 @@ import lombok.EqualsAndHashCode;
  * @Date: 2024/10/11/16:37
  * @Description:
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class DictGroupEntity extends AggregateRoot {
+public class DictGroupEntity implements AggregateRoot {
+    private Long id;
     private String code;
     private String name;
+
+    public DictGroupEntity() {}
 
     public DictGroupEntity(String code, String name) {
         this.code = code;
@@ -24,7 +25,6 @@ public class DictGroupEntity extends AggregateRoot {
     }
 
     public DictGroupEntity(Long id, String code, String name) {
-        super(id);
         this.code = code;
         this.name = name;
     }

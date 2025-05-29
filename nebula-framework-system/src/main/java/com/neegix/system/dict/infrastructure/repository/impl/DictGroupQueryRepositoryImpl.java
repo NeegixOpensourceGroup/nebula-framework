@@ -2,13 +2,14 @@ package com.neegix.system.dict.infrastructure.repository.impl;
 
 import com.neegix.application.query.NebulaSQL;
 import com.neegix.base.PageVO;
-import com.neegix.system.dict.application.cqrs.query.DictGroupQueryRepository;
-import com.neegix.system.dict.application.cqrs.query.condition.DictGroupWhereGroup;
+import com.neegix.system.dict.application.repository.DictGroupQueryRepository;
+import com.neegix.system.dict.infrastructure.repository.condition.DictGroupWhereGroup;
 import com.neegix.system.dict.application.dto.DictGroupDTO;
 import com.neegix.system.dict.infrastructure.repository.convert.DictGroupConverter;
 import com.neegix.system.dict.infrastructure.repository.dataobject.DictGroupDO;
 import com.neegix.system.dict.infrastructure.repository.mapper.DictGroupMapper;
 import com.neegix.system.dict.infrastructure.repository.mapper.customized.DictGroupCustomizedMapper;
+import com.neegix.system.dict.interfaces.vo.DictGroupVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -32,11 +33,6 @@ public class DictGroupQueryRepositoryImpl implements DictGroupQueryRepository {
     @Autowired
     private DictGroupCustomizedMapper dictGroupCustomizedMapper;
 
-    @Override
-    public Optional<DictGroupDTO> findById(Long id) {
-        DictGroupDO dictGroupDO = dictGroupMapper.selectByPrimaryKey(id);
-        return Optional.ofNullable(DictGroupConverter.INSTANCE.covertDTO(dictGroupDO));
-    }
 
     @Override
     public Optional<DictGroupDTO> findByCodeAndName(String code, String name) {
@@ -52,13 +48,11 @@ public class DictGroupQueryRepositoryImpl implements DictGroupQueryRepository {
     }
 
     @Override
-    public PageVO<DictGroupDTO> findPage(Integer currentPage, Integer pageSize, DictGroupDTO dictGroupDTO) {
-        NebulaSQL nebulaSQL = new NebulaSQL();
-        nebulaSQL.createWhereGroups(DictGroupWhereGroup.class).andNameLikeTo(dictGroupDTO.getName());
+    public PageVO<DictGroupVO> findPage(Integer currentPage, Integer pageSize, NebulaSQL nebulaSQL) {
         nebulaSQL.setPager(currentPage, pageSize);
         List<DictGroupDO> result = dictGroupMapper.selectList(nebulaSQL);
         Long total = dictGroupMapper.selectCount(nebulaSQL);
-        PageVO<DictGroupDTO> page = new PageVO<>(currentPage, pageSize);
+        PageVO<DictGroupVO> page = new PageVO<>(currentPage, pageSize);
         page.setTotal(total);
         page.setResult(DictGroupConverter.INSTANCE.covertDTOS(result));
         return page;

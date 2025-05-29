@@ -1,5 +1,6 @@
 package com.neegix.system.user.interfaces.vo;
 
+import com.neegix.base.BaseVO;
 import lombok.Data;
 import java.time.Instant;
 
@@ -17,7 +18,7 @@ import java.time.Instant;
   */
 
 @Data
-public class UserVO {
+public class UserVO implements BaseVO {
     // ID
     private Long id;
     // 创建时间
@@ -30,8 +31,6 @@ public class UserVO {
     private Long updateUser;
     // 账号名称
     private String name;
-    // 密码
-    private String password;
     // 描述
     private String description;
     // 邮箱

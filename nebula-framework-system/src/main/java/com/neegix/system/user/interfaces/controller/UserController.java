@@ -2,15 +2,23 @@
 package com.neegix.system.user.interfaces.controller;
 
 import com.neegix.base.PageVO;
-import com.neegix.exception.BusinessRuntimeException;
+import com.neegix.cqrs.command.UniversalCommandBus;
+import com.neegix.cqrs.query.UniversalQueryBus;
 import com.neegix.result.Result;
-import com.neegix.system.user.application.assembler.UserAssembler;
-import com.neegix.system.user.application.cqrs.query.UserQueryRepository;
-import com.neegix.system.user.application.service.UserService;
-import com.neegix.system.user.domain.entity.UserEntity;
+import com.neegix.system.user.application.service.command.BindRolesCommand;
+import com.neegix.system.user.application.service.command.CreateUserCommand;
+import com.neegix.system.user.application.service.command.DeleteUserCommand;
+import com.neegix.system.user.application.service.command.ModifyMinePasswordCommand;
+import com.neegix.system.user.application.service.command.ResetPasswordCommand;
+import com.neegix.system.user.application.service.command.UpdateUserCommand;
+import com.neegix.system.user.application.service.command.mapper.UserCommandMapper;
+import com.neegix.system.user.application.service.query.GetPageUserQuery;
+import com.neegix.system.user.application.service.query.GetUserDetailQuery;
+import com.neegix.system.user.application.service.query.GetUserRolesQuery;
+import com.neegix.system.user.application.service.query.mapper.UserQueryMapper;
+import com.neegix.system.user.interfaces.form.ModifyPasswordForm;
 import com.neegix.system.user.interfaces.form.NewUserForm;
 import com.neegix.system.user.interfaces.form.QueryUserForm;
-import com.neegix.system.user.interfaces.form.ModifyPasswordForm;
 import com.neegix.system.user.interfaces.form.UpdateUserForm;
 import com.neegix.system.user.interfaces.form.UserRolesForm;
 import com.neegix.system.user.interfaces.vo.UserVO;
@@ -28,7 +36,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -49,25 +56,24 @@ import java.util.Set;
 public class UserController {
 
     @Autowired
-    private UserQueryRepository userQueryRepository;
+    private UniversalCommandBus universalCommandBus;
 
     @Autowired
-    private UserService userService;
+    private UniversalQueryBus queryBus;
 
     @PreAuthorize("hasAuthority('system:user:add')")
     @PostMapping
     public Result<Void> createUser(@RequestBody @Valid NewUserForm userForm){
-        Void result = userService.createUser(UserAssembler.INSTANCE.covertEntity(userForm));
-        return Result.success("创建成功", result);
+        CreateUserCommand command = UserCommandMapper.INSTANCE.covertCommand(userForm);
+        return Result.success("创建成功", universalCommandBus.execute(command));
     }
 
     @PreAuthorize("hasAuthority('system:user:modify')")
     @PutMapping("/{id}")
     public Result<Void> updateUser(@PathVariable Long id, @RequestBody @Valid UpdateUserForm userForm){
-        UserEntity userEntity = UserAssembler.INSTANCE.covertEntity(userForm);
-        userEntity.setId(id);
-        Void result = userService.modifyUser(userEntity);
-        return Result.success("更新成功",result);
+        UpdateUserCommand command = UserCommandMapper.INSTANCE.covertCommand(userForm);
+        command.setId(id);
+        return Result.success("创建成功", universalCommandBus.execute(command));
     }
 
     @PreAuthorize("hasAuthority('system:user:list')")
@@ -76,43 +82,47 @@ public class UserController {
         if(userForm == null) {
             userForm = new QueryUserForm();
         }
-        PageVO<UserVO> pageVO = userQueryRepository.findPage(currentPage, pageSize, UserAssembler.INSTANCE.covertDTO(userForm));
+
+        GetPageUserQuery query = UserQueryMapper.INSTANCE.covertToGetQuery(userForm);
+        query.setCurrentPage(currentPage);
+        query.setPageSize(pageSize);
+        PageVO<UserVO> pageVO = queryBus.execute(query);
         return Result.success("查询成功",pageVO);
     }
 
     @PreAuthorize("hasAuthority('system:user:get')")
     @GetMapping("/{id}")
     public Result<UserVO> getUserById(@PathVariable("id") Long id) {
-        Optional<UserVO> optional = userQueryRepository.findById(id);
-        return Result.success("获取成功", optional.orElseThrow(()-> new BusinessRuntimeException("查询结果不存在")));
+        return Result.success("获取成功", queryBus.execute(new GetUserDetailQuery(id)));
     }
 
     @PreAuthorize("hasAuthority('system:user:remove')")
     @DeleteMapping
     public Result<Void> removeUser(@RequestBody List<Long> ids){
-        return Result.success("删除成功", userService.removeUser(ids));
+        return Result.success("删除成功", universalCommandBus.execute(new DeleteUserCommand(ids)));
     }
 
     @PostMapping("/bindRoles")
     @PreAuthorize("hasAuthority('system:user:bindRoles')")
-    public Result<UserRolesForm> bindRoles(@RequestBody UserRolesForm userRolesForm) {
-        userService.bindRoles(userRolesForm.getUserIds(), userRolesForm.getRoleIds());
-        return Result.success();
+    public Result<Void> bindRoles(@RequestBody UserRolesForm userRolesForm) {
+        BindRolesCommand bindRolesCommand = new BindRolesCommand(userRolesForm.getUserIds(), userRolesForm.getRoleIds());
+        return Result.success("绑定成功！", universalCommandBus.execute(bindRolesCommand));
     }
 
     @GetMapping("/{pkUser}/roles")
     public Result<Set<Long>> rolesByUser(@PathVariable("pkUser") Long pkUser) {
-        return Result.success("获取成功", userService.getRolesByPkUser(pkUser));
+        return Result.success("获取成功", queryBus.execute(new GetUserRolesQuery(pkUser)));
     }
 
     @PutMapping("/password")
     public Result<Void> modifyPassword(@RequestBody ModifyPasswordForm modifyPasswordForm) {
-        userService.modifyPassword(modifyPasswordForm.getOldPassword(), modifyPasswordForm.getNewPassword(), modifyPasswordForm.getConfirmPassword());
-        return Result.success();
+        ModifyMinePasswordCommand command = new ModifyMinePasswordCommand(modifyPasswordForm.getOldPassword(), modifyPasswordForm.getNewPassword(), modifyPasswordForm.getConfirmPassword());
+        return Result.success("密码修改成功", universalCommandBus.execute(command));
     }
 
     @PutMapping("/resetPassword")
-    public Result<String> resetPassword(@RequestBody List<Long> ids){
-        return Result.success("密码重置成功！", userService.resetPassword(ids));
+    public Result<Void> resetPassword(@RequestBody List<Long> ids){
+        ResetPasswordCommand command = new ResetPasswordCommand(ids);
+        return Result.success("密码重置成功！", universalCommandBus.execute(command));
     }
 }

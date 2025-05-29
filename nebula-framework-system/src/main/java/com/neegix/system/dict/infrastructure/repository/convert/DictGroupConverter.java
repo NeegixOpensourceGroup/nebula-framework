@@ -3,6 +3,7 @@ package com.neegix.system.dict.infrastructure.repository.convert;
 import com.neegix.system.dict.application.dto.DictGroupDTO;
 import com.neegix.system.dict.domain.entity.DictGroupEntity;
 import com.neegix.system.dict.infrastructure.repository.dataobject.DictGroupDO;
+import com.neegix.system.dict.interfaces.vo.DictGroupVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public interface DictGroupConverter {
     DictGroupConverter INSTANCE = Mappers.getMapper(DictGroupConverter.class);
     DictGroupDO covertDO(DictGroupEntity dictGroupEntity);
+    DictGroupEntity covertEntity(DictGroupDO dictGroupDO);
     DictGroupDTO covertDTO(DictGroupDO dictGroupDO);
-    List<DictGroupDTO> covertDTOS(List<DictGroupDO> dictGroupDOS);
+    List<DictGroupVO> covertDTOS(List<DictGroupDO> dictGroupDOS);
 }

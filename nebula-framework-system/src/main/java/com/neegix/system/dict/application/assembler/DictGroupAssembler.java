@@ -1,8 +1,7 @@
 package com.neegix.system.dict.application.assembler;
 
-import com.neegix.system.dict.application.dto.DictGroupDTO;
-import com.neegix.system.dict.interfaces.form.NewDictGroupForm;
-import com.neegix.system.dict.interfaces.form.QueryDictGroupForm;
+import com.neegix.system.dict.domain.entity.DictGroupEntity;
+import com.neegix.system.dict.interfaces.vo.DictGroupVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -18,7 +17,5 @@ import org.mapstruct.factory.Mappers;
 public interface DictGroupAssembler {
     DictGroupAssembler INSTANCE = Mappers.getMapper(DictGroupAssembler.class);
 
-    DictGroupDTO covertDTO(NewDictGroupForm dictGroupForm);
-
-    DictGroupDTO covertDTO(QueryDictGroupForm dictGroupForm);
+    DictGroupVO covertVO(DictGroupEntity dictGroup);
 }

@@ -1,12 +1,11 @@
 package com.neegix.system.role.application.assembler;
 
-import com.neegix.system.role.application.dto.RoleDTO;
-import com.neegix.system.role.application.dto.RoleMenuDTO;
+import com.neegix.system.role.domain.entity.Role;
 import com.neegix.system.role.domain.entity.RoleEntity;
+import com.neegix.system.role.infrastructure.repository.dataobject.RoleDO;
 import com.neegix.system.role.interfaces.form.NewRoleForm;
-import com.neegix.system.role.interfaces.form.QueryRoleForm;
 import com.neegix.system.role.interfaces.form.UpdateRoleForm;
-import com.neegix.system.role.interfaces.vo.PagePermissionVO;
+import com.neegix.system.role.interfaces.vo.RolePageVO;
 import com.neegix.system.role.interfaces.vo.RoleVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -44,13 +43,10 @@ public interface RoleAssembler {
     @Mapping(target = "updateUser", ignore = true)
     RoleEntity covertEntity(UpdateRoleForm updateRoleForm);
 
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    RoleDTO covertDTO(QueryRoleForm queryRoleForm);
+    List<RoleVO> covertVO(List<RoleDO> RoleDOs);
 
-    List<RoleVO> covertVO(List<RoleDTO> RoleDTOs);
 
-    RoleVO covertVO(RoleDTO queryRoleDTO);
+    RoleVO covertVO(Role role);
 
-    List<PagePermissionVO> covertPagePermissionVO(List<RoleMenuDTO> roleMenuDTOS);
+    List<RolePageVO> convertToVO(List<RoleDO> roleDOS);
 }

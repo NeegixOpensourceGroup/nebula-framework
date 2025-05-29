@@ -59,11 +59,25 @@
         </foreach>
     </delete>
 
-    <select id="getApiPermissionsByPkRole" resultType="java.lang.Long">
-        select pk_api from sys_role_api_rel where pk_role = #{id}
+    <select id="getApiPermissionsByPkRole" resultType="com.neegix.system.role.infrastructure.repository.dataobject.RoleApiDO">
+        select
+            sa.*
+        from
+            sys_role_api_rel srar
+            left join sys_api sa  on
+            srar.pk_api = sa.id
+        where
+            pk_role = #{id}
     </select>
 
-    <select id="getMenuPermissionsByPkRole" resultType="com.neegix.system.role.infrastructure.repository.dataobject.RoleMenuRelDO">
-        select pk_menu, is_half from sys_role_menu_rel where pk_role = #{id}
+    <select id="getMenuPermissionsByPkRole" resultType="com.neegix.system.role.infrastructure.repository.dataobject.RoleMenuDO">
+        select
+            sm.*,
+            is_half
+        from
+            sys_role_menu_rel srmr
+            left join sys_menu sm on srmr.pk_menu = sm.id
+        where
+            pk_role = #{id}
     </select>
 </mapper>

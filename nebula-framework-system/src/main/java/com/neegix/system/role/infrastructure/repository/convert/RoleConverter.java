@@ -1,7 +1,7 @@
 package com.neegix.system.role.infrastructure.repository.convert;
 
 import com.neegix.system.role.application.dto.RoleDTO;
-import com.neegix.system.role.application.dto.RoleMenuDTO;
+import com.neegix.system.role.domain.entity.Role;
 import com.neegix.system.role.domain.entity.RoleEntity;
 import com.neegix.system.role.domain.entity.RoleMenuEntity;
 import com.neegix.system.role.infrastructure.repository.dataobject.RoleDO;
@@ -31,6 +31,10 @@ public interface RoleConverter {
 
     RoleDO covertDO(RoleEntity roleEntity);
 
+    RoleDO covertDO(Role role);
+
+    Role convertEntity(RoleDO roleDO);
+
     @Mapping(target = "startCreateTime", ignore = true)
     @Mapping(target = "startUpdateTime", ignore = true)
     @Mapping(target = "endCreateTime", ignore = true)
@@ -45,5 +49,4 @@ public interface RoleConverter {
 
     List<RoleMenuRelDO> covertDO(List<RoleMenuEntity> roleMenuEntities);
 
-     List<RoleMenuDTO> covertDTO(List<RoleMenuRelDO> roleMenuRelDOS);
 }

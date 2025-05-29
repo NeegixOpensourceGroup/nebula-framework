@@ -1,9 +1,10 @@
 package com.neegix.system.dict.application.assembler;
 
-import com.neegix.system.dict.application.dto.DictItemDTO;
+import com.neegix.system.dict.application.service.command.CreateDictItemCommand;
+import com.neegix.system.dict.application.service.command.UpdateDictItemCommand;
 import com.neegix.system.dict.domain.entity.DictItemEntity;
+import com.neegix.system.dict.infrastructure.repository.dataobject.DictItemDO;
 import com.neegix.system.dict.interfaces.form.NewDictItemForm;
-import com.neegix.system.dict.interfaces.form.QueryDictItemForm;
 import com.neegix.system.dict.interfaces.form.UpdateDictItemForm;
 import com.neegix.system.dict.interfaces.vo.DictItemVO;
 import org.mapstruct.Mapper;
@@ -23,13 +24,15 @@ import java.util.List;
 public interface DictItemAssembler {
     DictItemAssembler INSTANCE = Mappers.getMapper(DictItemAssembler.class);
 
+    DictItemEntity covertEntity(CreateDictItemCommand createDictItemCommand);
+
+    DictItemEntity covertEntity(UpdateDictItemCommand updateDictItemCommand);
+
     DictItemEntity covertEntity(NewDictItemForm newDictItemForm);
 
     DictItemEntity covertEntity(UpdateDictItemForm updateDictItemForm);
 
-    DictItemDTO covertDTO(QueryDictItemForm queryDictItemForm);
+    List<DictItemVO> covertVO(List<DictItemDO> dictItemDOS);
 
-    List<DictItemVO> covertVO(List<DictItemDTO> dictItemDTOS);
-
-    DictItemVO covertVO(DictItemDTO dictItemDTO);
+    DictItemVO covertVO(DictItemEntity dictItemEntity);
 }

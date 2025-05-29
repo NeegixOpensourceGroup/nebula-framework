@@ -12,6 +12,7 @@ import lombok.Data;
  */
 @Data
 public class PagePermissionVO {
-    private Long pkMenu;
+    private Long id;
+    private String name;
     private Boolean isHalf;
 }

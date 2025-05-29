@@ -17,4 +17,9 @@ import lombok.EqualsAndHashCode;
 public class UserRoleRelDO extends BaseDO {
     private Long pkUser;
     private Long pkRole;
+
+    public UserRoleRelDO(Long pkUser, Long pkRole) {
+        this.pkUser = pkUser;
+        this.pkRole = pkRole;
+    }
 }

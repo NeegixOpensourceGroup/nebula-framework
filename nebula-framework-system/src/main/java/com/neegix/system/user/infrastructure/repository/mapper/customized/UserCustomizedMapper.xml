@@ -48,7 +48,14 @@
         </foreach>
     </insert>
 
-    <select id="selectRolesByPkUser" parameterType="java.lang.Long" resultType="java.lang.Long">
-        select pk_role from sys_user_role_rel where pk_user = #{pkUser, jdbcType=BIGINT}
+    <!-- 根据用户查询角色 -->
+    <select id="selectRolesByPkUser" parameterType="java.lang.Long" resultType="com.neegix.system.user.infrastructure.repository.dataobject.UserRoleDO">
+        select
+            sr.*
+        from
+            sys_user_role_rel surr
+            left join sys_role sr on
+            surr.pk_role = sr.id
+        where surr.pk_user = #{pkUser, jdbcType=BIGINT}
     </select>
 </mapper>

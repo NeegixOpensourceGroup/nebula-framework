@@ -1,5 +1,7 @@
 package com.neegix.system.role.infrastructure.repository.mapper.customized;
 
+import com.neegix.system.role.infrastructure.repository.dataobject.RoleApiDO;
+import com.neegix.system.role.infrastructure.repository.dataobject.RoleMenuDO;
 import com.neegix.system.role.infrastructure.repository.dataobject.RoleMenuRelDO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,13 +24,13 @@ import java.util.List;
 public interface RoleCustomizedMapper {
     Integer selectCountByIds(List<Long> ids);
 
-    List<Long> getApiPermissionsByPkRole(Long pkRole);
+    List<RoleApiDO> getApiPermissionsByPkRole(Long pkRole);
 
     void deleteRoleApiByPkRole(List<Long> pkRoles);
 
     void insertRoleApi(Long pkRole, List<Long> ids);
 
-    List<RoleMenuRelDO> getMenuPermissionsByPkRole(Long pkRole);
+    List<RoleMenuDO> getMenuPermissionsByPkRole(Long pkRole);
 
     void deleteRoleMenuByPkRole(List<Long> pkRoles);
 

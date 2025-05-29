@@ -1,7 +1,8 @@
-package com.neegix.system.role.application.cqrs.query;
+package com.neegix.system.role.application.repository;
 
 import com.neegix.application.query.IPageableQueryRepository;
-import com.neegix.system.role.application.dto.RoleDTO;
+import com.neegix.application.query.NebulaSQL;
+import com.neegix.system.role.interfaces.vo.RolePageVO;
 import com.neegix.system.role.interfaces.vo.RoleVO;
 
 import java.util.List;
@@ -19,6 +20,6 @@ import java.util.List;
   * @since 2024-11-25 11:32:40
   */
 
-public interface RoleQueryRepository extends IPageableQueryRepository<Long, RoleDTO, RoleVO> {
+public interface RoleQueryRepository extends IPageableQueryRepository<Long, NebulaSQL, RolePageVO> {
     List<RoleVO> findAll();
 }

@@ -1,5 +1,6 @@
 package com.neegix.system.dict.interfaces.vo;
 
+import com.neegix.base.BaseVO;
 import lombok.Data;
 
 /**
@@ -11,7 +12,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class DictItemVO {
+public class DictItemVO implements BaseVO {
     private Long id;
     private Long pkDictGroup;
     private String name;

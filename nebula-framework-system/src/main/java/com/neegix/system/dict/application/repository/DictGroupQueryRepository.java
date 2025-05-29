@@ -1,4 +1,4 @@
-package com.neegix.system.dict.application.cqrs.query;
+package com.neegix.system.dict.application.repository;
 
 import com.neegix.application.query.NebulaSQL;
 import com.neegix.base.PageVO;

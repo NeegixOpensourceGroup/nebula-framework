@@ -1,5 +1,6 @@
 package com.neegix.system.role.interfaces.vo;
 
+import com.neegix.base.BaseVO;
 import lombok.Data;
 
 import java.time.Instant;
@@ -19,7 +20,7 @@ import java.util.List;
   */
 
 @Data
-public class RoleVO {
+public class RoleVO implements BaseVO {
     // 创建时间
     private Instant createTime;
     // 创建人
@@ -39,7 +40,7 @@ public class RoleVO {
     // 更新人
     private Long updateUser;
 
-    private List<Long> apiPermissions;
+    private List<ApiPermissionVO> apiPermissions;
 
     private List<PagePermissionVO> pagePermissions;
 }

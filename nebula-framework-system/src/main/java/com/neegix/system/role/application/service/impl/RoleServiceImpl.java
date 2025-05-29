@@ -5,7 +5,7 @@ import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.system.role.application.cqrs.command.BatchDeleteRoleCommand;
 import com.neegix.system.role.application.cqrs.command.NewRoleCommand;
 import com.neegix.system.role.application.cqrs.command.UpdateRoleCommand;
-import com.neegix.system.role.application.cqrs.query.RoleQueryRepository;
+import com.neegix.system.role.application.repository.RoleQueryRepository;
 import com.neegix.system.role.application.service.RoleService;
 import com.neegix.system.role.domain.entity.RoleEntity;
 import org.springframework.beans.factory.annotation.Autowired;

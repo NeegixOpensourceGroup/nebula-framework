@@ -3,11 +3,9 @@ package com.neegix.system.dict.infrastructure.repository.impl;
 import com.neegix.application.query.NebulaSQL;
 import com.neegix.base.PageVO;
 import com.neegix.system.dict.application.assembler.DictItemAssembler;
-import com.neegix.system.dict.application.cqrs.query.DictItemQueryRepository;
-import com.neegix.system.dict.application.cqrs.query.condition.DictGroupWhereGroup;
-import com.neegix.system.dict.application.cqrs.query.condition.DictItemWhereGroup;
-import com.neegix.system.dict.application.dto.DictItemDTO;
-import com.neegix.system.dict.infrastructure.repository.convert.DictItemConverter;
+import com.neegix.system.dict.application.repository.DictItemQueryRepository;
+import com.neegix.system.dict.infrastructure.repository.condition.DictGroupWhereGroup;
+import com.neegix.system.dict.infrastructure.repository.condition.DictItemWhereGroup;
 import com.neegix.system.dict.infrastructure.repository.dataobject.DictGroupDO;
 import com.neegix.system.dict.infrastructure.repository.dataobject.DictItemDO;
 import com.neegix.system.dict.infrastructure.repository.mapper.DictGroupMapper;
@@ -18,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -41,35 +38,13 @@ public class DictItemQueryRepositoryImpl implements DictItemQueryRepository {
     private DictItemCustomizedMapper dictItemCustomizedMapper;
 
     @Override
-    public Optional<DictItemVO> findById(Long id) {
-        DictItemDO dictItemDO = dictItemMapper.selectByPrimaryKey(id);
-        return Optional.ofNullable(DictItemAssembler.INSTANCE.covertVO(DictItemConverter.INSTANCE.covertDTO(dictItemDO)));
-    }
-
-
-    @Override
-    public Optional<DictItemDTO> findByName(String name) {
-        NebulaSQL nebulaSQL = new NebulaSQL();
-        nebulaSQL.createWhereGroups(DictItemWhereGroup.class).andNameEqualTo(name);
-        DictItemDO dictItemDO = dictItemMapper.selectOne(nebulaSQL);
-        return Optional.ofNullable(DictItemConverter.INSTANCE.covertDTO(dictItemDO));
-    }
-
-    @Override
-    public Integer selectCount(List<Long> ids) {
-        return dictItemCustomizedMapper.selectCountByIds(ids);
-    }
-
-    @Override
-    public PageVO<DictItemVO> findPage(Integer currentPage, Integer pageSize, Long dictGroupId, DictItemDTO dictItemDTO) {
-        NebulaSQL nebulaSQL = new NebulaSQL();
-        nebulaSQL.createWhereGroups(DictItemWhereGroup.class).andPkDictGroupEqualTo(dictGroupId);
+    public PageVO<DictItemVO> findPage(Integer currentPage, Integer pageSize, NebulaSQL nebulaSQL) {
         nebulaSQL.setPager(currentPage, pageSize);
         List<DictItemDO> result = dictItemMapper.selectList(nebulaSQL);
         Long count = dictItemMapper.selectCount(nebulaSQL);
         PageVO<DictItemVO> page = new PageVO<>(currentPage, pageSize);
         page.setTotal(count);
-        page.setResult(DictItemAssembler.INSTANCE.covertVO(DictItemConverter.INSTANCE.covertDTOS(result)));
+        page.setResult(DictItemAssembler.INSTANCE.covertVO(result));
         return page;
     }
 
@@ -82,6 +57,6 @@ public class DictItemQueryRepositoryImpl implements DictItemQueryRepository {
         nebulaSQL.clear();
         nebulaSQL.createWhereGroups(DictItemWhereGroup.class).andPkDictGroupEqualTo(dictGroupDO.getId());
         List<DictItemDO> dictItemDOS = dictItemMapper.selectList(nebulaSQL);
-        return DictItemAssembler.INSTANCE.covertVO(DictItemConverter.INSTANCE.covertDTOS(dictItemDOS));
+        return DictItemAssembler.INSTANCE.covertVO(dictItemDOS);
     }
 }

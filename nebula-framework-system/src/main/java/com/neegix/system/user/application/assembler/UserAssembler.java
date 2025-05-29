@@ -1,14 +1,13 @@
 package com.neegix.system.user.application.assembler;
 
-import com.neegix.system.user.application.dto.UserDTO;
-import com.neegix.system.user.interfaces.vo.UserVO;
+import com.neegix.system.user.application.service.command.CreateUserCommand;
+import com.neegix.system.user.application.service.command.UpdateUserCommand;
 import com.neegix.system.user.domain.entity.UserEntity;
-import com.neegix.system.user.interfaces.form.NewUserForm;
-import com.neegix.system.user.interfaces.form.QueryUserForm;
-import com.neegix.system.user.interfaces.form.UpdateUserForm;
+import com.neegix.system.user.infrastructure.repository.dataobject.UserDO;
+import com.neegix.system.user.interfaces.vo.UserVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 
  /**
@@ -28,25 +27,12 @@ import java.util.List;
 public interface UserAssembler {
     UserAssembler INSTANCE = Mappers.getMapper(UserAssembler.class);
 
+    UserEntity covertEntity(CreateUserCommand createUserCommand);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    UserEntity covertEntity(NewUserForm newUserForm);
+    UserEntity covertEntity(UpdateUserCommand updateUserCommand);
 
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    @Mapping(target = "createUser", ignore = true)
-    @Mapping(target = "updateUser", ignore = true)
-    UserEntity covertEntity(UpdateUserForm updateUserForm);
 
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    UserDTO covertDTO(QueryUserForm queryUserForm);
+    List<UserVO> covertVO(List<UserDO> UserDOs);
 
-    List<UserVO> covertVO(List<UserDTO> UserDTOs);
-
-    UserVO covertVO(UserDTO queryUserDTO);
+    UserVO covertVO(UserEntity entity);
 }
