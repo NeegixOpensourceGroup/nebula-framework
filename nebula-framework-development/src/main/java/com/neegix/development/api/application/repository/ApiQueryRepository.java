@@ -1,7 +1,9 @@
-package com.neegix.development.api.application.cqrs.query;
+package com.neegix.development.api.application.repository;
 
-import com.neegix.application.query.IPageableQueryRepository;
-import com.neegix.development.api.application.dto.ApiDTO;
+import com.neegix.application.query.IQueryRepository;
+import com.neegix.application.query.NebulaSQL;
+import com.neegix.base.PageVO;
+import com.neegix.development.api.interfaces.vo.ApiListVO;
 import com.neegix.development.api.interfaces.vo.ApiVO;
 
 /**
@@ -17,6 +19,6 @@ import com.neegix.development.api.interfaces.vo.ApiVO;
   * @since 2024-11-22 11:43:14
   */
 
-public interface ApiQueryRepository extends IPageableQueryRepository<Long, ApiDTO, ApiVO> {
-
+public interface ApiQueryRepository extends IQueryRepository<Long, NebulaSQL, ApiVO> {
+    PageVO<ApiListVO> findPage(Integer currentPage, Integer pageSize, NebulaSQL nebulaSQL);
 }

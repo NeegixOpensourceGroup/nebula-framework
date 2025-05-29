@@ -1,14 +1,14 @@
 package com.neegix.development.menu.application.assembler;
 
 import com.neegix.development.menu.application.dto.MenuDTO;
-import com.neegix.development.menu.interfaces.vo.MenuVO;
+import com.neegix.development.menu.application.service.command.CreateMenuCommand;
+import com.neegix.development.menu.application.service.command.UpdateMenuCommand;
 import com.neegix.development.menu.domain.entity.MenuEntity;
-import com.neegix.development.menu.interfaces.form.NewMenuForm;
-import com.neegix.development.menu.interfaces.form.QueryMenuForm;
-import com.neegix.development.menu.interfaces.form.UpdateMenuForm;
+import com.neegix.development.menu.interfaces.vo.MenuVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 
  /**
@@ -33,19 +33,15 @@ public interface MenuAssembler {
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "createUser", ignore = true)
     @Mapping(target = "updateUser", ignore = true)
-    MenuEntity covertEntity(NewMenuForm newMenuForm);
+    MenuEntity covertEntity(CreateMenuCommand menuCommand);
 
     @Mapping(target = "createTime", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "createUser", ignore = true)
     @Mapping(target = "updateUser", ignore = true)
-    MenuEntity covertEntity(UpdateMenuForm updateMenuForm);
-
-    @Mapping(target = "createTime", ignore = true)
-    @Mapping(target = "updateTime", ignore = true)
-    MenuDTO covertDTO(QueryMenuForm queryMenuForm);
+    MenuEntity covertEntity(UpdateMenuCommand updateMenuCommand);
 
     List<MenuVO> covertVO(List<MenuDTO> MenuDTOs);
 
-    MenuVO covertVO(MenuDTO queryMenuDTO);
+    MenuVO covertVO(MenuEntity menuEntity);
 }

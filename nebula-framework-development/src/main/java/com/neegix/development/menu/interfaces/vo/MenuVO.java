@@ -1,5 +1,6 @@
 package com.neegix.development.menu.interfaces.vo;
 
+import com.neegix.base.BaseVO;
 import lombok.Data;
 import java.time.Instant;
 
@@ -17,7 +18,7 @@ import java.time.Instant;
   */
 
 @Data
-public class MenuVO {
+public class MenuVO implements BaseVO {
     // ID
     private Long id;
     // 创建时间

@@ -1,4 +1,4 @@
-package com.neegix.development.menu.application.cqrs.query.condition;
+package com.neegix.development.menu.infrastructure.repository.condition;
 
 import com.neegix.application.query.EnumOperator;
 import com.neegix.application.query.WhereGroups;

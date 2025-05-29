@@ -1,4 +1,4 @@
-package com.neegix.development.menu.application.cqrs.query;
+package com.neegix.development.menu.application.repository;
 
 import com.neegix.application.query.IQueryRepository;
 import com.neegix.application.query.NebulaSQL;

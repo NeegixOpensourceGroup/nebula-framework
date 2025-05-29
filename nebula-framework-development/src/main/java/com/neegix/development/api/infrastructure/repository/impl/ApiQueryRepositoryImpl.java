@@ -3,18 +3,16 @@ package com.neegix.development.api.infrastructure.repository.impl;
 import com.neegix.application.query.NebulaSQL;
 import com.neegix.base.PageVO;
 import com.neegix.development.api.application.assembler.ApiAssembler;
-import com.neegix.development.api.application.cqrs.query.ApiQueryRepository;
-import com.neegix.development.api.application.cqrs.query.condition.ApiWhereGroup;
-import com.neegix.development.api.application.dto.ApiDTO;
-import com.neegix.development.api.interfaces.vo.ApiVO;
-import com.neegix.development.api.infrastructure.repository.convert.ApiConverter;
+import com.neegix.development.api.application.repository.ApiQueryRepository;
 import com.neegix.development.api.infrastructure.repository.dataobject.ApiDO;
 import com.neegix.development.api.infrastructure.repository.mapper.ApiMapper;
 import com.neegix.development.api.infrastructure.repository.mapper.customized.ApiCustomizedMapper;
+import com.neegix.development.api.interfaces.vo.ApiListVO;
+import com.neegix.development.api.interfaces.vo.ApiVO;
+import com.neegix.development.menu.infrastructure.repository.mapper.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,49 +38,33 @@ public class ApiQueryRepositoryImpl implements ApiQueryRepository {
     @Autowired
     private ApiCustomizedMapper apiCustomizedMapper;
 
-    @Override
-    public Optional<ApiVO> findById(Long id) {
-        ApiDO apiDO = apiMapper.selectByPrimaryKey(id);
-        return Optional.ofNullable(ApiAssembler.INSTANCE.covertVO(ApiConverter.INSTANCE.covertDTO(apiDO)));
-    }
+    @Autowired
+    private MenuMapper menuMapper;
 
     @Override
+    public Optional<ApiVO> findById(Long id) {
+//        ApiDO apiDO = apiMapper.selectByPrimaryKey(id);
+//        MenuDO menuDO = menuMapper.selectByPrimaryKey(apiDO.getModule());
+//        ApiVO apiVO = ApiAssembler.INSTANCE.covertVO(ApiConverter.INSTANCE.covertDTO(apiDO));
+//        apiVO.setModuleName(menuDO.getName());
+        return Optional.empty();
+    }
+
+
+     @Override
     public Integer selectCount(List<Long> ids) {
         return apiCustomizedMapper.selectCountByIds(ids);
     }
 
     @Override
-    public PageVO<ApiVO> findPage(Integer currentPage, Integer pageSize, ApiDTO apiDTO) {
-        NebulaSQL nebulaSQL = new NebulaSQL();
-        System.out.println(apiDTO.getStartCreateTime());
-        System.out.println(Instant.now());
-        nebulaSQL.createWhereGroups(ApiWhereGroup.class)
-           .andIdEqualTo(apiDTO.getId())
-           .andCreateTimeBetween(apiDTO.getStartCreateTime(),apiDTO.getEndCreateTime())
-           .andUpdateTimeBetween(apiDTO.getStartUpdateTime(),apiDTO.getEndUpdateTime())
-           .andCreateUserEqualTo(apiDTO.getCreateUser())
-           .andUpdateUserEqualTo(apiDTO.getUpdateUser())
-           .andModuleEqualTo(apiDTO.getModule())
-           .andNameLikeTo(apiDTO.getName())
-           .andAccessLikeTo(apiDTO.getAccess())
-           .andTypeEqualTo(apiDTO.getType())
-           .andEnabledEqualTo(apiDTO.getEnabled())
-           .andDeletedEqualTo(apiDTO.getDeleted());
-           
+    public PageVO<ApiListVO> findPage(Integer currentPage, Integer pageSize, NebulaSQL nebulaSQL) {
         nebulaSQL.setPager(currentPage, pageSize);
         List<ApiDO> result = apiMapper.selectList(nebulaSQL);
         Long total = apiMapper.selectCount(nebulaSQL);
-        PageVO<ApiVO> page = new PageVO<>(currentPage, pageSize);
+        PageVO<ApiListVO> page = new PageVO<>(currentPage, pageSize);
         page.setTotal(total);
-        page.setResult(ApiAssembler.INSTANCE.covertVO(ApiConverter.INSTANCE.covertDTOS(result)));
+        page.setResult(ApiAssembler.INSTANCE.convertToListVO(result));
         return page;
     }
 
-     @Override
-     public Optional<ApiDTO> findByAccess(String access) {
-        NebulaSQL nebulaSQL = new NebulaSQL();
-        nebulaSQL.createWhereGroups(ApiWhereGroup.class).andAccessEqualTo(access);
-        ApiDO apiDO = apiMapper.selectOne(nebulaSQL);
-        return Optional.ofNullable(ApiConverter.INSTANCE.covertDTO(apiDO));
-     }
  }

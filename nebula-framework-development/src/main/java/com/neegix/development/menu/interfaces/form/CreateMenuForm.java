@@ -18,7 +18,7 @@ import lombok.Data;
   */
 
 @Data
-public class NewMenuForm {
+public class CreateMenuForm {
     // 父ID
     @NotNull(message="父ID不能为空")
     private Long pid;

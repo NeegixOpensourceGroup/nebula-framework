@@ -27,6 +27,8 @@ public interface MenuConverter {
     MenuConverter INSTANCE = Mappers.getMapper(MenuConverter.class);
     MenuDO covertDO(MenuEntity menuEntity);
 
+    MenuEntity covertEntity(MenuDO menuDO);
+
     @Mapping(target = "startCreateTime", ignore = true)
     @Mapping(target = "startUpdateTime", ignore = true)
     @Mapping(target = "endCreateTime", ignore = true)

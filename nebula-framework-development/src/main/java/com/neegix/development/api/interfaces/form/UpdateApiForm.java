@@ -19,6 +19,8 @@ import lombok.Data;
 
 @Data
 public class UpdateApiForm {
+    // ID
+    private Long id;
     // 菜单模块
     private Long module;
     // 名称
