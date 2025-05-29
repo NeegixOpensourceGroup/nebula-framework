@@ -1,5 +1,6 @@
 package com.neegix.application.query;
 
+import com.neegix.base.BaseVO;
 import com.neegix.base.PageVO;
 
 /**
@@ -10,6 +11,6 @@ import com.neegix.base.PageVO;
  * @Date: 2024/11/26/14:22
  * @Description:
  */
-public interface IPageableQueryRepository<PK, T, R> extends IQueryRepository<PK, T, R> {
+public interface IPageableQueryRepository<PK, T, R extends BaseVO> extends IQueryRepository<PK, T, R> {
     PageVO<R> findPage(Integer currentPage, Integer pageSize, T t);
 }

@@ -1,5 +1,7 @@
 package com.neegix.application.query;
 
+import com.neegix.base.BaseVO;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +13,7 @@ import java.util.Optional;
  * @Date: 2024/11/21/16:05
  * @Description:
  */
-public interface IQueryRepository<PK, T, R> {
-    Optional<R> findById(PK id);
-    Integer selectCount(List<PK> ids);
+public interface IQueryRepository<PK, T, R extends BaseVO> {
+    default Optional<R> findById(PK id){ return null; };
+    default Integer selectCount(List<PK> ids) { return null; };
 }
