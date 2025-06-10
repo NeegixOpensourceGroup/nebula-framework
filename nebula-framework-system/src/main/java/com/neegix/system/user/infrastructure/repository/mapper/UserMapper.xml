@@ -19,17 +19,17 @@
     <!-- 用户管理-表和对象映射关系 -->
     <resultMap id="UserResultMap" type="com.neegix.system.user.infrastructure.repository.dataobject.UserDO">
         <id column="id" property="id" />
-        <id column="create_time" property="createTime" />
-        <id column="update_time" property="updateTime" />
-        <id column="create_user" property="createUser" />
-        <id column="update_user" property="updateUser" />
-        <id column="name" property="name" />
-        <id column="password" property="password" />
-        <id column="description" property="description" />
-        <id column="email" property="email" />
-        <id column="mobile_phone" property="mobilePhone" />
-        <id column="enabled" property="enabled" />
-        <id column="deleted" property="deleted" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_user" property="updateUser" />
+        <result column="name" property="name" />
+        <result column="password" property="password" />
+        <result column="description" property="description" />
+        <result column="email" property="email" />
+        <result column="mobile_phone" property="mobilePhone" />
+        <result column="enabled" property="enabled" />
+        <result column="deleted" property="deleted" />
     </resultMap>
 
     <!-- 用户管理-查询条件 -->
