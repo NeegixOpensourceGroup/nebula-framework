@@ -1,5 +1,6 @@
 package com.neegix.system.user.infrastructure.repository.impl;
 
+import com.neegix.application.query.NebulaSQL;
 import com.neegix.system.user.domain.entity.UserEntity;
 import com.neegix.system.user.domain.entity.UserRoleEntity;
 import com.neegix.system.user.domain.repository.UserRepository;
@@ -61,19 +62,21 @@ public class UserRepositoryImpl implements UserRepository {
         // 查询用户
         UserDO userDO = userMapper.selectByPrimaryKey(aLong);
         UserEntity userEntity = UserConverter.INSTANCE.covertEntity(userDO);
+        if (userEntity != null && userEntity.getId() != null){
+            // 查询用户关联的角色
+            List<UserRoleDO> userRoleDOS = userCustomizedMapper.selectRolesByPkUser(aLong);
 
-        // 查询用户关联的角色
-        List<UserRoleDO> userRoleDOS = userCustomizedMapper.selectRolesByPkUser(aLong);
+            List<UserRoleEntity> userRoleEntities = userRoleDOS.stream().map(item-> {
+                UserRoleEntity userRoleEntity = new UserRoleEntity();
+                userRoleEntity.setId(item.getId());
+                userRoleEntity.setName(item.getName());
+                userRoleEntity.setDescription(item.getDescription());
+                return userRoleEntity;
+            }).collect(Collectors.toList());
 
-        List<UserRoleEntity> userRoleEntities = userRoleDOS.stream().map(item-> {
-            UserRoleEntity userRoleEntity = new UserRoleEntity();
-            userRoleEntity.setId(item.getId());
-            userRoleEntity.setName(item.getName());
-            userRoleEntity.setDescription(item.getDescription());
-            return userRoleEntity;
-        }).collect(Collectors.toList());
+            userEntity.setRoles(userRoleEntities);
+        }
 
-        userEntity.setRoles(userRoleEntities);
         return Optional.ofNullable(userEntity);
     }
 
@@ -91,5 +94,27 @@ public class UserRepositoryImpl implements UserRepository {
         }
 
         userCustomizedMapper.insertUserRoleRel(userRoleRelDOS);
+    }
+
+    @Override
+    public Optional<UserEntity> findByCriteria(NebulaSQL nebulaSQL) {
+        UserDO userDO = userMapper.selectOne(nebulaSQL);
+        UserEntity userEntity = UserConverter.INSTANCE.covertEntity(userDO);
+        if (userEntity != null && userEntity.getId() != null){
+            // 查询用户关联的角色
+            List<UserRoleDO> userRoleDOS = userCustomizedMapper.selectRolesByPkUser(userEntity.getId());
+
+            List<UserRoleEntity> userRoleEntities = userRoleDOS.stream().map(item-> {
+                UserRoleEntity userRoleEntity = new UserRoleEntity();
+                userRoleEntity.setId(item.getId());
+                userRoleEntity.setName(item.getName());
+                userRoleEntity.setDescription(item.getDescription());
+                return userRoleEntity;
+            }).collect(Collectors.toList());
+
+            userEntity.setRoles(userRoleEntities);
+        }
+        
+        return Optional.ofNullable(userEntity);
     }
 }

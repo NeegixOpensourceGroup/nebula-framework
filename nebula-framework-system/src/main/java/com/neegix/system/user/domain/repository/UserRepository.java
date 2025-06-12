@@ -18,4 +18,6 @@ public interface UserRepository extends IRepository<UserEntity, Long> {
     void removeUserRoleRel(List<Long> userIds);
 
     void batchInsertUserRoleRel(Long userId, List<Long> roleIds);
+
+
 }
