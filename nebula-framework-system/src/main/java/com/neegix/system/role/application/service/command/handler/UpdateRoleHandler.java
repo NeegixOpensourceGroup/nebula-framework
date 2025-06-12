@@ -1,6 +1,8 @@
 package com.neegix.system.role.application.service.command.handler;
 
+import com.neegix.application.query.NebulaSQL;
 import com.neegix.cqrs.command.handler.CommandHandler;
+import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.system.role.application.service.command.UpdateRoleCommand;
 import com.neegix.system.role.domain.entity.Role;
 import com.neegix.system.role.domain.entity.RoleApi;
@@ -10,10 +12,12 @@ import com.neegix.system.role.domain.gateway.MenuGateway;
 import com.neegix.system.role.domain.gateway.dto.ApiDTO;
 import com.neegix.system.role.domain.gateway.dto.MenuDTO;
 import com.neegix.system.role.domain.repository.RoleRepository;
+import com.neegix.system.role.infrastructure.repository.condition.RoleWhereGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -36,6 +40,18 @@ public class UpdateRoleHandler implements CommandHandler<UpdateRoleCommand, Void
     private RoleRepository roleRepository;
     @Override
     public Void handle(UpdateRoleCommand command) {
+
+        NebulaSQL nebulaSQL = new NebulaSQL();
+        nebulaSQL.createWhereGroups(RoleWhereGroup.class).andNameEqualTo(command.getName());
+        Optional<Role> optional = roleRepository.findByCriteria(nebulaSQL);
+
+        if (optional.isPresent()){
+            Role role = optional.get();
+            if (!role.getId().equals(command.getId())){
+                throw new BusinessRuntimeException("角色["+command.getName()+"]已存在");
+            }
+        }
+
         List<ApiDTO> apiDTOS =  apiGateway.getApis(command.getApiPermissions());
 
         List<RoleApi> roleApis = apiDTOS.stream().map(item-> {
@@ -57,6 +73,7 @@ public class UpdateRoleHandler implements CommandHandler<UpdateRoleCommand, Void
 
 
         Role role = new Role();
+        role.setId(command.getId());
         role.setName(command.getName());
         role.setDescription(command.getDescription());
         role.setEnabled(command.getEnabled());

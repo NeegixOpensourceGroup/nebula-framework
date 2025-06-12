@@ -1,5 +1,6 @@
 package com.neegix.system.role.infrastructure.repository.impl;
 
+import com.neegix.application.query.NebulaSQL;
 import com.neegix.system.role.domain.entity.Role;
 import com.neegix.system.role.domain.entity.RoleApi;
 import com.neegix.system.role.domain.entity.RoleMenu;
@@ -132,6 +133,40 @@ public class RoleRepositoryImpl implements RoleRepository {
 
         role.setApiPermissions(roleApis);
         role.setPagePermissions(roleMenus);
+
+        return Optional.ofNullable(role);
+    }
+
+    @Override
+    public Optional<Role> findByCriteria(NebulaSQL nebulaSQL) {
+        RoleDO roleDO = roleMapper.selectOne(nebulaSQL);
+        Role role = RoleConverter.INSTANCE.convertEntity(roleDO);
+        if (roleDO != null){
+            List<RoleApiDO> roleApiDOS = roleCustomizedMapper.getApiPermissionsByPkRole(roleDO.getId());
+
+            List<RoleMenuDO> roleMenuDOS = roleCustomizedMapper.getMenuPermissionsByPkRole(roleDO.getId());
+
+            List<RoleMenu> roleMenus = roleMenuDOS.stream().map(item -> {
+                RoleMenu roleMenu = new RoleMenu();
+                roleMenu.setId(item.getId());
+                roleMenu.setName(item.getName());
+                roleMenu.setIsHalf(item.getIsHalf());
+                return roleMenu;
+            }).collect(Collectors.toList());
+
+
+            List<RoleApi> roleApis = roleApiDOS.stream().map(item->{
+                RoleApi roleApi = new RoleApi();
+                roleApi.setId(item.getId());
+                roleApi.setName(item.getName());
+                return roleApi;
+            }).collect(Collectors.toList());
+
+
+            role.setApiPermissions(roleApis);
+            role.setPagePermissions(roleMenus);
+        }
+
 
         return Optional.ofNullable(role);
     }
