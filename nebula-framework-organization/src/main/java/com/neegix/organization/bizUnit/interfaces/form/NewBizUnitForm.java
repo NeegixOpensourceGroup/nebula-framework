@@ -1,6 +1,7 @@
 package com.neegix.organization.bizUnit.interfaces.form;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
  /**
@@ -19,7 +20,7 @@ import lombok.Data;
 @Data
 public class NewBizUnitForm {
     // 父ID
-    @NotBlank(message="父ID不能为空")
+    @NotNull(message="父ID不能为空")
     private Long pid;
     // 编码
     @NotBlank(message="编码不能为空")
