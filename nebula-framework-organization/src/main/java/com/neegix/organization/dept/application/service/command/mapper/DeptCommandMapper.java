@@ -4,6 +4,7 @@ import com.neegix.organization.dept.application.service.command.CreateDeptComman
 import com.neegix.organization.dept.application.service.command.UpdateDeptCommand;
 import com.neegix.organization.dept.interfaces.form.NewDeptForm;
 import com.neegix.organization.dept.interfaces.form.UpdateDeptForm;
+import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -14,6 +15,7 @@ import org.mapstruct.factory.Mappers;
  * @Date: 2025/05/26/19:06
  * @Description:
  */
+@Mapper
 public interface DeptCommandMapper {
     DeptCommandMapper INSTANCE = Mappers.getMapper(DeptCommandMapper.class);
     CreateDeptCommand covertEntity(NewDeptForm form);

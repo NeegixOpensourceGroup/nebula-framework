@@ -28,9 +28,6 @@ public class UpdateDeptForm {
     private Boolean deleted;
     // 是否启用（0 否 1 是）
     private Boolean enabled;
-    // ID
-    @NotNull(message="ID不能为空")
-    private Long id;
     // 负责人
     private String manager;
     // 负责人电话

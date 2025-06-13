@@ -1,6 +1,7 @@
 package com.neegix.organization.dept.interfaces.form;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
  /**
@@ -34,7 +35,7 @@ public class NewDeptForm {
     @NotBlank(message="名称不能为空")
     private String name;
     // 父ID
-    @NotBlank(message="父ID不能为空")
+    @NotNull(message="父ID不能为空")
     private Long pid;
     // 电话
     private String tel;

@@ -27,7 +27,9 @@ public class CreateDeptCommand implements Command<Void> {
     private String mobilePhone;
     // 名称
     private String name;
-    // 父ID
+    // PID
+    private Long pid;
+    // 业务单元ID
     private Long pkBizUnit;
     // 电话
     private String tel;

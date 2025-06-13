@@ -1,7 +1,6 @@
 package com.neegix.organization.dept.application.service.command;
 
 import com.neegix.cqrs.command.Command;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -16,6 +15,8 @@ import lombok.Data;
 public class UpdateDeptCommand implements Command<Void> {
     // ID
     private Long id;
+    // PID
+    private Long pid;
     // 简称
     private String abbreviation;
     // 编码
@@ -29,10 +30,8 @@ public class UpdateDeptCommand implements Command<Void> {
     // 负责人电话
     private String mobilePhone;
     // 名称
-    @NotBlank(message="名称不能为空")
     private String name;
     // 父ID
-    @NotBlank(message="父ID不能为空")
     private Long pkBizUnit;
     // 电话
     private String tel;
