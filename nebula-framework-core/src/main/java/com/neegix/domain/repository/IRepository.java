@@ -1,5 +1,7 @@
 package com.neegix.domain.repository;
 
+import com.neegix.application.query.NebulaSQL;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +27,7 @@ public interface IRepository<T, ID> {
 
     default void removeAll(){}
 
+    default Optional<T> findByCriteria(NebulaSQL nebulaSQL) {return null;}
 
 
 }
