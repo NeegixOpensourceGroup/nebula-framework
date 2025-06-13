@@ -3,8 +3,6 @@ package com.neegix.system.dict.infrastructure.repository.impl;
 import com.neegix.application.query.NebulaSQL;
 import com.neegix.base.PageVO;
 import com.neegix.system.dict.application.repository.DictGroupQueryRepository;
-import com.neegix.system.dict.infrastructure.repository.condition.DictGroupWhereGroup;
-import com.neegix.system.dict.application.dto.DictGroupDTO;
 import com.neegix.system.dict.infrastructure.repository.convert.DictGroupConverter;
 import com.neegix.system.dict.infrastructure.repository.dataobject.DictGroupDO;
 import com.neegix.system.dict.infrastructure.repository.mapper.DictGroupMapper;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -32,20 +29,6 @@ public class DictGroupQueryRepositoryImpl implements DictGroupQueryRepository {
 
     @Autowired
     private DictGroupCustomizedMapper dictGroupCustomizedMapper;
-
-
-    @Override
-    public Optional<DictGroupDTO> findByCodeAndName(String code, String name) {
-        NebulaSQL nebulaSQL = new NebulaSQL();
-        nebulaSQL.createWhereGroups(DictGroupWhereGroup.class).andNameEqualTo(name).andCodeEqualTo(code);
-        DictGroupDO dictGroupDO = dictGroupMapper.selectOne(nebulaSQL);
-        return Optional.ofNullable(DictGroupConverter.INSTANCE.covertDTO(dictGroupDO));
-    }
-
-    @Override
-    public Integer selectCount(List<Long> ids) {
-        return dictGroupCustomizedMapper.selectCountByIds(ids);
-    }
 
     @Override
     public PageVO<DictGroupVO> findPage(Integer currentPage, Integer pageSize, NebulaSQL nebulaSQL) {
