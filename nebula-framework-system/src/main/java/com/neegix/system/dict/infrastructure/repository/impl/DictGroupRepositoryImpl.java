@@ -63,4 +63,10 @@ public class DictGroupRepositoryImpl implements DictGroupRepository {
         DictGroupDO dictGroupDO = dictGroupMapper.selectByPrimaryKey(aLong);
         return Optional.ofNullable(DictGroupConverter.INSTANCE.covertEntity(dictGroupDO));
     }
+
+    @Override
+    public Optional<DictGroupEntity> findByCriteria(NebulaSQL nebulaSQL) {
+        DictGroupDO dictGroupDO = dictGroupMapper.selectOne(nebulaSQL);
+        return Optional.ofNullable(DictGroupConverter.INSTANCE.covertEntity(dictGroupDO));
+    }
 }
