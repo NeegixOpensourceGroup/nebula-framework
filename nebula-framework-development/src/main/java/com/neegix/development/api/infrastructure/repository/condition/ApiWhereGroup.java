@@ -3,6 +3,7 @@ package com.neegix.development.api.infrastructure.repository.condition;
 import com.neegix.application.query.EnumOperator;
 import com.neegix.application.query.WhereGroups;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
  /**
@@ -126,14 +127,14 @@ public class ApiWhereGroup extends WhereGroups {
         return this;
     }
 
-    public ApiWhereGroup andCreateTimeBetween(Instant value1, Instant value2) {
+    public ApiWhereGroup andCreateTimeBetween(LocalDate value1, LocalDate value2) {
         addCriterion("create_time", EnumOperator.GREATER_EQUAL_THAN, value1);
         addCriterion("create_time", EnumOperator.LESS_EQUAL_THAN, value2);
         return this;
     }
 
 
-    public ApiWhereGroup andCreateTimeNotBetween(Instant value1, Instant value2) {
+    public ApiWhereGroup andCreateTimeNotBetween(LocalDate value1, LocalDate value2) {
         addCriterion("create_time", EnumOperator.LESS_THAN, value1);
         addCriterion("create_time", EnumOperator.GREATER_THAN, value2);
         return this;
@@ -212,14 +213,14 @@ public class ApiWhereGroup extends WhereGroups {
         return this;
     }
 
-    public ApiWhereGroup andUpdateTimeBetween(Instant value1, Instant value2) {
+    public ApiWhereGroup andUpdateTimeBetween(LocalDate value1, LocalDate value2) {
         addCriterion("update_time", EnumOperator.GREATER_EQUAL_THAN, value1);
         addCriterion("update_time", EnumOperator.LESS_EQUAL_THAN, value2);
         return this;
     }
 
 
-    public ApiWhereGroup andUpdateTimeNotBetween(Instant value1, Instant value2) {
+    public ApiWhereGroup andUpdateTimeNotBetween(LocalDate value1, LocalDate value2) {
         addCriterion("update_time", EnumOperator.LESS_THAN, value1);
         addCriterion("update_time", EnumOperator.GREATER_THAN, value2);
         return this;
