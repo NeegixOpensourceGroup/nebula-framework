@@ -1,6 +1,6 @@
 package com.neegix.system.dict.interfaces.vo;
 
-import com.neegix.base.BaseVO;
+import com.neegix.inferfaces.vo.BaseVO;
 import lombok.Data;
 
 /**

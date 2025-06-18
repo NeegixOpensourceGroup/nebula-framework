@@ -1,6 +1,5 @@
 package com.neegix.system.dict.domain.entity;
 
-import com.neegix.utils.SnowFlake;
 import lombok.Data;
 
 /**
@@ -20,12 +19,4 @@ public class DictItemEntity {
     private Integer sort;
     private Boolean enabled;
     private Boolean deleted;
-
-    public DictItemEntity() {
-        this.id = new SnowFlake(1, 1).nextId();
-    }
-
-    public DictItemEntity(Long id) {
-        this.id = id;
-    }
 }

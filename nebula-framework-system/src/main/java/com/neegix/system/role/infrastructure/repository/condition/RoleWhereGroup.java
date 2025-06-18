@@ -3,6 +3,7 @@ package com.neegix.system.role.infrastructure.repository.condition;
 import com.neegix.application.query.EnumOperator;
 import com.neegix.application.query.WhereGroups;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
  /**
@@ -40,7 +41,7 @@ public class RoleWhereGroup extends WhereGroups {
         return this;
     }
 
-    public RoleWhereGroup andCreateTimeBetween(Instant value1, Instant value2) {
+    public RoleWhereGroup andCreateTimeBetween(LocalDate value1, LocalDate value2) {
         addCriterion("create_time", EnumOperator.GREATER_EQUAL_THAN, value1);
         addCriterion("create_time", EnumOperator.LESS_EQUAL_THAN, value2);
         return this;
@@ -642,14 +643,14 @@ public class RoleWhereGroup extends WhereGroups {
         return this;
     }
 
-    public RoleWhereGroup andUpdateTimeBetween(Instant value1, Instant value2) {
+    public RoleWhereGroup andUpdateTimeBetween(LocalDate value1, LocalDate value2) {
         addCriterion("update_time", EnumOperator.GREATER_EQUAL_THAN, value1);
         addCriterion("update_time", EnumOperator.LESS_EQUAL_THAN, value2);
         return this;
     }
 
 
-    public RoleWhereGroup andUpdateTimeNotBetween(Instant value1, Instant value2) {
+    public RoleWhereGroup andUpdateTimeNotBetween(LocalDate value1, LocalDate value2) {
         addCriterion("update_time", EnumOperator.LESS_THAN, value1);
         addCriterion("update_time", EnumOperator.GREATER_THAN, value2);
         return this;

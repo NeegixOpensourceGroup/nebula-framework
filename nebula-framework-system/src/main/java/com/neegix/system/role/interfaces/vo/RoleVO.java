@@ -1,9 +1,9 @@
 package com.neegix.system.role.interfaces.vo;
 
-import com.neegix.base.BaseVO;
+import com.neegix.inferfaces.vo.BaseVO;
 import lombok.Data;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
 @Data
 public class RoleVO implements BaseVO {
     // 创建时间
-    private Instant createTime;
+    private LocalDate createTime;
     // 创建人
     private Long createUser;
     // 是否删除（0 否 1 是）
@@ -36,7 +36,7 @@ public class RoleVO implements BaseVO {
     // 密码
     private String description;
     // 更新时间
-    private Instant updateTime;
+    private LocalDate updateTime;
     // 更新人
     private Long updateUser;
 
