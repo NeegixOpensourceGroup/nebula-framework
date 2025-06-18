@@ -3,6 +3,7 @@ package com.neegix.organization.post.infrastructure.repository.condition;
 import com.neegix.application.query.EnumOperator;
 import com.neegix.application.query.WhereGroups;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
  /**
@@ -126,14 +127,14 @@ public class PostWhereGroup extends WhereGroups {
         return this;
     }
 
-    public PostWhereGroup andCreateTimeBetween(Instant value1, Instant value2) {
+    public PostWhereGroup andCreateTimeBetween(LocalDate value1, LocalDate value2) {
         addCriterion("create_time", EnumOperator.GREATER_EQUAL_THAN, value1);
         addCriterion("create_time", EnumOperator.LESS_EQUAL_THAN, value2);
         return this;
     }
 
 
-    public PostWhereGroup andCreateTimeNotBetween(Instant value1, Instant value2) {
+    public PostWhereGroup andCreateTimeNotBetween(LocalDate value1, LocalDate value2) {
         addCriterion("create_time", EnumOperator.LESS_THAN, value1);
         addCriterion("create_time", EnumOperator.GREATER_THAN, value2);
         return this;
@@ -814,14 +815,14 @@ public class PostWhereGroup extends WhereGroups {
         return this;
     }
 
-    public PostWhereGroup andUpdateTimeBetween(Instant value1, Instant value2) {
+    public PostWhereGroup andUpdateTimeBetween(LocalDate value1, LocalDate value2) {
         addCriterion("update_time", EnumOperator.GREATER_EQUAL_THAN, value1);
         addCriterion("update_time", EnumOperator.LESS_EQUAL_THAN, value2);
         return this;
     }
 
 
-    public PostWhereGroup andUpdateTimeNotBetween(Instant value1, Instant value2) {
+    public PostWhereGroup andUpdateTimeNotBetween(LocalDate value1, LocalDate value2) {
         addCriterion("update_time", EnumOperator.LESS_THAN, value1);
         addCriterion("update_time", EnumOperator.GREATER_THAN, value2);
         return this;

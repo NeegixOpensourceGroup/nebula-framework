@@ -5,7 +5,7 @@ import com.neegix.cqrs.query.Query;
 import com.neegix.organization.post.interfaces.vo.PostVO;
 import lombok.Data;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -24,9 +24,9 @@ public class GetPagePostQuery implements Query<PageVO<PostVO>> {
     // 编码
     private String code;
     // 创建时间-开始
-    private Instant startCreateTime;
+    private LocalDate startCreateTime;
     // 创建时间-结束
-    private Instant endCreateTime;
+    private LocalDate endCreateTime;
     // 创建人
     private Long createUser;
     // 是否删除（0 否 1 是）
@@ -42,9 +42,9 @@ public class GetPagePostQuery implements Query<PageVO<PostVO>> {
     // 部门ID
     private Long pkDept;
     // 更新时间-开始
-    private Instant startUpdateTime;
+    private LocalDate startUpdateTime;
     // 更新时间-结束
-    private Instant endUpdateTime;
+    private LocalDate endUpdateTime;
     // 更新人
     private Long updateUser;
 }

@@ -1,9 +1,9 @@
 package com.neegix.organization.psn.interfaces.vo;
 
-import com.neegix.base.BaseVO;
+import com.neegix.inferfaces.vo.BaseVO;
 import lombok.Data;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -28,7 +28,7 @@ public class PsnVO implements BaseVO {
     // 联系电话
     private String contactTel;
     // 创建时间
-    private Instant createTime;
+    private LocalDate createTime;
     // 创建人
     private Long createUser;
     // 是否删除（0 否 1 是）
@@ -60,7 +60,7 @@ public class PsnVO implements BaseVO {
     // 业务单元PK
     private Long pkBizUnit;
     // 更新时间
-    private Instant updateTime;
+    private LocalDate updateTime;
     // 更新人
     private Long updateUser;
 
