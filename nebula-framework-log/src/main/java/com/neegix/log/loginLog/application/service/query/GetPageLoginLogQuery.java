@@ -5,7 +5,7 @@ import com.neegix.cqrs.query.Query;
 import com.neegix.log.loginLog.interfaces.vo.LoginLogVO;
 import lombok.Data;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -24,13 +24,13 @@ public class GetPageLoginLogQuery implements Query<PageVO<LoginLogVO>> {
     // 登录人
     private String user;
     // 创建时间-开始
-    private Instant startCreateTime;
+    private LocalDate startCreateTime;
     // 创建时间-结束
-    private Instant endCreateTime;
+    private LocalDate endCreateTime;
     // 更新时间-开始
-    private Instant startUpdateTime;
+    private LocalDate startUpdateTime;
     // 更新时间-结束
-    private Instant endUpdateTime;
+    private LocalDate endUpdateTime;
     // 创建人
     private Long createUser;
     // 更新人

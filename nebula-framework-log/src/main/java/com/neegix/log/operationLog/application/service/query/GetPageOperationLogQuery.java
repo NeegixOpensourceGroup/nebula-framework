@@ -5,7 +5,7 @@ import com.neegix.cqrs.query.Query;
 import com.neegix.log.operationLog.interfaces.vo.OperationLogVO;
 import lombok.Data;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -23,9 +23,9 @@ public class GetPageOperationLogQuery implements Query<PageVO<OperationLogVO>> {
     private Integer pageSize;
     private String user;
     // 创建时间-开始
-    private Instant startCreateTime;
+    private LocalDate startCreateTime;
     // 创建时间-结束
-    private Instant endCreateTime;
+    private LocalDate endCreateTime;
     // 创建人
     private Long createUser;
     // 描述
@@ -37,9 +37,9 @@ public class GetPageOperationLogQuery implements Query<PageVO<OperationLogVO>> {
     // 类型
     private Integer type;
     // 更新时间-开始
-    private Instant startUpdateTime;
+    private LocalDate startUpdateTime;
     // 更新时间-结束
-    private Instant endUpdateTime;
+    private LocalDate endUpdateTime;
     // 更新人
     private Long updateUser;
 }

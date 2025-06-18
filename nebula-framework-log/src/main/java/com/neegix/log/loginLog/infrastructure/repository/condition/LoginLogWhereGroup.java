@@ -3,6 +3,7 @@ package com.neegix.log.loginLog.infrastructure.repository.condition;
 import com.neegix.application.query.EnumOperator;
 import com.neegix.application.query.WhereGroups;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
  /**
@@ -126,14 +127,14 @@ public class LoginLogWhereGroup extends WhereGroups {
         return this;
     }
 
-    public LoginLogWhereGroup andCreateTimeBetween(Instant value1, Instant value2) {
+    public LoginLogWhereGroup andCreateTimeBetween(LocalDate value1, LocalDate value2) {
         addCriterion("create_time", EnumOperator.GREATER_EQUAL_THAN, value1);
         addCriterion("create_time", EnumOperator.LESS_EQUAL_THAN, value2);
         return this;
     }
 
 
-    public LoginLogWhereGroup andCreateTimeNotBetween(Instant value1, Instant value2) {
+    public LoginLogWhereGroup andCreateTimeNotBetween(LocalDate value1, LocalDate value2) {
         addCriterion("create_time", EnumOperator.LESS_THAN, value1);
         addCriterion("create_time", EnumOperator.GREATER_THAN, value2);
         return this;
@@ -212,14 +213,14 @@ public class LoginLogWhereGroup extends WhereGroups {
         return this;
     }
 
-    public LoginLogWhereGroup andUpdateTimeBetween(Instant value1, Instant value2) {
+    public LoginLogWhereGroup andUpdateTimeBetween(LocalDate value1, LocalDate value2) {
         addCriterion("update_time", EnumOperator.GREATER_EQUAL_THAN, value1);
         addCriterion("update_time", EnumOperator.LESS_EQUAL_THAN, value2);
         return this;
     }
 
 
-    public LoginLogWhereGroup andUpdateTimeNotBetween(Instant value1, Instant value2) {
+    public LoginLogWhereGroup andUpdateTimeNotBetween(LocalDate value1, LocalDate value2) {
         addCriterion("update_time", EnumOperator.LESS_THAN, value1);
         addCriterion("update_time", EnumOperator.GREATER_THAN, value2);
         return this;
