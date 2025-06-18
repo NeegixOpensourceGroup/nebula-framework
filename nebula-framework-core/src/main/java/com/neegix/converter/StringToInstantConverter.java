@@ -1,7 +1,6 @@
 package com.neegix.converter;
 
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -17,7 +16,7 @@ import java.time.format.DateTimeParseException;
  * @Date: 2024/11/27/16:55
  * @Description:
  */
-@Component
+//@Component
 public class StringToInstantConverter implements Converter<String, Instant> {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 

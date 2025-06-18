@@ -1,6 +1,6 @@
 package com.neegix.application.query;
 
-import com.neegix.base.BaseVO;
+import com.neegix.inferfaces.vo.BaseVO;
 import com.neegix.base.PageVO;
 
 /**

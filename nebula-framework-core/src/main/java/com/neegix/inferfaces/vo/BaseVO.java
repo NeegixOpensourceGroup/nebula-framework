@@ -1,4 +1,4 @@
-package com.neegix.base;
+package com.neegix.inferfaces.vo;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)

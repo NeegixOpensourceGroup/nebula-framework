@@ -2,8 +2,7 @@ package com.neegix.base;
 
 import lombok.Data;
 
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -16,8 +15,8 @@ import java.util.Date;
 @Data
 public class BaseDTO {
     private Long id;
-    private Instant createTime;
-    private Instant updateTime;
+    private LocalDate createTime;
+    private LocalDate updateTime;
     private Long createUser;
     private Long updateUser;
 }
