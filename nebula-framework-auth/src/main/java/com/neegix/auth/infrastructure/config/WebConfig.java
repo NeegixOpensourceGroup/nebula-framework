@@ -1,7 +1,6 @@
 package com.neegix.auth.infrastructure.config;
 
 import com.neegix.converter.StringToInstantConverter;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -13,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Date: 2024/11/27/16:59
  * @Description:
  */
-@Configuration
+//@Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
