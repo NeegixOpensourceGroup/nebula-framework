@@ -1,7 +1,7 @@
 package com.neegix.auth.infrastructure.config.handler;
 
-import com.neegix.result.Result;
-import com.neegix.utils.WebUtils;
+import com.neegix.inferfaces.result.Result;
+import com.neegix.infrastructure.utils.WebUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -2,7 +2,7 @@ package com.neegix.auth.application.service.impl;
 
 import com.neegix.auth.application.service.AuthService;
 import com.neegix.auth.interfaces.vo.NebulaUserDetails;
-import com.neegix.utils.JWTUtils;
+import com.neegix.infrastructure.utils.JWTUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.github.benmanes.caffeine.cache.Cache;

@@ -4,7 +4,7 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.neegix.auth.application.service.AuthService;
 import com.neegix.auth.interfaces.vo.NebulaUserDetails;
 import com.neegix.infrastructure.annotation.LoginLog;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;

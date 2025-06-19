@@ -2,9 +2,9 @@ package com.neegix.auth.infrastructure.config.filter;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.neegix.auth.interfaces.vo.NebulaUserDetails;
-import com.neegix.result.Result;
-import com.neegix.utils.JWTUtils;
-import com.neegix.utils.WebUtils;
+import com.neegix.inferfaces.result.Result;
+import com.neegix.infrastructure.utils.JWTUtils;
+import com.neegix.infrastructure.utils.WebUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
