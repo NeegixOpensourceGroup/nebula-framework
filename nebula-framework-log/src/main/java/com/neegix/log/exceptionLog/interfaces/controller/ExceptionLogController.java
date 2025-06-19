@@ -10,7 +10,7 @@ import com.neegix.log.exceptionLog.application.service.query.GetPageExceptionLog
 import com.neegix.log.exceptionLog.application.service.query.mapper.ExceptionLogQueryMapper;
 import com.neegix.log.exceptionLog.interfaces.form.QueryExceptionLogForm;
 import com.neegix.log.exceptionLog.interfaces.vo.ExceptionLogVO;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;

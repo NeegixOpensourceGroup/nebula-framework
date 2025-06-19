@@ -11,7 +11,7 @@ import com.neegix.log.operationLog.application.service.query.GetPageOperationLog
 import com.neegix.log.operationLog.application.service.query.mapper.OperationLogQueryMapper;
 import com.neegix.log.operationLog.interfaces.form.QueryOperationLogForm;
 import com.neegix.log.operationLog.interfaces.vo.OperationLogVO;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;

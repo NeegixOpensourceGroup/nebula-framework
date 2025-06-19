@@ -10,7 +10,7 @@ import com.neegix.log.loginLog.application.service.query.GetPageLoginLogQuery;
 import com.neegix.log.loginLog.application.service.query.mapper.LoginLogQueryMapper;
 import com.neegix.log.loginLog.interfaces.form.QueryLoginLogForm;
 import com.neegix.log.loginLog.interfaces.vo.LoginLogVO;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
