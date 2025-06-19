@@ -6,7 +6,7 @@ import com.neegix.organization.bizUnit.infrastructure.repository.convert.BizUnit
 import com.neegix.organization.bizUnit.infrastructure.repository.dataobject.BizUnitDO;
 import com.neegix.organization.bizUnit.infrastructure.repository.mapper.BizUnitMapper;
 import com.neegix.organization.bizUnit.infrastructure.repository.mapper.customized.BizUnitCustomizedMapper;
-import com.neegix.utils.SnowFlake;
+import com.neegix.infrastructure.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

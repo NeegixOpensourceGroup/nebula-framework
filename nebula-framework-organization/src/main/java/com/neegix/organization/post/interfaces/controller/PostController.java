@@ -14,7 +14,7 @@ import com.neegix.organization.post.interfaces.form.NewPostForm;
 import com.neegix.organization.post.interfaces.form.QueryPostForm;
 import com.neegix.organization.post.interfaces.form.UpdatePostForm;
 import com.neegix.organization.post.interfaces.vo.PostVO;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

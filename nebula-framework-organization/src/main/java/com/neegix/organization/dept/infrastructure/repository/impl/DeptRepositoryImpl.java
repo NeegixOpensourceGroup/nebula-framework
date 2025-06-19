@@ -6,7 +6,7 @@ import com.neegix.organization.dept.infrastructure.repository.convert.DeptConver
 import com.neegix.organization.dept.infrastructure.repository.dataobject.DeptDO;
 import com.neegix.organization.dept.infrastructure.repository.mapper.DeptMapper;
 import com.neegix.organization.dept.infrastructure.repository.mapper.customized.DeptCustomizedMapper;
-import com.neegix.utils.SnowFlake;
+import com.neegix.infrastructure.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

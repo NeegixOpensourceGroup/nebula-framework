@@ -5,7 +5,7 @@ import com.neegix.organization.post.domain.repository.PostRepository;
 import com.neegix.organization.post.infrastructure.repository.convert.PostConverter;
 import com.neegix.organization.post.infrastructure.repository.dataobject.PostDO;
 import com.neegix.organization.post.infrastructure.repository.mapper.PostMapper;
-import com.neegix.utils.SnowFlake;
+import com.neegix.infrastructure.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

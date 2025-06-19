@@ -8,7 +8,7 @@ import com.neegix.organization.psn.infrastructure.repository.dataobject.PsnDO;
 import com.neegix.organization.psn.infrastructure.repository.dataobject.PsnWorkInfoDO;
 import com.neegix.organization.psn.infrastructure.repository.mapper.PsnMapper;
 import com.neegix.organization.psn.infrastructure.repository.mapper.customized.PsnWorkInfoCustomizedMapper;
-import com.neegix.utils.SnowFlake;
+import com.neegix.infrastructure.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

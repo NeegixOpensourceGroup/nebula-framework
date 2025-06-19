@@ -14,7 +14,7 @@ import com.neegix.organization.bizUnit.interfaces.form.NewBizUnitForm;
 import com.neegix.organization.bizUnit.interfaces.form.QueryBizUnitForm;
 import com.neegix.organization.bizUnit.interfaces.form.UpdateBizUnitForm;
 import com.neegix.organization.bizUnit.interfaces.vo.BizUnitVO;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

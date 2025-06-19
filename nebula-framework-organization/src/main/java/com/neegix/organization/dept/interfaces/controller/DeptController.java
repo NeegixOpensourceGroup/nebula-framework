@@ -14,7 +14,7 @@ import com.neegix.organization.dept.interfaces.form.NewDeptForm;
 import com.neegix.organization.dept.interfaces.form.QueryDeptForm;
 import com.neegix.organization.dept.interfaces.form.UpdateDeptForm;
 import com.neegix.organization.dept.interfaces.vo.DeptVO;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

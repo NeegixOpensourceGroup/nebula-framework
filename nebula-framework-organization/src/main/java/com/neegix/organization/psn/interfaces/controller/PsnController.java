@@ -15,7 +15,7 @@ import com.neegix.organization.psn.interfaces.form.NewPsnForm;
 import com.neegix.organization.psn.interfaces.form.QueryPsnForm;
 import com.neegix.organization.psn.interfaces.form.UpdatePsnForm;
 import com.neegix.organization.psn.interfaces.vo.PsnVO;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
