@@ -4,7 +4,7 @@ package com.neegix.system.user.interfaces.controller;
 import com.neegix.base.PageVO;
 import com.neegix.cqrs.command.UniversalCommandBus;
 import com.neegix.cqrs.query.UniversalQueryBus;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import com.neegix.system.user.application.service.command.BindRolesCommand;
 import com.neegix.system.user.application.service.command.CreateUserCommand;
 import com.neegix.system.user.application.service.command.DeleteUserCommand;

@@ -5,7 +5,7 @@ import com.neegix.system.dict.domain.repository.DictItemRepository;
 import com.neegix.system.dict.infrastructure.repository.convert.DictItemConverter;
 import com.neegix.system.dict.infrastructure.repository.dataobject.DictItemDO;
 import com.neegix.system.dict.infrastructure.repository.mapper.DictItemMapper;
-import com.neegix.utils.SnowFlake;
+import com.neegix.infrastructure.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

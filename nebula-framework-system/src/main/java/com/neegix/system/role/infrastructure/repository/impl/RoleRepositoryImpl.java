@@ -12,7 +12,7 @@ import com.neegix.system.role.infrastructure.repository.dataobject.RoleMenuDO;
 import com.neegix.system.role.infrastructure.repository.dataobject.RoleMenuRelDO;
 import com.neegix.system.role.infrastructure.repository.mapper.RoleMapper;
 import com.neegix.system.role.infrastructure.repository.mapper.customized.RoleCustomizedMapper;
-import com.neegix.utils.SnowFlake;
+import com.neegix.infrastructure.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

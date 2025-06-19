@@ -6,7 +6,7 @@ import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.system.user.application.service.command.ModifyMinePasswordCommand;
 import com.neegix.system.user.domain.entity.UserEntity;
 import com.neegix.system.user.domain.repository.UserRepository;
-import com.neegix.utils.SecurityUtils;
+import com.neegix.infrastructure.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -3,7 +3,7 @@ package com.neegix.system.dict.interfaces.controller;
 import com.neegix.base.PageVO;
 import com.neegix.cqrs.command.UniversalCommandBus;
 import com.neegix.cqrs.query.UniversalQueryBus;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import com.neegix.system.dict.application.service.command.CreateDictItemCommand;
 import com.neegix.system.dict.application.service.command.DeleteDictItemCommand;
 import com.neegix.system.dict.application.service.command.UpdateDictItemCommand;

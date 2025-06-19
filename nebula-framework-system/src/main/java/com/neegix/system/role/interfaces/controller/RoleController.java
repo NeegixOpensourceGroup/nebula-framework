@@ -4,7 +4,7 @@ package com.neegix.system.role.interfaces.controller;
 import com.neegix.base.PageVO;
 import com.neegix.cqrs.command.UniversalCommandBus;
 import com.neegix.cqrs.query.UniversalQueryBus;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import com.neegix.system.role.application.service.command.CreateRoleCommand;
 import com.neegix.system.role.application.service.command.DeleteRoleCommand;
 import com.neegix.system.role.application.service.command.UpdateRoleCommand;

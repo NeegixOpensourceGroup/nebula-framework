@@ -10,7 +10,7 @@ import com.neegix.system.user.infrastructure.repository.dataobject.UserRoleDO;
 import com.neegix.system.user.infrastructure.repository.dataobject.UserRoleRelDO;
 import com.neegix.system.user.infrastructure.repository.mapper.UserMapper;
 import com.neegix.system.user.infrastructure.repository.mapper.customized.UserCustomizedMapper;
-import com.neegix.utils.SnowFlake;
+import com.neegix.infrastructure.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
