@@ -12,7 +12,7 @@ import com.neegix.development.menu.interfaces.form.CreateMenuForm;
 import com.neegix.development.menu.interfaces.form.QueryMenuForm;
 import com.neegix.development.menu.interfaces.form.UpdateMenuForm;
 import com.neegix.development.menu.interfaces.vo.MenuVO;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -15,7 +15,7 @@ import com.neegix.development.api.interfaces.form.QueryApiForm;
 import com.neegix.development.api.interfaces.form.UpdateApiForm;
 import com.neegix.development.api.interfaces.vo.ApiListVO;
 import com.neegix.development.api.interfaces.vo.ApiVO;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

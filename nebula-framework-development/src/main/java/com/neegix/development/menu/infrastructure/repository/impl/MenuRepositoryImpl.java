@@ -5,7 +5,7 @@ import com.neegix.development.menu.domain.repository.MenuRepository;
 import com.neegix.development.menu.infrastructure.repository.convert.MenuConverter;
 import com.neegix.development.menu.infrastructure.repository.dataobject.MenuDO;
 import com.neegix.development.menu.infrastructure.repository.mapper.MenuMapper;
-import com.neegix.utils.SnowFlake;
+import com.neegix.infrastructure.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -10,7 +10,7 @@ import com.neegix.development.api.infrastructure.repository.dataobject.ApiDO;
 import com.neegix.development.api.infrastructure.repository.mapper.ApiMapper;
 import com.neegix.development.menu.infrastructure.repository.dataobject.MenuDO;
 import com.neegix.development.menu.infrastructure.repository.mapper.MenuMapper;
-import com.neegix.utils.SnowFlake;
+import com.neegix.infrastructure.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
