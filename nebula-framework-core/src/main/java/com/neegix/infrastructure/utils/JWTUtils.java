@@ -1,4 +1,4 @@
-package com.neegix.utils;
+package com.neegix.infrastructure.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

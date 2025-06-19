@@ -1,6 +1,6 @@
 package com.neegix.exception;
 
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.security.auth.login.CredentialException;
-import java.util.Arrays;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)

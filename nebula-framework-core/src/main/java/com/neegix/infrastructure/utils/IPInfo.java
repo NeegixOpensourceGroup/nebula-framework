@@ -1,4 +1,4 @@
-package com.neegix.utils;
+package com.neegix.infrastructure.utils;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)

@@ -1,7 +1,7 @@
-package com.neegix.utils;
+package com.neegix.infrastructure.utils;
 
 import com.alibaba.fastjson2.JSON;
-import com.neegix.result.Result;
+import com.neegix.inferfaces.result.Result;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package com.neegix.base;
+package com.neegix.inferfaces.controller;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)

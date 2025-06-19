@@ -1,4 +1,4 @@
-package com.neegix.utils;
+package com.neegix.infrastructure.utils;
 
 /**
  * 分布式ID生成器（雪花算法）

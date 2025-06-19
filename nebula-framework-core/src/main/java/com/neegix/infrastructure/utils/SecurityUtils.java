@@ -1,4 +1,4 @@
-package com.neegix.utils;
+package com.neegix.infrastructure.utils;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

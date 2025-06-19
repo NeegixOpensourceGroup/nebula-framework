@@ -1,4 +1,4 @@
-package com.neegix.utils;
+package com.neegix.infrastructure.utils;
 
 import lombok.Getter;
 import org.springframework.beans.BeansException;

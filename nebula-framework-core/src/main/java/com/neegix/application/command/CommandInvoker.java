@@ -1,6 +1,6 @@
 package com.neegix.application.command;
 
-import com.neegix.utils.SpringContextUtil;
+import com.neegix.infrastructure.utils.SpringContextUtil;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)

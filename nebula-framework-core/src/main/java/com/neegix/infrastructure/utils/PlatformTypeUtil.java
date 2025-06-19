@@ -1,4 +1,4 @@
-package com.neegix.utils;
+package com.neegix.infrastructure.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 
