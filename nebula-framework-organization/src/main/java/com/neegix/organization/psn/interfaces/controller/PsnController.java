@@ -6,6 +6,7 @@ import com.neegix.cqrs.command.UniversalCommandBus;
 import com.neegix.cqrs.query.UniversalQueryBus;
 import com.neegix.organization.psn.application.service.command.CreatePsnCommand;
 import com.neegix.organization.psn.application.service.command.DeletePsnCommand;
+import com.neegix.organization.psn.application.service.command.GenerateUsersCommand;
 import com.neegix.organization.psn.application.service.command.UpdatePsnCommand;
 import com.neegix.organization.psn.application.service.command.mapper.PsnCommandMapper;
 import com.neegix.organization.psn.application.service.query.GetPagePsnQuery;
@@ -93,5 +94,11 @@ public class PsnController {
     @DeleteMapping
     public Result<Void> removePsn(@RequestBody List<Long> ids){
         return Result.success("删除成功", commandBus.execute(new DeletePsnCommand(ids)));
+    }
+
+    @PostMapping("/batch-users")
+     public Result<Void> batchUsers(@RequestBody List<Long> ids) {
+        commandBus.execute(new GenerateUsersCommand(ids));
+        return Result.success();
     }
 }

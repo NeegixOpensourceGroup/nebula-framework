@@ -27,6 +27,10 @@ public class GetPagePsnHandler implements QueryHandler<GetPagePsnQuery, PageVO<P
     @Autowired
     private PsnQueryRepository psnQueryRepository;
 
+    public GetPagePsnHandler(PsnQueryRepository psnQueryRepository){
+        this.psnQueryRepository = psnQueryRepository;
+    }
+
     @Override
     public PageVO<PsnVO> handle(GetPagePsnQuery query) {
         List<Long> pkPsn = psnQueryRepository.findPsnPkByBizUnitAndDept(query.getPkBizUnit(), query.getPkDept());
