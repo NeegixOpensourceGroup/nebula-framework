@@ -24,6 +24,7 @@
         <result column="create_user" property="createUser" />
         <result column="update_user" property="updateUser" />
         <result column="name" property="name" />
+        <result column="nick_name" property="nickName" />
         <result column="password" property="password" />
         <result column="description" property="description" />
         <result column="email" property="email" />
@@ -114,7 +115,7 @@
 
     <!-- 用户管理-字段列 -->
     <sql id="columns">
-       id,create_time,update_time,create_user,update_user,name,password,description,email,mobile_phone,enabled,deleted
+       id,create_time,update_time,create_user,update_user,name,nick_name,password,description,email,mobile_phone,enabled,deleted
     </sql>
 
     <!-- 条件查询-用户管理-数量 -->
@@ -228,6 +229,7 @@
         <if test="createUser != null">create_user,</if>
         <if test="updateUser != null">update_user,</if>
         <if test="name != null">name,</if>
+        <if test="nickName != null">nick_name,</if>
         <if test="password != null">password,</if>
         <if test="description != null">description,</if>
         <if test="email != null">email,</if>
@@ -242,6 +244,7 @@
         <if test="createUser != null">#{createUser},</if>
         <if test="updateUser != null">#{updateUser},</if>
         <if test="name != null">#{name},</if>
+        <if test="nickName != null">#{nickName},</if>
         <if test="password != null">#{password},</if>
         <if test="description != null">#{description},</if>
         <if test="email != null">#{email},</if>
@@ -269,6 +272,9 @@
             </if>
             <if test="name != null">
               name = #{name},
+            </if>
+            <if test="nickName != null">
+              nick_name = #{nickName},
             </if>
             <if test="password != null">
               password = #{password},

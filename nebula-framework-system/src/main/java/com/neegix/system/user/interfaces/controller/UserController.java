@@ -121,7 +121,7 @@ public class UserController {
     }
 
     @PutMapping("/resetPassword")
-    public Result<Void> resetPassword(@RequestBody List<Long> ids){
+    public Result<String> resetPassword(@RequestBody List<Long> ids){
         ResetPasswordCommand command = new ResetPasswordCommand(ids);
         return Result.success("密码重置成功！", universalCommandBus.execute(command));
     }

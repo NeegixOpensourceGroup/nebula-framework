@@ -23,6 +23,8 @@ import lombok.EqualsAndHashCode;
 public class UserDO extends BaseDO {
     // 账号名称
     private String name;
+    // 昵称
+    private String nickName;
     // 密码
     private String password;
     // 描述

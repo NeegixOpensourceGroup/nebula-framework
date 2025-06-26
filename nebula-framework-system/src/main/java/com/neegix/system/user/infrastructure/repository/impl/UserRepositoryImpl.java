@@ -89,7 +89,7 @@ public class UserRepositoryImpl implements UserRepository {
     public void batchInsertUserRoleRel(Long userId, List<Long> roleIds) {
         List<UserRoleRelDO> userRoleRelDOS = new ArrayList<>();
         for (Long roleId : roleIds) {
-            UserRoleRelDO userRoleRelDO = new UserRoleRelDO(userId, roleId);
+            UserRoleRelDO userRoleRelDO = new UserRoleRelDO(SnowFlake.generateId(), userId, roleId);
             userRoleRelDOS.add(userRoleRelDO);
         }
 

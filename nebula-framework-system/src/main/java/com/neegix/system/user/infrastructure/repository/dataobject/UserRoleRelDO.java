@@ -15,10 +15,12 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class UserRoleRelDO extends BaseDO {
+    private Long id;
     private Long pkUser;
     private Long pkRole;
 
-    public UserRoleRelDO(Long pkUser, Long pkRole) {
+    public UserRoleRelDO(Long id, Long pkUser, Long pkRole) {
+        this.id = id;
         this.pkUser = pkUser;
         this.pkRole = pkRole;
     }

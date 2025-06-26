@@ -14,7 +14,7 @@ import java.util.List;
  * @Description:
  */
 @Data
-public class ResetPasswordCommand implements Command<Void> {
+public class ResetPasswordCommand implements Command<String> {
     private List<Long> userIds;
 
     public ResetPasswordCommand(List<Long> userIds) {

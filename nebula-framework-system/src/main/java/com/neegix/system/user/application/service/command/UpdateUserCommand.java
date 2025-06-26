@@ -1,6 +1,7 @@
 package com.neegix.system.user.application.service.command;
 
 import com.neegix.cqrs.command.Command;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -13,7 +14,6 @@ import lombok.Data;
  */
 @Data
 public class UpdateUserCommand implements Command<Void> {
-
     // ID
     private Long id;
     // 账号名称
@@ -21,6 +21,7 @@ public class UpdateUserCommand implements Command<Void> {
     // 描述
     private String description;
     // 邮箱
+    @NotBlank(message="邮箱不能为空")
     private String email;
     // 手机号
     private String mobilePhone;

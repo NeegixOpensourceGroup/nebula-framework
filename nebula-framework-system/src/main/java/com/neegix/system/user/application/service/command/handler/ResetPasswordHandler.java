@@ -20,7 +20,7 @@ import java.util.Random;
  * @Description:
  */
 @Service
-public class ResetPasswordHandler implements CommandHandler<ResetPasswordCommand, Void> {
+public class ResetPasswordHandler implements CommandHandler<ResetPasswordCommand, String> {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -29,7 +29,7 @@ public class ResetPasswordHandler implements CommandHandler<ResetPasswordCommand
     private UserRepository userRepository;
 
     @Override
-    public Void handle(ResetPasswordCommand command) {
+    public String handle(ResetPasswordCommand command) {
         String resetPassword = generateRandomPassword(8);
         String encryptedPassword = passwordEncoder.encode(resetPassword);
         for (Long userId : command.getUserIds()) {
@@ -40,7 +40,7 @@ public class ResetPasswordHandler implements CommandHandler<ResetPasswordCommand
                 userRepository.save(user);
             }
         }
-        return null;
+        return resetPassword;
     }
 
     private String generateRandomPassword(int length) {
