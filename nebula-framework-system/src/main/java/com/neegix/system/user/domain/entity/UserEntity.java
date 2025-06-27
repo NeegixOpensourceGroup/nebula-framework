@@ -42,4 +42,7 @@ public class UserEntity implements AggregateRoot<Long> {
     // 角色
     private List<UserRoleEntity> roles;
 
+
+
+
  }
