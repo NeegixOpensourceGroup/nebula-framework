@@ -1,20 +1,21 @@
 package com.neegix.log.aspect;
 
-import com.neegix.auth.interfaces.vo.NebulaUserDetails;
+import com.neegix.inferfaces.vo.CurrentUser;
 import com.neegix.infrastructure.annotation.BizLog;
 import com.neegix.infrastructure.annotation.LoginLog;
 import com.neegix.infrastructure.type.LogTypeEnum;
+import com.neegix.infrastructure.utils.ClientInfoUtil;
+import com.neegix.infrastructure.utils.IPAddressUtil;
+import com.neegix.infrastructure.utils.IPInfo;
+import com.neegix.infrastructure.utils.PlatformTypeUtil;
+import com.neegix.infrastructure.utils.SecurityUtils;
+import com.neegix.infrastructure.utils.SnowFlake;
 import com.neegix.log.exceptionLog.infrastructure.repository.dataobject.ExceptionLogDO;
 import com.neegix.log.exceptionLog.infrastructure.repository.mapper.ExceptionLogMapper;
 import com.neegix.log.loginLog.infrastructure.repository.dataobject.LoginLogDO;
 import com.neegix.log.loginLog.infrastructure.repository.mapper.LoginLogMapper;
 import com.neegix.log.operationLog.infrastructure.repository.dataobject.OperationLogDO;
 import com.neegix.log.operationLog.infrastructure.repository.mapper.OperationLogMapper;
-import com.neegix.infrastructure.utils.ClientInfoUtil;
-import com.neegix.infrastructure.utils.IPAddressUtil;
-import com.neegix.infrastructure.utils.IPInfo;
-import com.neegix.infrastructure.utils.PlatformTypeUtil;
-import com.neegix.infrastructure.utils.SnowFlake;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -25,7 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 
@@ -75,7 +75,7 @@ public class LogAspect {
     @AfterReturning(pointcut = "@annotation(bizLog)")
     public void success(JoinPoint joinPoint, BizLog bizLog) {
 
-        String userName = getUserName();
+        String userName = SecurityUtils.getCurrentUser().getUsername();
         // 获取注解的属性
         String module = bizLog.module();
         String description = bizLog.description();
@@ -84,8 +84,8 @@ public class LogAspect {
         OperationLogDO operationLogDO = new OperationLogDO();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
-        if (principal instanceof NebulaUserDetails nebulaUserDetails){
-            operationLogDO.setUser(nebulaUserDetails.getUsername());
+        if (principal instanceof CurrentUser currentUser){
+            operationLogDO.setUser(currentUser.getUsername());
         }
         operationLogDO.setModule(module);
         operationLogDO.setType(type.ordinal());
@@ -95,30 +95,32 @@ public class LogAspect {
         operationLogMapper.insert(operationLogDO);
     }
 
-    private static String getUserName() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = null;
-        if (authentication != null) {
-            Object principal = authentication.getPrincipal();
-
-            if (principal instanceof NebulaUserDetails) {
-                // 如果是 NebulaUserDetails 类型，则强转并获取用户名
-                userName = ((NebulaUserDetails) principal).getUsername();
-            } else if (principal instanceof UserDetails) {
-                // 如果是标准的 UserDetails 类型，则强转并获取用户名
-                userName = ((UserDetails) principal).getUsername();
-            } else {
-                // 如果 principal 不是 UserDetails 类型，则假定它是 String 类型的用户名
-                userName = principal.toString();
-            }
-        }
-        return userName;
-    }
+//    private static String getUserName() {
+//
+//        CurrentUser user = SecurityUtils.getCurrentUser();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String userName = null;
+//        if (authentication != null) {
+//            Object principal = authentication.getPrincipal();
+//
+//            if (principal instanceof CurrentUser) {
+//                // 如果是 NebulaUserDetails 类型，则强转并获取用户名
+//                userName = ((CurrentUser) principal).getUsername();
+//            } else if (principal instanceof UserDetails) {
+//                // 如果是标准的 UserDetails 类型，则强转并获取用户名
+//                userName = ((UserDetails) principal).getUsername();
+//            } else {
+//                // 如果 principal 不是 UserDetails 类型，则假定它是 String 类型的用户名
+//                userName = principal.toString();
+//            }
+//        }
+//        return userName;
+//    }
 
     @AfterThrowing(pointcut = "@annotation(bizLog)", throwing = "ex")
     public void exception(JoinPoint joinPoint, BizLog bizLog, Throwable ex){
 
-        String userName = getUserName();
+        String userName = SecurityUtils.getCurrentUser().getUsername();
         // 获取注解的属性
         String module = bizLog.module();
         String description = bizLog.description();
