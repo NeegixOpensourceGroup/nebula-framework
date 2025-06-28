@@ -104,10 +104,12 @@ spring:
 <table>
   <tr>
     <th>QQ 群: 996598075</th>
-    <th>Discord: <a href="https://discord.gg/WrP5J9Ea7z">https://discord.gg/WrP5J9Ea7z</a></th>
+
+[//]: # (    <th>Discord: <a href="https://discord.gg/WrP5J9Ea7z">https://discord.gg/WrP5J9Ea7z</a></th>)
   </tr>
   <tr>
     <td><img src="https://neegix.com/img/qq_qrcode.jpg" width="200" /></td>
-    <td align=center><img src="https://gitee.com/kushu001/pic-go-images/raw/master/images/httpsdiscord.ggWrP5J9Ea7z.png" width="200" /></td>
+
+[//]: # (    <td align=center><img src="https://gitee.com/kushu001/pic-go-images/raw/master/images/httpsdiscord.ggWrP5J9Ea7z.png" width="200" /></td>)
   </tr>
 </table>
