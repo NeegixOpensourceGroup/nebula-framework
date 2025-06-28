@@ -1,6 +1,6 @@
 package com.neegix.system.user.application.service.command.handler;
 
-import com.neegix.auth.interfaces.vo.NebulaUserDetails;
+import com.neegix.inferfaces.vo.CurrentUser;
 import com.neegix.cqrs.command.handler.CommandHandler;
 import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.system.user.application.service.command.ModifyMinePasswordCommand;
@@ -36,7 +36,7 @@ public class ModifyMinePasswordHandler implements CommandHandler<ModifyMinePassw
             throw new BusinessRuntimeException("密码输入不一致！");
         }
         // 验证旧密码是否正确
-        NebulaUserDetails userDetails = SecurityUtils.getCurrentUser(NebulaUserDetails.class);
+        CurrentUser userDetails = SecurityUtils.getCurrentUser();
 
         assert userDetails != null;
         boolean isConfirm = passwordEncoder.matches(command.getOldPassword(), userDetails.getPassword());
