@@ -1,7 +1,7 @@
 package com.neegix.auth.application.service.impl;
 
 import com.neegix.auth.application.service.AuthService;
-import com.neegix.auth.interfaces.vo.NebulaUserDetails;
+import com.neegix.inferfaces.vo.CurrentUser;
 import com.neegix.infrastructure.utils.JWTUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +40,14 @@ public class AuthServiceImpl implements AuthService {
         Authentication authenticate = authenticationManager.authenticate(usernamePassword);
 
         // 获取返回的用户信息
-        NebulaUserDetails nebulaUserDetails = (NebulaUserDetails)authenticate.getPrincipal();
+        CurrentUser currentUser = (CurrentUser)authenticate.getPrincipal();
 
         // 生成jwt token
-        String token = JWTUtils.encode(nebulaUserDetails.getId());
+        String token = JWTUtils.encode(currentUser.getId());
 
         // 设置响应头 token
         httpServletResponse.setHeader("Authorization","Bearer " + token);
-        caffeineCache.put("access_token_" + nebulaUserDetails.getId(), token);
-        caffeineCache.put("user_" + nebulaUserDetails.getId(), nebulaUserDetails);
+        caffeineCache.put("access_token_" + currentUser.getId(), token);
+        caffeineCache.put("user_" + currentUser.getId(), currentUser);
     }
 }

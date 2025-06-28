@@ -1,15 +1,11 @@
-package com.neegix.auth.interfaces.vo;
+package com.neegix.inferfaces.vo;
 
 import com.alibaba.fastjson2.annotation.JSONField;
-import com.neegix.auth.application.dto.RoleDTO;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)

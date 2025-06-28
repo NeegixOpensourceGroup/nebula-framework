@@ -1,7 +1,7 @@
 package com.neegix.auth.infrastructure.config.filter;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import com.neegix.auth.interfaces.vo.NebulaUserDetails;
+import com.neegix.inferfaces.vo.CurrentUser;
 import com.neegix.inferfaces.result.Result;
 import com.neegix.infrastructure.utils.JWTUtils;
 import com.neegix.infrastructure.utils.WebUtils;
@@ -44,10 +44,10 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         Long userId = JWTUtils.decode(tokenArray[1]);
 
-        NebulaUserDetails nebulaUserDetails = (NebulaUserDetails)caffeineCache.asMap().get("user_" + userId);
+        CurrentUser currentUser = (CurrentUser)caffeineCache.asMap().get("user_" + userId);
 
         // 如果用户失效，则验证失败
-        if (nebulaUserDetails == null){
+        if (currentUser == null){
             WebUtils.renderString(response, Result.failure(HttpStatus.FORBIDDEN.value(), "凭证过期！"));
             //filterChain.doFilter(request, response);
             return;
@@ -55,7 +55,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         //TODO 否则 重置生效时间(需引入redis)
 
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(nebulaUserDetails,null,nebulaUserDetails.getAuthorities());
+                new UsernamePasswordAuthenticationToken(currentUser,null, currentUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         filterChain.doFilter(request, response);
     }

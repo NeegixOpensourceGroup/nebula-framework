@@ -2,7 +2,7 @@ package com.neegix.auth.application.service.impl;
 
 import com.neegix.auth.application.dto.UserDTO;
 import com.neegix.auth.application.query.AuthQueryRepository;
-import com.neegix.auth.interfaces.vo.NebulaUserDetails;
+import com.neegix.inferfaces.vo.CurrentUser;
 import com.neegix.exception.BusinessRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,12 +33,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if (!userDTO.getEnabled()){
             throw new BusinessRuntimeException("用户已禁用，请找管理员处理！");
         }
-        NebulaUserDetails nebulaUserDetails = new NebulaUserDetails();
-        nebulaUserDetails.setId(userDTO.getId());
-        nebulaUserDetails.setUsername(userDTO.getName());
-        nebulaUserDetails.setMenuPermissions(userDTO.getMenuPermissions());
-        nebulaUserDetails.setAuthorities(userDTO.getApiPermissions().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-        nebulaUserDetails.setPassword(userDTO.getPassword());
-        return nebulaUserDetails;
+        CurrentUser currentUser = new CurrentUser();
+        currentUser.setId(userDTO.getId());
+        currentUser.setUsername(userDTO.getName());
+        currentUser.setMenuPermissions(userDTO.getMenuPermissions());
+        currentUser.setAuthorities(userDTO.getApiPermissions().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+        currentUser.setPassword(userDTO.getPassword());
+        return currentUser;
     }
 }

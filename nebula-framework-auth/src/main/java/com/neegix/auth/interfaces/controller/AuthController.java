@@ -2,7 +2,7 @@ package com.neegix.auth.interfaces.controller;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.neegix.auth.application.service.AuthService;
-import com.neegix.auth.interfaces.vo.NebulaUserDetails;
+import com.neegix.inferfaces.vo.CurrentUser;
 import com.neegix.infrastructure.annotation.LoginLog;
 import com.neegix.inferfaces.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +59,8 @@ public class AuthController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<String> authorities = null;
         Object principal = authentication.getPrincipal();
-        if (principal instanceof NebulaUserDetails nebulaUserDetails){
-            authorities = nebulaUserDetails.getMenuPermissions();
+        if (principal instanceof CurrentUser currentUser){
+            authorities = currentUser.getMenuPermissions();
         }
         return Result.success("权限获取成功", authorities);
     }
