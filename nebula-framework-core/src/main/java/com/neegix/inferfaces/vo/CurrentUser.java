@@ -16,7 +16,7 @@ import java.util.List;
  * @Description:
  */
 @Data
-public class NebulaUserDetails implements UserDetails {
+public class CurrentUser implements UserDetails {
 
     private Long id;
 
