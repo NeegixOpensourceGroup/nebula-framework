@@ -1,5 +1,6 @@
 package com.neegix.log.loginLog.application.service.query.handler;
 
+import com.neegix.application.query.EnumOrder;
 import com.neegix.application.query.NebulaSQL;
 import com.neegix.base.PageVO;
 import com.neegix.cqrs.query.handler.QueryHandler;
@@ -38,6 +39,7 @@ public class QueryPageLoginLogHandler implements QueryHandler<GetPageLoginLogQue
                 .andClientLikeTo(query.getClient())
                 .andEnabledEqualTo(query.getEnabled())
                 .andDeletedEqualTo(query.getDeleted());
+        nebulaSQL.orderBy("create_time", EnumOrder.DESC);
         return loginLogQueryRepository.findPage(query.getCurrentPage(), query.getPageSize(), nebulaSQL);
     }
 }

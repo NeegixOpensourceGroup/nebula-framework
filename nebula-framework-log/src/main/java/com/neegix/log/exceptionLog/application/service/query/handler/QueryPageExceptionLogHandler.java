@@ -1,5 +1,6 @@
 package com.neegix.log.exceptionLog.application.service.query.handler;
 
+import com.neegix.application.query.EnumOrder;
 import com.neegix.application.query.NebulaSQL;
 import com.neegix.base.PageVO;
 import com.neegix.cqrs.query.handler.QueryHandler;
@@ -39,6 +40,7 @@ public class QueryPageExceptionLogHandler implements QueryHandler<GetPageExcepti
                 .andUriLikeTo(query.getUri())
                 .andFullNameLikeTo(query.getFullName())
                 .andExceptionLikeTo(query.getException());
+        nebulaSQL.orderBy("create_time", EnumOrder.DESC);
         return exceptionLogQueryRepository.findPage(query.getCurrentPage(), query.getPageSize(), nebulaSQL);
     }
 }
