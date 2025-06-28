@@ -8,7 +8,7 @@
 
 ## 介绍
 
-Nebula Framework 是一套基于 Spring Boot 3.0 和 Java 17 开发的企业级后台管理开发平台。它由多个模块组成，每个模块都针对特定的功能需求设计，以提供灵活且高效的开发体验。
+Nebula Framework 是一套基于 Spring Boot 3.0 和 Java 17 开发的企业级后台管理开发平台。并且以DDD(领域驱动设计)为理念，它由多个模块组成，每个模块都针对特定的功能需求设计，以提供灵活且高效的开发体验。
 
 ## 模块组成
 
@@ -30,13 +30,50 @@ Nebula Framework 是一套基于 Spring Boot 3.0 和 Java 17 开发的企业级�
 整个后台框架的业务代码遵循 DDD（领域驱动设计）规范。DDD 是一种软件设计方法，它将业务需求紧密地反映在系统设计的模型中，强调以业务概念为驱动的软件开发。Nebula Framework 提供了一套基于 DDD 的代码架构，但这个规范是灵活的，可以根据个人或项目的不同需求进行调整。在必要的时候，开发者可以根据自己的方式编写代码，不拘泥于固定的模式。
 
 ## 安装教程
+## 后端环境搭建
 
-请参考各模块的详细安装指南：
+```bash
+$ git clone https://gitee.com/neegix-opensource-group/nebula-framework
+```
 
-- [nebula-framework-core 安装指南](#)
-- [nebula-framework-auth 安装指南](#)
-- [nebula-framework-system 安装指南](#)
-- [nebula-framework-development 安装指南](#)
+进入聚合项目根目录：
+```bash
+$ cd nebula-framework
+```
+
+
+
+安装依赖
+
+```bash
+  mvn clean install
+```
+
+然后进入启动项目目录：
+```bash
+$ cd neblua-framework-organization
+```
+
+修改配置文件(**开发环境**)
+```bash
+$ vim src/main/resources/application-dev.yml
+```
+
+修改数据库配置（改成自己的数据库相关环境参数）
+```bash
+spring:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/nebula?useTimezone=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: 12345678
+```
+
+启动
+```bash
+  mvn spring-boot:run
+```
+
 - [nebula-framework-generator 安装指南](https://nebula.neegix.com/nebula/nebula-framework/nebula-framework-generator/)
 
 ## 使用说明

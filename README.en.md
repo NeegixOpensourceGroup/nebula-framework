@@ -30,13 +30,49 @@ The business code of the entire backend framework follows the DDD (Domain-Driven
 
 ## Installation Guide
 
-Please refer to the detailed installation guide for each module:
+## Backend Environment Setup
 
-- [nebula-framework-core Installation Guide](#)
-- [nebula-framework-auth Installation Guide](#)
-- [nebula-framework-system Installation Guide](#)
-- [nebula-framework-development Installation Guide](#)
-- [nebula-framework-generator Installation Guide](https://nebula.neegix.com/nebula/nebula-framework/nebula-framework-generator/)
+```bash
+$ git clone https://gitee.com/neegix-opensource-group/nebula-framework
+```
+
+Navigate to the root directory of the aggregated project:
+```bash
+$ cd nebula-framework
+```
+
+Install dependencies:
+```bash
+mvn clean install
+```
+
+Then enter the startup project directory:
+
+```bash
+$ cd neblua-framework-organization
+```
+
+Modify the configuration file (Development Environment):
+
+```bash
+$ vim src/main/resources/application-dev.yml
+```
+
+Update the database configuration (change to your own database environment parameters):
+```yaml
+spring:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/nebula?useTimezone=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: 12345678
+```
+
+Start the application:
+```bash
+$ mvn spring-boot:run
+```
+
 
 ## Usage Instructions
 
