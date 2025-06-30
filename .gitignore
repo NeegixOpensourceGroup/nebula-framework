@@ -32,3 +32,6 @@
 ### test, pro yml ###
 **/*-pro.yml
 **/*-test.yml
+
+### maven version management ###
+*.versionsBackup
