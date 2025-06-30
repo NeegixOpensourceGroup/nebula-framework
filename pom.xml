@@ -38,7 +38,7 @@
     <mysql.version>8.4.0</mysql.version>
     <tomcat-embed-core.version>10.1.26</tomcat-embed-core.version>
     <org.mapstruct.version>1.6.0</org.mapstruct.version>
-    <fastexcel.version>1.0.0</fastexcel.version>
+    <fastexcel.version>1.2.0</fastexcel.version>
     <ip2region.version>2.7.0</ip2region.version>
   </properties>
 
