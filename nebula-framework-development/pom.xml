@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.neegix</groupId>
         <artifactId>nebula-framework</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.1.0</version>
     </parent>
 
     <artifactId>nebula-framework-development</artifactId>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.neegix</groupId>
             <artifactId>nebula-framework-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -49,7 +49,7 @@
             <plugin>
                 <groupId>com.neegix</groupId>
                 <artifactId>nebula-framework-generator</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.1.0</version>
                 <configuration>
                     <driver>com.mysql.cj.jdbc.Driver</driver>
                     <url>jdbc:mysql://127.0.0.1:3306/nebula?serverTimezone=GMT%2B8&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</url>

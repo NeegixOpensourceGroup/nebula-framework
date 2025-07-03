@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.neegix</groupId>
         <artifactId>nebula-framework</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.1.0</version>
     </parent>
 
     <artifactId>nebula-framework-auth</artifactId>
@@ -62,7 +62,7 @@
         <dependency>
             <groupId>com.neegix</groupId>
             <artifactId>nebula-framework-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
