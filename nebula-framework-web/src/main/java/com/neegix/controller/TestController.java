@@ -1,6 +1,6 @@
 package com.neegix.controller;
 
-import com.neegix.auth.interfaces.vo.NebulaUserDetails;
+import com.neegix.inferfaces.vo.CurrentUser;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,7 +27,7 @@ public class TestController {
     public String hello(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities =  authentication.getAuthorities();
-        NebulaUserDetails userDetails = (NebulaUserDetails)authentication.getPrincipal();
+        CurrentUser userDetails = (CurrentUser)authentication.getPrincipal();
         return "Hello world";
     }
 }
