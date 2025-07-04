@@ -31,26 +31,28 @@ import java.io.IOException;
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        String errorMessage = "";
-        int code = HttpStatus.FORBIDDEN.value();
+
+        String errorMessage;
+        int code;
+
         if (authException instanceof BadCredentialsException) {
-            errorMessage = authException.getMessage();
-            // 处理错误的凭据异常
+            errorMessage = "用户名或密码错误";
+            code = HttpStatus.UNAUTHORIZED.value(); // 401 未授权
         } else if (authException instanceof LockedException) {
-            errorMessage = "账户被锁定";
-            // 处理账户锁定异常
+            errorMessage = "账户已被锁定，请联系管理员";
+            code = HttpStatus.LOCKED.value(); // 423 锁定
         } else if (authException instanceof DisabledException) {
-            errorMessage = "账户被禁用";
-            // 处理账户禁用异常
+            errorMessage = "账户已被禁用";
+            code = HttpStatus.FORBIDDEN.value(); // 403 禁止访问
         } else if (authException instanceof CredentialsExpiredException) {
-            errorMessage = "凭据过期";
-            // 处理凭据过期异常
+            errorMessage = "密码已过期，请重置密码";
+            code = HttpStatus.UNAUTHORIZED.value(); // 401 未授权
         } else if (authException instanceof InsufficientAuthenticationException) {
-           errorMessage = "接口不存在或者未授权";
-           code = HttpStatus.METHOD_NOT_ALLOWED.value();
+            errorMessage = "未提供有效身份凭证";
+            code = HttpStatus.UNAUTHORIZED.value(); // 401 未授权
         } else {
-            errorMessage = "其他认证异常";
-            // 通用处理
+            errorMessage = "认证失败，请重新登录";
+            code = HttpStatus.UNAUTHORIZED.value(); // 401 未授权
         }
         Result<?> result = Result.failure(code, errorMessage);
         WebUtils.renderString(response, result);

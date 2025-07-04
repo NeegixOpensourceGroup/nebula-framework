@@ -48,7 +48,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         // 如果用户失效，则验证失败
         if (currentUser == null){
-            WebUtils.renderString(response, Result.failure(HttpStatus.FORBIDDEN.value(), "凭证过期！"));
+            WebUtils.renderString(response, Result.failure(HttpStatus.UNAUTHORIZED.value(), "凭证过期！"));
             //filterChain.doFilter(request, response);
             return;
         }
