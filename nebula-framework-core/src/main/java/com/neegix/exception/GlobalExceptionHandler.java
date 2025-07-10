@@ -44,4 +44,10 @@ public class GlobalExceptionHandler {
     public  <T> Result<T> handlerCommonException(CredentialException ex){
         return Result.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage(), ex);
     }
+
+    @ExceptionHandler(NullPointerException.class)
+    public <T> Result<T> handleNullPointerException(NullPointerException e) {
+        return Result.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器异常: " + e.getMessage(), e);
+    }
+
 }
