@@ -18,6 +18,8 @@ import lombok.Data;
 
 @Data
 public class QueryUserForm extends BaseQueryForm {
+    // 类型
+    private Long userType;
     // 账号名称
     private String name;
     // 密码

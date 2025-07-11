@@ -3,6 +3,7 @@ package com.neegix.system.user.infrastructure.repository.convert;
 import com.neegix.system.user.domain.entity.UserEntity;
 import com.neegix.system.user.infrastructure.repository.dataobject.UserDO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
  /**
@@ -23,8 +24,10 @@ public interface UserConverter {
 
     UserConverter INSTANCE = Mappers.getMapper(UserConverter.class);
 
+    @Mapping(target = "userType", ignore = true)
     UserDO covertDO(UserEntity userEntity);
 
+    @Mapping(target = "userType", ignore = true)
     UserEntity covertEntity(UserDO userDO);
 
 }

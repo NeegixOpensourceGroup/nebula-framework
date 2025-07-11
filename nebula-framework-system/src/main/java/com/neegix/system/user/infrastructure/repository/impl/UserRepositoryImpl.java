@@ -1,8 +1,10 @@
 package com.neegix.system.user.infrastructure.repository.impl;
 
 import com.neegix.application.query.NebulaSQL;
+import com.neegix.infrastructure.utils.SnowFlake;
 import com.neegix.system.user.domain.entity.UserEntity;
 import com.neegix.system.user.domain.entity.UserRoleEntity;
+import com.neegix.system.user.domain.entity.UserType;
 import com.neegix.system.user.domain.repository.UserRepository;
 import com.neegix.system.user.infrastructure.repository.convert.UserConverter;
 import com.neegix.system.user.infrastructure.repository.dataobject.UserDO;
@@ -10,7 +12,6 @@ import com.neegix.system.user.infrastructure.repository.dataobject.UserRoleDO;
 import com.neegix.system.user.infrastructure.repository.dataobject.UserRoleRelDO;
 import com.neegix.system.user.infrastructure.repository.mapper.UserMapper;
 import com.neegix.system.user.infrastructure.repository.mapper.customized.UserCustomizedMapper;
-import com.neegix.infrastructure.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,8 +46,10 @@ public class UserRepositoryImpl implements UserRepository {
 
         if (userEntity.getId() == null) {
             userDO.setId(SnowFlake.generateId());
+            userDO.setUserType(userEntity.getUserType().getId());
             userMapper.insert(userDO);
         } else {
+            userDO.setUserType(userEntity.getUserType().getId());
             userMapper.updateByPrimaryKey(userDO);
         }
     }
@@ -62,7 +65,15 @@ public class UserRepositoryImpl implements UserRepository {
         // 查询用户
         UserDO userDO = userMapper.selectByPrimaryKey(aLong);
         UserEntity userEntity = UserConverter.INSTANCE.covertEntity(userDO);
+
+
         if (userEntity != null && userEntity.getId() != null){
+            if (userDO.getUserType() != null) {
+                // 设置用户类型id
+                UserType userType = new UserType();
+                userType.setId(userDO.getUserType());
+                userEntity.setUserType(userType);
+            }
             // 查询用户关联的角色
             List<UserRoleDO> userRoleDOS = userCustomizedMapper.selectRolesByPkUser(aLong);
 

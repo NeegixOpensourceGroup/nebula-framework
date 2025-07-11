@@ -20,6 +20,8 @@ public class UpdateUserCommand implements Command<Void> {
     private String name;
     // 描述
     private String description;
+    // 类型
+    private Long userType;
     // 邮箱
     @NotBlank(message="邮箱不能为空")
     private String email;

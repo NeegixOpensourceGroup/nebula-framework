@@ -27,6 +27,8 @@ public class UserDO extends BaseDO {
     private String nickName;
     // 密码
     private String password;
+    // 类型
+    private Long userType;
     // 描述
     private String description;
     // 邮箱

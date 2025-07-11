@@ -4,9 +4,9 @@ import com.neegix.application.query.NebulaSQL;
 import com.neegix.base.PageVO;
 import com.neegix.cqrs.query.handler.QueryHandler;
 import com.neegix.system.user.application.repository.UserQueryRepository;
-import com.neegix.system.user.infrastructure.repository.condition.UserWhereGroup;
 import com.neegix.system.user.application.service.query.GetPageUserQuery;
-import com.neegix.system.user.interfaces.vo.UserVO;
+import com.neegix.system.user.infrastructure.repository.condition.UserWhereGroup;
+import com.neegix.system.user.interfaces.vo.UserForListVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
  * @Description:
  */
 @Service
-public class GetPageUserHandler implements QueryHandler<GetPageUserQuery, PageVO<UserVO>> {
+public class GetPageUserHandler implements QueryHandler<GetPageUserQuery, PageVO<UserForListVO>> {
 
     @Autowired
     private UserQueryRepository userQueryRepository;
 
     @Override
-    public PageVO<UserVO> handle(GetPageUserQuery query) {
+    public PageVO<UserForListVO> handle(GetPageUserQuery query) {
         NebulaSQL nebulaSQL = new NebulaSQL();
         nebulaSQL.createWhereGroups(UserWhereGroup.class)
                 .andCreateTimeBetween(query.getStartCreateTime(),query.getEndCreateTime())
@@ -35,6 +35,7 @@ public class GetPageUserHandler implements QueryHandler<GetPageUserQuery, PageVO
                 .andNameLikeTo(query.getName())
                 .andPasswordLikeTo(query.getPassword())
                 .andDescriptionLikeTo(query.getDescription())
+                .andUserTypeEqualTo(query.getUserType())
                 .andEmailLikeTo(query.getEmail())
                 .andMobilePhoneLikeTo(query.getMobilePhone())
                 .andEnabledEqualTo(query.getEnabled())

@@ -17,6 +17,8 @@ public class CreateUserCommand implements Command<Void> {
     private String name;
     // 描述
     private String description;
+    // 类型
+    private Long userType;
     // 邮箱
     private String email;
     // 手机号

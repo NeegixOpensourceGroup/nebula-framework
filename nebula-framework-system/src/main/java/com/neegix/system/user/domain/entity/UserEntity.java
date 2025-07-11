@@ -31,6 +31,8 @@ public class UserEntity implements AggregateRoot<Long> {
     private String password;
     // 描述
     private String description;
+    // 类型
+    private UserType userType;
     // 邮箱
     private String email;
     // 手机号

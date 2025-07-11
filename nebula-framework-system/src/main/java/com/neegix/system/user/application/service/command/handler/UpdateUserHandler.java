@@ -2,7 +2,7 @@ package com.neegix.system.user.application.service.command.handler;
 
 import com.neegix.cqrs.command.handler.CommandHandler;
 import com.neegix.exception.BusinessRuntimeException;
-import com.neegix.system.user.application.assembler.UserAssembler;
+import com.neegix.system.user.application.factory.UserFactory;
 import com.neegix.system.user.application.service.command.UpdateUserCommand;
 import com.neegix.system.user.domain.entity.UserEntity;
 import com.neegix.system.user.domain.repository.UserRepository;
@@ -27,9 +27,12 @@ public class UpdateUserHandler implements CommandHandler<UpdateUserCommand, Void
     @Autowired
     private UserDomainService userDomainService;
 
+    @Autowired
+    private UserFactory userFactory;
+
     @Override
     public Void handle(UpdateUserCommand command) {
-        UserEntity userEntity = UserAssembler.INSTANCE.covertEntity(command);
+        UserEntity userEntity = userFactory.createUser(command);
         boolean isUnique = userDomainService.checkUserUnique(userEntity);
         if (isUnique){
             userRepository.save(userEntity);

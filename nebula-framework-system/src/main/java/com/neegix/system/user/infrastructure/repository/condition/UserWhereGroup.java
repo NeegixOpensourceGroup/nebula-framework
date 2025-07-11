@@ -708,6 +708,97 @@ public class UserWhereGroup extends WhereGroups {
         return this;
     }
 
+
+
+
+    /// =============
+    public UserWhereGroup andUserTypeIsNull() {
+        addCriterion("user_type", EnumOperator.IS_NULL, null);
+        return this;
+    }
+
+     public UserWhereGroup andUserTypeIsNotNull() {
+         addCriterion("user_type", EnumOperator.IS_NOT_NULL, null);
+         return this;
+     }
+
+     public UserWhereGroup andUserTypeEqualTo(Long value) {
+         addCriterion("user_type", EnumOperator.EQUAL, value);
+         return this;
+     }
+
+
+     public UserWhereGroup andUserTypeNotEqualTo(Long value) {
+         addCriterion("user_type", EnumOperator.NOT_EQUAL, value);
+         return this;
+     }
+
+     public UserWhereGroup andUserTypeBetween(Long value1, Long value2) {
+         addCriterion("user_type", EnumOperator.GREATER_EQUAL_THAN, value1);
+         addCriterion("user_type", EnumOperator.LESS_EQUAL_THAN, value2);
+         return this;
+     }
+
+
+     public UserWhereGroup andUserTypeNotBetween(Long value1, Long value2) {
+         addCriterion("user_type", EnumOperator.LESS_THAN, value1);
+         addCriterion("user_type", EnumOperator.GREATER_THAN, value2);
+         return this;
+     }
+
+
+
+     public UserWhereGroup andUserTypeLikeTo(Long value) {
+         addCriterion("user_type", EnumOperator.LIKE, true, value, true);
+         return this;
+     }
+
+
+     public UserWhereGroup andUserTypeLikeTo(boolean prefix, Long value) {
+         addCriterion("user_type", EnumOperator.LIKE, prefix, value, false);
+         return this;
+     }
+
+
+     public UserWhereGroup andUserTypeLikeTo(Long value, boolean suffix) {
+         addCriterion("user_type", EnumOperator.LIKE, false, value, suffix);
+         return this;
+     }
+
+
+
+
+     public UserWhereGroup andUserTypeNotLikeTo(Long value) {
+         addCriterion("user_type", EnumOperator.NOT_LIKE, true, value, true);
+         return this;
+     }
+
+
+     public UserWhereGroup andUserTypeNotLikeTo(boolean prefix, Long value) {
+         addCriterion("user_type", EnumOperator.NOT_LIKE, prefix, value, false);
+         return this;
+     }
+
+
+     public UserWhereGroup andUserTypeNotLikeTo(Long value, boolean suffix) {
+         addCriterion("user_type", EnumOperator.NOT_LIKE, false, value, suffix);
+         return this;
+     }
+
+
+
+     public UserWhereGroup andUserTypeIn(List<Long> list) {
+         addCriterion("user_type", EnumOperator.IN, list);
+         return this;
+     }
+
+
+     public UserWhereGroup andUserTypeNotIn(List<Long> list) {
+         addCriterion("user_type", EnumOperator.NOT_IN, list);
+         return this;
+     }
+    /// =============
+
     public UserWhereGroup andEmailIsNull() {
         addCriterion("email", EnumOperator.IS_NULL, null);
         return this;

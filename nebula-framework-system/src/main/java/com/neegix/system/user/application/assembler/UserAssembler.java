@@ -4,8 +4,10 @@ import com.neegix.system.user.application.service.command.CreateUserCommand;
 import com.neegix.system.user.application.service.command.UpdateUserCommand;
 import com.neegix.system.user.domain.entity.UserEntity;
 import com.neegix.system.user.infrastructure.repository.dataobject.UserDO;
+import com.neegix.system.user.interfaces.vo.UserForListVO;
 import com.neegix.system.user.interfaces.vo.UserVO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -27,12 +29,15 @@ import java.util.List;
 public interface UserAssembler {
     UserAssembler INSTANCE = Mappers.getMapper(UserAssembler.class);
 
+    @Mapping(target = "userType", ignore = true)
     UserEntity covertEntity(CreateUserCommand createUserCommand);
 
+    @Mapping(target = "userType", ignore = true)
     UserEntity covertEntity(UpdateUserCommand updateUserCommand);
 
 
-    List<UserVO> covertVO(List<UserDO> UserDOs);
+    List<UserForListVO> covertVO(List<UserDO> UserDOs);
 
+    @Mapping(target = "userType", ignore = true)
     UserVO covertVO(UserEntity entity);
 }

@@ -1,16 +1,14 @@
 package com.neegix.system.user.application.service.query.handler;
 
 import com.neegix.cqrs.query.handler.QueryHandler;
-import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.system.user.application.assembler.UserAssembler;
 import com.neegix.system.user.application.service.query.GetUserDetailQuery;
 import com.neegix.system.user.domain.entity.UserEntity;
-import com.neegix.system.user.domain.repository.UserRepository;
+import com.neegix.system.user.domain.service.UserDomainService;
+import com.neegix.system.user.interfaces.vo.UserTypeVO;
 import com.neegix.system.user.interfaces.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -24,12 +22,15 @@ import java.util.Optional;
 public class GetUserDetailHandler implements QueryHandler<GetUserDetailQuery, UserVO> {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDomainService userDomainService;
 
     @Override
     public UserVO handle(GetUserDetailQuery query) {
-        Optional<UserEntity> optional = userRepository.findById(query.getId());
-        UserEntity entity = optional.orElseThrow(()-> new BusinessRuntimeException("查询结果不存在"));
-        return UserAssembler.INSTANCE.covertVO(entity);
+        UserEntity user = userDomainService.getUser(query.getId());
+        UserVO userVO = UserAssembler.INSTANCE.covertVO(user);
+        if (user.getUserType() != null) {
+            userVO.setUserType(new UserTypeVO(user.getUserType().getId(), user.getUserType().getName(), user.getUserType().getValue()));
+        }
+        return userVO;
     }
 }

@@ -1,15 +1,13 @@
 package com.neegix.system.user.application.service.query.handler;
 
 import com.neegix.cqrs.query.handler.QueryHandler;
-import com.neegix.exception.BusinessRuntimeException;
 import com.neegix.system.user.application.service.query.GetUserRolesQuery;
 import com.neegix.system.user.domain.entity.UserEntity;
 import com.neegix.system.user.domain.entity.UserRoleEntity;
-import com.neegix.system.user.domain.repository.UserRepository;
+import com.neegix.system.user.domain.service.UserDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,13 +23,12 @@ import java.util.stream.Collectors;
 public class GetUserRolesHandler implements QueryHandler<GetUserRolesQuery, Set<Long>> {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDomainService userDomainService;
+
     @Override
     public Set<Long> handle(GetUserRolesQuery query) {
 
-        Optional<UserEntity> optional = userRepository.findById(query.getPkUser());
-
-        UserEntity user = optional.orElseThrow(()-> new BusinessRuntimeException("查询用户不存在"));
+        UserEntity user = userDomainService.getUser(query.getPkUser());
 
         return user.getRoles().stream().map(UserRoleEntity::getId).collect(Collectors.toSet());
     }

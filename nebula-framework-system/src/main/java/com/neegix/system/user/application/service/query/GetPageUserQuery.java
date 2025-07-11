@@ -2,7 +2,7 @@ package com.neegix.system.user.application.service.query;
 
 import com.neegix.base.PageVO;
 import com.neegix.cqrs.query.Query;
-import com.neegix.system.user.interfaces.vo.UserVO;
+import com.neegix.system.user.interfaces.vo.UserForListVO;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
  * @Description:
  */
 @Data
-public class GetPageUserQuery implements Query<PageVO<UserVO>> {
+public class GetPageUserQuery implements Query<PageVO<UserForListVO>> {
     // 当前页
     private Integer currentPage;
     // 每页数
@@ -39,6 +39,8 @@ public class GetPageUserQuery implements Query<PageVO<UserVO>> {
     private String password;
     // 描述
     private String description;
+    // 类型
+    private Long userType;
     // 邮箱
     private String email;
     // 手机号

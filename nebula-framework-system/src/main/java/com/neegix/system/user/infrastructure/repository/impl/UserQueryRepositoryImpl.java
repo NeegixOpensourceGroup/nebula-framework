@@ -7,7 +7,7 @@ import com.neegix.system.user.application.repository.UserQueryRepository;
 import com.neegix.system.user.infrastructure.repository.dataobject.UserDO;
 import com.neegix.system.user.infrastructure.repository.mapper.UserMapper;
 import com.neegix.system.user.infrastructure.repository.mapper.customized.UserCustomizedMapper;
-import com.neegix.system.user.interfaces.vo.UserVO;
+import com.neegix.system.user.interfaces.vo.UserForListVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -36,11 +36,11 @@ public class UserQueryRepositoryImpl implements UserQueryRepository {
     private UserCustomizedMapper userCustomizedMapper;
 
     @Override
-    public PageVO<UserVO> findPage(Integer currentPage, Integer pageSize, NebulaSQL nebulaSQL) {
+    public PageVO<UserForListVO> findPage(Integer currentPage, Integer pageSize, NebulaSQL nebulaSQL) {
         nebulaSQL.setPager(currentPage, pageSize);
         List<UserDO> result = userMapper.selectList(nebulaSQL);
         Long total = userMapper.selectCount(nebulaSQL);
-        PageVO<UserVO> page = new PageVO<>(currentPage, pageSize);
+        PageVO<UserForListVO> page = new PageVO<>(currentPage, pageSize);
         page.setTotal(total);
         page.setResult(UserAssembler.INSTANCE.covertVO(result));
         return page;

@@ -1,17 +1,16 @@
 package com.neegix.system.user.application.service.command.handler;
 
-import com.neegix.inferfaces.vo.CurrentUser;
 import com.neegix.cqrs.command.handler.CommandHandler;
 import com.neegix.exception.BusinessRuntimeException;
+import com.neegix.inferfaces.vo.CurrentUser;
+import com.neegix.infrastructure.utils.SecurityUtils;
 import com.neegix.system.user.application.service.command.ModifyMinePasswordCommand;
 import com.neegix.system.user.domain.entity.UserEntity;
 import com.neegix.system.user.domain.repository.UserRepository;
-import com.neegix.infrastructure.utils.SecurityUtils;
+import com.neegix.system.user.domain.service.UserDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA (Community Edition)
@@ -28,6 +27,10 @@ public class ModifyMinePasswordHandler implements CommandHandler<ModifyMinePassw
 
     @Autowired
     private UserRepository userRepository;
+
+
+    @Autowired
+    private UserDomainService userDomainService;
 
     @Override
     public Void handle(ModifyMinePasswordCommand command) {
@@ -46,9 +49,7 @@ public class ModifyMinePasswordHandler implements CommandHandler<ModifyMinePassw
         // 更新密码
         String encryptedPassword = passwordEncoder.encode(command.getNewPassword());
 
-        Optional<UserEntity> optional = userRepository.findById(userDetails.getId());
-
-        UserEntity user = optional.orElseThrow(()-> new BusinessRuntimeException("用户不存在"));
+        UserEntity user = userDomainService.getUser(userDetails.getId());
 
         user.setPassword(encryptedPassword);
 

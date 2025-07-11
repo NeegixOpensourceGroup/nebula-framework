@@ -34,6 +34,8 @@ public class UserVO implements BaseVO {
     private String name;
     // 描述
     private String description;
+    // 类型
+    private UserTypeVO userType;
     // 邮箱
     private String email;
     // 手机号
@@ -42,6 +44,9 @@ public class UserVO implements BaseVO {
     private Boolean enabled;
     // 是否删除（0 否 1 是）
     private Boolean deleted;
+
 }
+
+
 
 

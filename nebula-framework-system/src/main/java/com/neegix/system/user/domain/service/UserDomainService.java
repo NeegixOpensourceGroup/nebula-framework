@@ -1,6 +1,9 @@
 package com.neegix.system.user.domain.service;
 
 import com.neegix.application.query.NebulaSQL;
+import com.neegix.exception.BusinessRuntimeException;
+import com.neegix.system.dict.domain.entity.DictItemEntity;
+import com.neegix.system.dict.domain.repository.DictItemRepository;
 import com.neegix.system.user.domain.entity.UserEntity;
 import com.neegix.system.user.domain.repository.UserRepository;
 import com.neegix.system.user.infrastructure.repository.condition.UserWhereGroup;
@@ -22,6 +25,28 @@ public class UserDomainService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private DictItemRepository dictItemRepository;
+
+
+    public UserEntity getUser(Long id) {
+        UserEntity user = userRepository.findById(id).orElseThrow(()->{
+            throw  new BusinessRuntimeException("用户不存在");
+        });
+
+        if (user.getUserType() != null) {
+            DictItemEntity dictItemEntity = dictItemRepository.findById(user.getUserType().getId()).orElseThrow(()->{
+                throw  new BusinessRuntimeException("类型不存在");
+            });
+
+            user.getUserType().setName(dictItemEntity.getName());
+            user.getUserType().setValue(dictItemEntity.getValue());
+        }
+
+
+        return user;
+    }
 
     public boolean checkUserUnique(UserEntity userEntity){
         NebulaSQL nebulaSQL = new NebulaSQL();

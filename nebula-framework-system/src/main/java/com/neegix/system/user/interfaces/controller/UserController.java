@@ -21,6 +21,7 @@ import com.neegix.system.user.interfaces.form.NewUserForm;
 import com.neegix.system.user.interfaces.form.QueryUserForm;
 import com.neegix.system.user.interfaces.form.UpdateUserForm;
 import com.neegix.system.user.interfaces.form.UserRolesForm;
+import com.neegix.system.user.interfaces.vo.UserForListVO;
 import com.neegix.system.user.interfaces.vo.UserVO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('system:user:list')")
     @GetMapping("/{currentPage}/{pageSize}")
-    public Result<PageVO<UserVO>> getUsers(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @ModelAttribute QueryUserForm userForm){
+    public Result<PageVO<UserForListVO>> getUsers(@PathVariable("currentPage") Integer currentPage, @PathVariable("pageSize") Integer pageSize, @ModelAttribute QueryUserForm userForm){
         if(userForm == null) {
             userForm = new QueryUserForm();
         }
@@ -86,7 +87,7 @@ public class UserController {
         GetPageUserQuery query = UserQueryMapper.INSTANCE.covertToGetQuery(userForm);
         query.setCurrentPage(currentPage);
         query.setPageSize(pageSize);
-        PageVO<UserVO> pageVO = queryBus.execute(query);
+        PageVO<UserForListVO> pageVO = queryBus.execute(query);
         return Result.success("查询成功",pageVO);
     }
 

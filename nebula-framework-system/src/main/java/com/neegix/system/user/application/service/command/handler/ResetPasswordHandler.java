@@ -4,11 +4,11 @@ import com.neegix.cqrs.command.handler.CommandHandler;
 import com.neegix.system.user.application.service.command.ResetPasswordCommand;
 import com.neegix.system.user.domain.entity.UserEntity;
 import com.neegix.system.user.domain.repository.UserRepository;
+import com.neegix.system.user.domain.service.UserDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -28,17 +28,17 @@ public class ResetPasswordHandler implements CommandHandler<ResetPasswordCommand
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserDomainService userDomainService;
+
     @Override
     public String handle(ResetPasswordCommand command) {
         String resetPassword = generateRandomPassword(8);
         String encryptedPassword = passwordEncoder.encode(resetPassword);
         for (Long userId : command.getUserIds()) {
-            Optional<UserEntity> optional = userRepository.findById(userId);
-            if (optional.isPresent()){
-                UserEntity user = optional.get();
-                user.setPassword(encryptedPassword);
-                userRepository.save(user);
-            }
+            UserEntity user = userDomainService.getUser(userId);
+            user.setPassword(encryptedPassword);
+            userRepository.save(user);
         }
         return resetPassword;
     }
