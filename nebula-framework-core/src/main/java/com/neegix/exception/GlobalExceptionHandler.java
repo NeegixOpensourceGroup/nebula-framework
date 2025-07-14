@@ -4,6 +4,7 @@ import com.neegix.inferfaces.result.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -48,6 +49,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     public <T> Result<T> handleNullPointerException(NullPointerException e) {
         return Result.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器异常: " + e.getMessage(), e);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public  <T> Result<T> handlerCommonException(HttpRequestMethodNotSupportedException ex){
+        return Result.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage(), ex);
     }
 
 }
