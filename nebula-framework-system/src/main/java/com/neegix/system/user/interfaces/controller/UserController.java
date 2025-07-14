@@ -8,6 +8,8 @@ import com.neegix.inferfaces.result.Result;
 import com.neegix.system.user.application.service.command.BindRolesCommand;
 import com.neegix.system.user.application.service.command.CreateUserCommand;
 import com.neegix.system.user.application.service.command.DeleteUserCommand;
+import com.neegix.system.user.application.service.command.DisabledCommand;
+import com.neegix.system.user.application.service.command.EnabledCommand;
 import com.neegix.system.user.application.service.command.ModifyMinePasswordCommand;
 import com.neegix.system.user.application.service.command.ResetPasswordCommand;
 import com.neegix.system.user.application.service.command.UpdateUserCommand;
@@ -125,5 +127,17 @@ public class UserController {
     public Result<String> resetPassword(@RequestBody List<Long> ids){
         ResetPasswordCommand command = new ResetPasswordCommand(ids);
         return Result.success("密码重置成功！", universalCommandBus.execute(command));
+    }
+
+    @PutMapping("/{pkUser}/enabled")
+    public Result<Void> enabled(@PathVariable("pkUser") Long pkUser){
+        universalCommandBus.execute(new EnabledCommand(pkUser));
+        return Result.success();
+    }
+
+    @PutMapping("/{pkUser}/disabled")
+    public Result<Void> disabled(@PathVariable("pkUser") Long pkUser){
+        universalCommandBus.execute(new DisabledCommand(pkUser));
+        return Result.success();
     }
 }

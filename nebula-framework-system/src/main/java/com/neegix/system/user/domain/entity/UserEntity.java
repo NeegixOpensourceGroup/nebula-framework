@@ -45,6 +45,12 @@ public class UserEntity implements AggregateRoot<Long> {
     private List<UserRoleEntity> roles;
 
 
+    public void disabled(){
+        this.enabled = false;
+    }
 
+    public void enabled() {
+        this.enabled = true;
+    }
 
  }

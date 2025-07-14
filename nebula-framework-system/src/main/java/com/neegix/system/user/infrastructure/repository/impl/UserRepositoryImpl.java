@@ -43,13 +43,13 @@ public class UserRepositoryImpl implements UserRepository {
     @Transactional
     public void save(UserEntity userEntity) {
         UserDO userDO = UserConverter.INSTANCE.covertDO(userEntity);
-
+        if (userEntity.getUserType() != null){
+            userDO.setUserType(userEntity.getUserType().getId());
+        }
         if (userEntity.getId() == null) {
             userDO.setId(SnowFlake.generateId());
-            userDO.setUserType(userEntity.getUserType().getId());
             userMapper.insert(userDO);
         } else {
-            userDO.setUserType(userEntity.getUserType().getId());
             userMapper.updateByPrimaryKey(userDO);
         }
     }
