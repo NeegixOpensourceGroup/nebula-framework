@@ -58,4 +58,18 @@
             surr.pk_role = sr.id
         where surr.pk_user = #{pkUser, jdbcType=BIGINT}
     </select>
+
+    <select id="selectUsers" resultType="com.neegix.system.user.interfaces.vo.UserForExportVO">
+        select
+            su.name,
+            su.nick_name,
+            su.description,
+            sdi.name as user_type,
+            su.email,
+            su.mobile_phone
+        from
+            nebula.sys_user su
+            left join nebula.sys_dict_item sdi on
+            su.user_type = sdi.id
+    </select>
 </mapper>

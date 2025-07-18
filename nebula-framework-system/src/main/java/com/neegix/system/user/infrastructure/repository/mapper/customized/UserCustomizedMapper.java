@@ -2,6 +2,7 @@ package com.neegix.system.user.infrastructure.repository.mapper.customized;
 
 import com.neegix.system.user.infrastructure.repository.dataobject.UserRoleDO;
 import com.neegix.system.user.infrastructure.repository.dataobject.UserRoleRelDO;
+import com.neegix.system.user.interfaces.vo.UserForExportVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface UserCustomizedMapper {
     void deleteUserRoleRel(List<Long> userIds);
 
     List<UserRoleDO> selectRolesByPkUser(Long pkUser);
+
+    List<UserForExportVO> selectUsers();
 }

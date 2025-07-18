@@ -7,6 +7,7 @@ import com.neegix.system.user.application.repository.UserQueryRepository;
 import com.neegix.system.user.infrastructure.repository.dataobject.UserDO;
 import com.neegix.system.user.infrastructure.repository.mapper.UserMapper;
 import com.neegix.system.user.infrastructure.repository.mapper.customized.UserCustomizedMapper;
+import com.neegix.system.user.interfaces.vo.UserForExportVO;
 import com.neegix.system.user.interfaces.vo.UserForListVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -44,5 +45,10 @@ public class UserQueryRepositoryImpl implements UserQueryRepository {
         page.setTotal(total);
         page.setResult(UserAssembler.INSTANCE.covertVO(result));
         return page;
+    }
+
+    @Override
+    public List<UserForExportVO> findUsers() {
+        return userCustomizedMapper.selectUsers();
     }
 }

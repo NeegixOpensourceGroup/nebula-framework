@@ -5,6 +5,7 @@ import com.neegix.base.PageVO;
 import com.neegix.cqrs.command.UniversalCommandBus;
 import com.neegix.cqrs.query.UniversalQueryBus;
 import com.neegix.inferfaces.result.Result;
+import com.neegix.infrastructure.utils.ExcelUtil;
 import com.neegix.system.user.application.service.command.BindRolesCommand;
 import com.neegix.system.user.application.service.command.CreateUserCommand;
 import com.neegix.system.user.application.service.command.DeleteUserCommand;
@@ -16,13 +17,16 @@ import com.neegix.system.user.application.service.command.UpdateUserCommand;
 import com.neegix.system.user.application.service.command.mapper.UserCommandMapper;
 import com.neegix.system.user.application.service.query.GetPageUserQuery;
 import com.neegix.system.user.application.service.query.GetUserDetailQuery;
+import com.neegix.system.user.application.service.query.GetUserQuery;
 import com.neegix.system.user.application.service.query.GetUserRolesQuery;
 import com.neegix.system.user.application.service.query.mapper.UserQueryMapper;
+import com.neegix.system.user.interfaces.form.ImportUserForm;
 import com.neegix.system.user.interfaces.form.ModifyPasswordForm;
 import com.neegix.system.user.interfaces.form.NewUserForm;
 import com.neegix.system.user.interfaces.form.QueryUserForm;
 import com.neegix.system.user.interfaces.form.UpdateUserForm;
 import com.neegix.system.user.interfaces.form.UserRolesForm;
+import com.neegix.system.user.interfaces.vo.UserForExportVO;
 import com.neegix.system.user.interfaces.vo.UserForListVO;
 import com.neegix.system.user.interfaces.vo.UserVO;
 import jakarta.validation.Valid;
@@ -36,8 +40,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -139,5 +147,29 @@ public class UserController {
     public Result<Void> disabled(@PathVariable("pkUser") Long pkUser){
         universalCommandBus.execute(new DisabledCommand(pkUser));
         return Result.success();
+    }
+
+    @PostMapping("/import")
+    public Result<Void> importUsers(@RequestParam("file")MultipartFile file) throws IOException {
+        List<ImportUserForm> importUserForms = new ArrayList<>();
+
+        ExcelUtil.importExcel(file.getInputStream(), ImportUserForm.class, importUser -> {
+            CreateUserCommand command = new CreateUserCommand();
+            command.setName(importUser.getName());
+            command.setEmail(importUser.getEmail());
+            command.setDescription(importUser.getDescription());
+            command.setMobilePhone(importUser.getMobilePhone());
+            universalCommandBus.execute(command);
+        });
+        return Result.success();
+    }
+
+    @GetMapping("/export")
+    public void exportUsers() throws IOException {
+        // 1. 获取数据
+        List<UserForExportVO> exportUsers =  queryBus.execute(new GetUserQuery());
+
+        // 2. 调用导出工具
+        ExcelUtil.export(exportUsers, "用户列表", "用户数据", UserForExportVO.class);
     }
 }
