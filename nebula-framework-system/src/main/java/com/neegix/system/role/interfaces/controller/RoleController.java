@@ -18,6 +18,8 @@ import com.neegix.system.role.interfaces.form.QueryRoleForm;
 import com.neegix.system.role.interfaces.form.UpdateRoleForm;
 import com.neegix.system.role.interfaces.vo.RolePageVO;
 import com.neegix.system.role.interfaces.vo.RoleVO;
+import com.neegix.system.role.application.service.command.DisabledCommand;
+import com.neegix.system.role.application.service.command.EnabledCommand;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -105,4 +107,17 @@ public class RoleController {
         DeleteRoleCommand command = new DeleteRoleCommand(ids);
         return Result.success("删除成功", commandBus.execute(command));
     }
+
+
+     @PutMapping("/{pkRole}/enabled")
+     public Result<Void> enabled(@PathVariable("pkRole") Long pkRole){
+         commandBus.execute(new EnabledCommand(pkRole));
+         return Result.success();
+     }
+
+     @PutMapping("/{pkRole}/disabled")
+     public Result<Void> disabled(@PathVariable("pkRole") Long pkRole){
+         commandBus.execute(new DisabledCommand(pkRole));
+         return Result.success();
+     }
 }

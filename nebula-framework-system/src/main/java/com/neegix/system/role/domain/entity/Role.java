@@ -28,4 +28,12 @@ public class Role {
     private List<RoleMenu> pagePermissions;
     //Api权限
     private List<RoleApi> apiPermissions;
+
+    public void disabled(){
+        this.enabled = false;
+    }
+
+    public void enabled() {
+        this.enabled = true;
+    }
 }

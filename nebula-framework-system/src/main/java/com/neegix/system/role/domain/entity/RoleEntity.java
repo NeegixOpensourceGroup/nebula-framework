@@ -35,4 +35,12 @@ public class RoleEntity extends BaseEntity {
     private List<Long> apiPermissions;
     // 菜单和功能权限
     private List<RoleMenuEntity> pagePermissions;
+
+    public void disabled(){
+        this.enabled = false;
+    }
+
+    public void enabled() {
+        this.enabled = true;
+    }
 }
