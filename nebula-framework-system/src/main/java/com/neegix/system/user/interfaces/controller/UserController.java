@@ -172,4 +172,13 @@ public class UserController {
         // 2. 调用导出工具
         ExcelUtil.export(exportUsers, "用户列表", "用户数据", UserForExportVO.class);
     }
+
+    @GetMapping("/downloadTemplate")
+    public void downloadTemplate() throws IOException {
+        // 1. 创建空列表作为模板数据
+        List<UserForExportVO> templateData = new ArrayList<>();
+        
+        // 2. 调用导出工具生成模板
+        ExcelUtil.export(templateData, "用户导入模板", "用户数据", UserForExportVO.class);
+    }
 }
